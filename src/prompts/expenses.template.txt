@@ -1,0 +1,21 @@
+[
+  {
+    "identifier": "A",
+    "description": "Category A",
+    "subcategories": [
+      { "identifier": "A1", "description": "Subcategory A1" },
+      { "identifier": "A2", "description": "Subcategory A2" },
+      { "identifier": "A3", "description": "Subcategory A3" }
+    ]
+  },
+  {
+    "identifier": "B",
+    "description": "Category B",
+    "subcategories": [
+      { "identifier": "B1", "description": "Subcategory B1" },
+      { "identifier": "B2", "description": "Subcategory B2" }
+    ]
+  }
+]
+
+Categories end

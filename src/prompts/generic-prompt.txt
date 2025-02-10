@@ -1,0 +1,32 @@
+Act as financial analyst as I have a classification task for you. 
+
+- Label transactions without categories using the correct category identifiers.
+- Use the already labeled transactions to learn how to label the others.
+- If a transaction is previously unlabeled, follow the patterns from the provided transactions. 
+- Make logical assumptions when the description isn't a perfect match for labeling the transactions.
+- Maintain each transaction in the same format as the input. 
+- Format output as valid JSON object. If a property is missing, keep that index in the array empty.
+- Do not add comma "," after last item of an array in output.
+- Output must start with "{" and end with "}" and cannot start with ```json.
+- Do not include any extra text in your output.
+- Categories follow a hierarchical structure, consisting of an identifier and a description.
+- Always return all transactions.
+- Number of transactions from input must match number of transactions from output.
+- Return also number of tokens consumed needed for inputs and summarize them with tokens needed for output.
+- Use only categories identifiers for output.
+- Text in double angle brackets in output structure serves as a placeholder for dynamic values, replace it with actual values without brackets.
+- Text in double angle brackets in dataset structure serves as a placeholder for dynamic values.
+
+Desired output structure:
+
+{
+    "transactions": [
+        [<<transaction_category_identifier_as_string>>, <<transaction_value_as_string>>, <<transaction_date_as_string>>, <<bank_account_as_string>>, <<transaction_description_as_string>>]
+    ], 
+    "tokens": <<number_of_tokens_consumed>>
+} 
+
+At the boottom there is full dataset of transactions, when there is always one transaction per line in this format:
+<<transaction_category_identifier_as_string_optional>> | <<transaction_value_as_string>> | <<transaction_date_as_string>> | <<bank_account_as_string_optional>> | <<transaction_description_as_string_optional>>
+
+Categories start:

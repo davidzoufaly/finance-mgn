@@ -1,0 +1,9 @@
+[
+  { "identifier": "INC_1", "description": "Category INC_1" },
+  { "identifier": "INC_2", "description": "Category INC_2" },
+  { "identifier": "INC_3", "description": "Category INC_3" },
+  { "identifier": "INC_4", "description": "Category INC_4" },
+  { "identifier": "INC_5", "description": "Category INC_5" }
+]
+
+Categories end
