@@ -1,14 +1,11 @@
 ## In progress
-- [ ] OSS
-- [ ] smazat DS.store
+- [ ] OSS -> README fio setup
 
 ## Must have
 
-- [ ] OSS -> readme jak vytvořit google acc
 - [ ] OSS -> readme co se stane kdyz neni pritomny open ai token
 - [ ] OSS -> README guide how to create OpenAI token
 - [ ] OSS -> README guide how to create google credentials
-- [ ] OSS -> README fio setup
 - [ ] OSS -> README airbank setup
 - [ ] OSS -> README google sheet setup -> dev / prod -> public
 - [ ] squash commits git
@@ -16,19 +13,24 @@
 ## Nice to have
 
 - [ ] unit tests
+- [ ] public google sheet
 - [ ] typescript
 - [ ] changelog and versioning
 - [ ] function comments
 - [ ] generated docs
 - [ ] ci/cd tests
+- [ ] ci/cd tests email notification
 - [ ] CRON prod execution -> lambda
 - [ ] pre-commit hook na conv. commits
+- [ ] pre-commit format
 - [ ] unique emojis
+- [ ] eslint?
 - [ ] run failed integration test twice? -> at the end after all are done
 - [ ] limit počet transakcí co se posílá do LLM např. jen poslední + 5 předtím -> LLM kontext + tokens savings
 - [ ] fetch vícero měsíců (pokud zapomenu) přes argument v main funkci
 - [ ] fetch jednoho měsíce v minulosti
 - [ ] fetch i vícero měsíců do jiného sheetu pro ad-hoc analýzu
+- [ ] protected branch
 
 ## Bugs
 
@@ -37,6 +39,8 @@
 
 ## Done
 
+- [x] OSS -> readme jak vytvořit google acc
+- [x] smazat DS.store
 - [x] testy by se měli pouštěd maximálně 30s po předchozím, ne dříve
 - [x] clear completed -> ale email nebyl resetnuty
 - [x] otestovat actions -> all, fio, mail 

@@ -16,7 +16,7 @@ const getValidatedLLMResult = (llmOutput, promptFilename) => {
     );
   }
 
-  // Output check
+  // output check
   if (
     !resultObject.transactions &&
     !resultObject.tokens &&

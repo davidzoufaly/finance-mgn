@@ -8,7 +8,6 @@
   "scripts": {
     "format": "prettier --write .",
     "start": "node index.mjs",
-    "start:dev": "node index.mjs --environment development --withLabeling testRunner --actions all",
     "start:prod": "node index.mjs --environment production --withLabeling true --actions fio",
     "cleanup:all": "node index.mjs --environment development --withLabeling false --actions none --cleanup all",
     "test:integration": "node ./src/tests/testRunner.mjs",

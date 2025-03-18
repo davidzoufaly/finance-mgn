@@ -18,6 +18,7 @@ export const attachmentFilePath = path.join("./src/attachments", attachmentFileN
 export const serviceAccountPath = path.resolve("./service-account.json");
 
 export const openaiToken = process.env.OPENAI_TOKEN;
+export const openaiModel = process.env.OPENAI_MODEL;
 
 export const getSheetId = () =>
   !process.env.NODE_ENV || process.env.NODE_ENV === "development"
