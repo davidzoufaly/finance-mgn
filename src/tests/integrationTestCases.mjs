@@ -112,7 +112,13 @@ export const integrationTestCases = [
   {
     id: 23,
     command: "yarn",
-    args: ["start", "--environment=development", "--withLabeling=false", "--actions=mail", "--cleanup=sheets"],
+    args: [
+      "start",
+      "--environment=development",
+      "--withLabeling=false",
+      "--actions=mail",
+      "--cleanup=sheets",
+    ],
   },
   {
     id: 24,
@@ -132,6 +138,12 @@ export const integrationTestCases = [
   {
     id: 27,
     command: "yarn",
-    args: ["start", "--environment=development", "--withLabeling=false", "--actions=none", "--cleanup=sheets"],
+    args: [
+      "start",
+      "--environment=development",
+      "--withLabeling=false",
+      "--actions=none",
+      "--cleanup=sheets",
+    ],
   },
 ];

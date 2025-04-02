@@ -1,6 +1,8 @@
 # Finance Management Tool (ETL)
 
-A lightweight finance management tool that fetches and processes transaction data, leverages OpenAI to categorize transactions, and integrates with Google Sheets to store, update, and retrieve financial data. Additionally, it aggregates transaction data from various sources.
+A lightweight finance management tool that fetches and processes transaction data, leverages OpenAI to
+categorize transactions, and integrates with Google Sheets to store, update, and retrieve financial data.
+Additionally, it aggregates transaction data from various sources.
 
 ## Table of Contents
 
@@ -18,7 +20,8 @@ A lightweight finance management tool that fetches and processes transaction dat
 
 ### Key Features:
 
-- **External Data Fetching:** Retrieves attachments and transactions from external services (e.g., Air and FIO).
+- **External Data Fetching:** Retrieves attachments and transactions from external services (e.g., Air and
+  FIO).
 - **Data Federation:** Aggregates data from multiple sources.
 - **Transaction Labeling:** Uses OpenAI to generate categories.
 - **Data Integrity:** Validates data after labeling.
@@ -48,37 +51,45 @@ A lightweight finance management tool that fetches and processes transaction dat
 
 3. **Google Sheets Integration**
 
-   - It is recommended to use two different Google Sheets files: one for development/testing and another for production (stable financial transactions).
+   - It is recommended to use two different Google Sheets files: one for development/testing and another for
+     production (stable financial transactions).
    - Google Sheet identifiers must be copied from the URL and set in `.env`.
    - Google Sheets sharing settings must be set to "Everyone with the link can edit."
    - **Authentication:**
-     - A Google Sheets service account must be created, and the credentials file (`service-account.json`) must exist in the root folder of this project.
+     - A Google Sheets service account must be created, and the credentials file (`service-account.json`) must
+       exist in the root folder of this project.
      - Follow [this tutorial](https://support.google.com/a/answer/7378726?hl=en) to create a service account:
        1. In Google Cloud, create a new project.
        2. Enable the Google Sheets API.
        3. Under "Credentials," create a service account.
        4. Generate a JSON key for the account, which will be downloaded automatically.
        5. Place the JSON file in the root folder of this project.
-   - Some data sources need to be configured. It can be FIO Bank, AIR Bank, or a custom source (e.g., parsing transaction PDFs from other banks).
+   - Some data sources need to be configured. It can be FIO Bank, AIR Bank, or a custom source (e.g., parsing
+     transaction PDFs from other banks).
 
 4. **FIO Bank (Optional)**
 
    - Go to your internet banking settings -> API.
    - Add a new token.
-   - Select the requested bank account, set the token validity (maximum of 6 months), mark it as read-only, and enable the "prolong validity when logged in" option.
+   - Select the requested bank account, set the token validity (maximum of 6 months), mark it as read-only,
+     and enable the "prolong validity when logged in" option.
    - Authorize the token creation.
    - Copy the token value and paste it into your `.env` file.
-   - If you need to modify FIO API calls, refer to [their documentation](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf).
+   - If you need to modify FIO API calls, refer to
+     [their documentation](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf).
 
 5. **AIR Bank (Optional)**
 
 6. **OpenAI Integration (Optional)**
 
-   - If you want to enable transaction categorization, rename the following files and fill in your category identifiers and descriptions:
+   - If you want to enable transaction categorization, rename the following files and fill in your category
+     identifiers and descriptions:
      - `expenses.template.txt` -> `expenses.txt`
      - `incomes.template.txt` -> `incomes.txt`
 
-7. **Other `.env` Values**
+TODO: mention default model, possible to set it in .env and tried models
+
+1. **Other `.env` Values**
 
 ## Run
 

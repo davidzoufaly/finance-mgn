@@ -11,7 +11,9 @@
     "start:prod": "node index.mjs --environment production --withLabeling true --actions fio",
     "cleanup:all": "node index.mjs --environment development --withLabeling false --actions none --cleanup all",
     "test:integration": "node ./src/tests/testRunner.mjs",
-    "test:unit": "vitest -w=true"
+    "test": "vitest && node test:integration",
+    "test:unit": "vitest -w=true",
+    "prepare": "husky"
   },
   "dependencies": {
     "child_process": "^1.0.2",
@@ -26,6 +28,10 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "^3.5.3"
   }
 }

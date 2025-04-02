@@ -103,7 +103,9 @@ async function runAllTests(testCases) {
 
       if (elapsedTime < minimumGap) {
         const remainingTime = minimumGap - elapsedTime;
-        console.log(`⏱️  Waiting ${Math.ceil(remainingTime / 1000)} seconds before next test because of FIO API throttling...`);
+        console.log(
+          `⏱️  Waiting ${Math.ceil(remainingTime / 1000)} seconds before next test because of FIO API throttling...`,
+        );
         await sleep(remainingTime);
       }
     }

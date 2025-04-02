@@ -102,7 +102,7 @@ export const parseAirTransactions = async () => {
   } catch (error) {
     // This throws error if .pdf doesn't exist even when index.mjs is starting the execution, which is expected so ingoring that one
     if (error.name !== "MissingPDFException") {
-      throw new Error(`❌  Error while parsing AIR bank transactions: ${error.message}`, {cause: error});
+      throw new Error(`❌  Error while parsing AIR bank transactions: ${error.message}`, { cause: error });
     }
   }
 };

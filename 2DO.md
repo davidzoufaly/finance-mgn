@@ -1,49 +1,51 @@
 ## In progress
-- [ ] OSS -> README fio setup
+
+- [ ] pre-commit hook na conv. commits
 
 ## Must have
 
-- [ ] OSS -> readme co se stane kdyz neni pritomny open ai token
-- [ ] OSS -> README guide how to create OpenAI token
-- [ ] OSS -> README guide how to create google credentials
+- [ ] OSS -> README guide how to OpenAI
 - [ ] OSS -> README airbank setup
-- [ ] OSS -> README google sheet setup -> dev / prod -> public
-- [ ] squash commits git
 
 ## Nice to have
 
-- [ ] unit tests
 - [ ] public google sheet
+- [ ] pre-commit format
+- [ ] unique emojis
+- [ ] eslint?
 - [ ] typescript
 - [ ] changelog and versioning
 - [ ] function comments
 - [ ] generated docs
 - [ ] ci/cd tests
 - [ ] ci/cd tests email notification
+- [ ] make repo public
 - [ ] CRON prod execution -> lambda
-- [ ] pre-commit hook na conv. commits
-- [ ] pre-commit format
-- [ ] unique emojis
-- [ ] eslint?
-- [ ] run failed integration test twice? -> at the end after all are done
+- [ ] unit tests
+- [ ] protected branch
 - [ ] limit počet transakcí co se posílá do LLM např. jen poslední + 5 předtím -> LLM kontext + tokens savings
 - [ ] fetch vícero měsíců (pokud zapomenu) přes argument v main funkci
 - [ ] fetch jednoho měsíce v minulosti
 - [ ] fetch i vícero měsíců do jiného sheetu pro ad-hoc analýzu
-- [ ] protected branch
 
 ## Bugs
 
 ## Refactor
+
 - [ ] cleanups in mainFlow.mjs
 
 ## Done
 
+- [x] squash commits git
+- [x] OSS -> README google sheet setup -> dev / prod -> public
+- [x] OSS -> README guide how to create google credentials
+- [x] OSS -> readme co se stane kdyz neni pritomny open ai token
+- [x] OSS -> README fio setup
 - [x] OSS -> readme jak vytvořit google acc
 - [x] smazat DS.store
 - [x] testy by se měli pouštěd maximálně 30s po předchozím, ne dříve
 - [x] clear completed -> ale email nebyl resetnuty
-- [x] otestovat actions -> all, fio, mail 
+- [x] otestovat actions -> all, fio, mail
 - [x] integration tests
 - [x] testy nerespektují conditions - vola se LLM i když je withLabeling=false
 - [x] prevést testy na JS pro automatizaci testu?

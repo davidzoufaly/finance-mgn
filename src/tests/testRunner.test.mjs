@@ -19,20 +19,21 @@ test("get test(s) without LLM and all actions", () => {
 });
 
 test("get test(s) without LLM, all actions and full cleanup", () => {
-  expect(getTestsSubset(integrationTestCases, ["--withLabeling=false", "--actions=all", "--cleanup=all"]).length).toBe(
-    1,
-  );
+  expect(
+    getTestsSubset(integrationTestCases, ["--withLabeling=false", "--actions=all", "--cleanup=all"]).length,
+  ).toBe(1);
 });
 
 test("get test(s) without LLM, all actions and mail cleanup", () => {
-  expect(getTestsSubset(integrationTestCases, ["--withLabeling=false", "--actions=all", "--cleanup=mail"]).length).toBe(
-    1,
-  );
+  expect(
+    getTestsSubset(integrationTestCases, ["--withLabeling=false", "--actions=all", "--cleanup=mail"]).length,
+  ).toBe(1);
 });
 
 test("get test/s without LLM, all actions and sheets cleanup", () => {
   expect(
-    getTestsSubset(integrationTestCases, ["--withLabeling=false", "--actions=all", "--cleanup=sheets"]).length,
+    getTestsSubset(integrationTestCases, ["--withLabeling=false", "--actions=all", "--cleanup=sheets"])
+      .length,
   ).toBe(1);
 });
 
