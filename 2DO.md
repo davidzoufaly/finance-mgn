@@ -1,7 +1,5 @@
 ## In progress
 
-- [ ] fix biome errors
-
 ## Must have
 
 - [ ] OSS -> README guide how to OpenAI
@@ -34,6 +32,7 @@
 
 ## Done
 
+- [x] fix biome errors
 - [x] biome
 - [x] license file
 - [x] pre-commit format
