@@ -38,7 +38,7 @@ const splitByZeroZero = (pdfObjects) => {
   const rows = [];
   let currentRow = [];
 
-  pdfObjects.forEach((obj) => {
+  for (obj of pdfObjects) {
     currentRow.push(obj);
 
     // Parse rows based on fee value which is always 0,00
@@ -46,7 +46,7 @@ const splitByZeroZero = (pdfObjects) => {
       rows.push(currentRow);
       currentRow = []; // Start a new row
     }
-  });
+  }
 
   // Add any remaining items as the last row
   if (currentRow.length > 0) {
@@ -89,7 +89,9 @@ export const parseAirTransactions = async () => {
       // will wait on the previous pages.
       for (let i = 1; i <= numPages; i++) {
         const data = await processPage(i, doc);
-        data.forEach((item) => finalTrans.push(item));
+        for (item of data) {
+          finalTrans.push(item);
+        }
       }
 
       console.log(`💪  ${finalTrans.length} AIR bank transactions parsed`);

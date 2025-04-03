@@ -17,7 +17,8 @@ export const mainFlow = async ({ withLabeling, environment, actions, cleanup }) 
 
   if (actions !== "none") {
     try {
-      let airTransactions, fioTransactions;
+      let airTransactions;
+      let fioTransactions;
 
       if (actions !== "fio") {
         // get AIR transactions PDF from Email
@@ -33,11 +34,15 @@ export const mainFlow = async ({ withLabeling, environment, actions, cleanup }) 
       }
 
       // cleaning & grouping
-      const { incomes, expenses, investments } = dataFederation(fioTransactions, airTransactions, {
-        actions,
-        whitelistedAccounts,
-        whitelistedInvestmentKeywords,
-      });
+      const { incomes, expenses, investments } = dataFederation(
+        {
+          actions,
+          whitelistedAccounts,
+          whitelistedInvestmentKeywords,
+        },
+        fioTransactions,
+        airTransactions,
+      );
 
       // fetch existing transactions from Google Sheets
       const existingExpenses = await getExistingDataFromSheet("expenses", sheetId);
@@ -45,7 +50,9 @@ export const mainFlow = async ({ withLabeling, environment, actions, cleanup }) 
       const existingInvestments = await getExistingDataFromSheet("investments", sheetId);
 
       const finalInvestments = [...investments, ...existingInvestments];
-      let finalExpenses, finalIncomes;
+
+      let finalExpenses;
+      let finalIncomes;
 
       if (withLabeling) {
         // use LLM to add label transactions with categories identifiers

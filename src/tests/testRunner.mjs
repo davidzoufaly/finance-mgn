@@ -32,7 +32,7 @@ export const getTestsSubset = (testCases, conditions = []) => {
 
 async function runTest({ id, command, args }) {
   return new Promise((resolve, reject) => {
-    console.log(`\n_________________________________\n`);
+    console.log("\n_________________________________\n");
     console.log(`\n🚀  Running Test Case ID: ${id}...\n`);
 
     const child = spawn(command, args, { stdio: ["inherit", "pipe", "pipe"] });

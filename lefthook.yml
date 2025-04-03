@@ -1,0 +1,15 @@
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+
+commit-msg:
+  jobs:
+    - run: yarn commitlint --edit "$1" --config ./config/commitlint.config.mjs
+
+pre-commit:
+  parallel: false
+  jobs:
+    - run: yarn format
+      glob: "*.{js,mjs,cjs,ts,tsx,json,scss,css,md,yaml,html}"
+
+    - run: yarn lint:fix
+      glob: "*.{js,mjs,cjs,ts,tsx,json}"

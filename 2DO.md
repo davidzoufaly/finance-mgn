@@ -1,6 +1,6 @@
 ## In progress
 
-- [ ] biome
+- [ ] fix biome errors
 
 ## Must have
 
@@ -34,6 +34,7 @@
 
 ## Done
 
+- [x] biome
 - [x] license file
 - [x] pre-commit format
 - [x] pre-commit hook na conv. commits

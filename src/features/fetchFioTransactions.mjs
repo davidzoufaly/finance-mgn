@@ -14,9 +14,9 @@ const getLastMonthRange = () => {
 
 export const fetchFioTransactions = async (endpoint) => {
   if (!fioToken) {
-    throw new Error(`❌  FIO token is not configured. Set it in .env`);
+    throw new Error("❌  FIO token is not configured. Set it in .env");
   }
-
+  //ff
   const lastMonth = getLastMonthRange();
   const url = endpoint ?? `https://fioapi.fio.cz/v1/rest/periods/${fioToken}/${lastMonth}/transactions.json`;
 

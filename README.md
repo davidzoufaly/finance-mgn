@@ -16,7 +16,7 @@ Additionally, it aggregates transaction data from various sources.
     - [Supported Flags](#supported-flags)
     - [Commands](#commands)
   - [Contribution Guide](#contribution-guide)
-    - [Hooks](#hooks)
+    - [Git Hooks](#git-hooks)
 
 ## Overview
 
@@ -144,9 +144,12 @@ Start commands support flags for configuring the application.
 
 ## Contribution Guide
 
-### Hooks
+### Git Hooks
 
+- Git hooks are configured by [Lefthook](https://github.com/evilmartians/lefthook) in
+  [lefthook.yaml](./lefthook.yml)
 - Repository is using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and they are
-  enforced by `simple-git-hooks` & `commitlint`.
-- Repository is formatted in pre-commit hook by prettier thanks to `lint-staged`
-- If hooks are updated / added there is need to run `npx simple-git-hooks`
+  enforced by `commitlint`.
+- Repository is formatted in pre-commit hook by prettier configured in [.prettierrc](./.prettierrc) and
+  [.editorconfig](./.editorconfig)
+- If hooks are updated / added there is need to run `yarn lefthook install`

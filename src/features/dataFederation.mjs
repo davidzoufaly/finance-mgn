@@ -16,7 +16,7 @@ const normalizeDates = (data) => {
   });
 };
 
-export const dataFederation = (fioData = [], airData = [], config) => {
+export const dataFederation = (config, fioData = [], airData = []) => {
   const { actions, whitelistedAccounts, whitelistedInvestmentKeywords } = config;
 
   if (actions !== "mail" && fioData.length === 0) {
