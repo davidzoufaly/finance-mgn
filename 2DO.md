@@ -1,4 +1,5 @@
 ## In progress
+- [ ] changelog and versioning
 
 ## Must have
 
@@ -10,7 +11,6 @@
 - [ ] public google sheet
 - [ ] unique emojis
 - [ ] typescript
-- [ ] changelog and versioning
 - [ ] function comments
 - [ ] generated docs
 - [ ] ci/cd tests

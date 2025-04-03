@@ -147,10 +147,10 @@ Start commands support flags for configuring the application.
 ### Git Hooks
 
 - Git hooks are configured by [Lefthook](https://github.com/evilmartians/lefthook) in
-  [lefthook.yaml](./lefthook.yml)
+  [lefthook.yaml](./lefthook.yml).
+- If hooks are updated / added there is need to run `yarn lefthook install`.
 - Repository is using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and they are
   enforced by `commitlint` in `commit-msg` hook.
 - Repository is formatted in `pre-commit` hook by prettier configured in [.prettierrc](./.prettierrc) and
-  [.editorconfig](./.editorconfig)
-- Repository code quality is check by [Biome](https://biomejs.dev/) in 
-- If hooks are updated / added there is need to run `yarn lefthook install`
+  [.editorconfig](./.editorconfig).
+- Repository code quality is check by [Biome](https://biomejs.dev/) in `pre-commit` hook.
