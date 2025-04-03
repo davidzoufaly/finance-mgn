@@ -7,7 +7,7 @@ const normalizeDates = (data) => {
 
     parsedDate = parse(item.date, "yyyy-MM-dd", new Date());
 
-    parsedDate = isNaN(parsedDate) ? parse(item.date, "dd.MM.yyyy", new Date()) : parsedDate;
+    parsedDate = Number.isNaN(parsedDate) ? parse(item.date, "dd.MM.yyyy", new Date()) : parsedDate;
 
     // format to desired output (dd.MM.yyyy)
     const formattedDate = format(parsedDate, "MM/dd/yyyy");

@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import imaps from "imap-simple";
 import {
   attachmentFileName,
@@ -122,7 +122,7 @@ export const markLastSeenEmailAsUnseen = async () => {
 
     if (messages.length > 0) {
       const lastSeenMessage = messages[messages.length - 1];
-      console.log(`🔄  Marking last seen email as unseen`);
+      console.log("🔄  Marking last seen email as unseen");
       await connection.delFlags(lastSeenMessage.attributes.uid, ["\\Seen"]);
       console.log("🫣   Last seen email marked as unseen");
     } else {

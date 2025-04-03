@@ -1,6 +1,6 @@
 ## In progress
 
-- [ ] pre-commit hook na conv. commits
+- [ ] biome
 
 ## Must have
 
@@ -10,9 +10,7 @@
 ## Nice to have
 
 - [ ] public google sheet
-- [ ] pre-commit format
 - [ ] unique emojis
-- [ ] eslint?
 - [ ] typescript
 - [ ] changelog and versioning
 - [ ] function comments
@@ -36,6 +34,9 @@
 
 ## Done
 
+- [x] license file
+- [x] pre-commit format
+- [x] pre-commit hook na conv. commits
 - [x] squash commits git
 - [x] OSS -> README google sheet setup -> dev / prod -> public
 - [x] OSS -> README guide how to create google credentials

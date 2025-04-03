@@ -15,6 +15,8 @@ Additionally, it aggregates transaction data from various sources.
   - [Run](#run)
     - [Supported Flags](#supported-flags)
     - [Commands](#commands)
+  - [Contribution Guide](#contribution-guide)
+    - [Hooks](#hooks)
 
 ## Overview
 
@@ -139,3 +141,12 @@ Start commands support flags for configuring the application.
   ```shell
   yarn test:unit
   ```
+
+## Contribution Guide
+
+### Hooks
+
+- Repository is using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and they are
+  enforced by `simple-git-hooks` & `commitlint`.
+- Repository is formatted in pre-commit hook by prettier thanks to `lint-staged`
+- If hooks are updated / added there is need to run `npx simple-git-hooks`

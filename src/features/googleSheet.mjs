@@ -1,7 +1,7 @@
+import fs from "node:fs";
 import { format, subMonths } from "date-fns";
-import fs from "fs";
 import { google } from "googleapis";
-import { getSheetId, serviceAccountPath } from "../constants/constants.mjs";
+import { serviceAccountPath } from "../constants/constants.mjs";
 
 // authenticate using the service account
 const auth = new google.auth.GoogleAuth({

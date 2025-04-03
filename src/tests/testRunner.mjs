@@ -90,7 +90,7 @@ async function runAllTests(testCases) {
 
   console.log(`\n🎃  Condition matching ${finalTestCases.length} tests`);
 
-  let failedTests = [];
+  const failedTests = [];
   let lastTestStartTime = 0;
 
   for (const testCase of finalTestCases) {

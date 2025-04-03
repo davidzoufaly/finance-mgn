@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier --write .",
+    "lint": "biome lint",
+    "lint:fix": "biome lint --write",
     "start": "node index.mjs",
     "start:prod": "node index.mjs --environment production --withLabeling true --actions fio",
     "cleanup:all": "node index.mjs --environment development --withLabeling false --actions none --cleanup all",
@@ -28,10 +30,15 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "simple-git-hooks": "^2.12.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged",
+    "commit-msg": "yarn commitlint --edit $1 --config config/commitlint.config.mjs"
   }
 }

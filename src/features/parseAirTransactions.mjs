@@ -1,6 +1,6 @@
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { airAttachmentPassword, attachmentFilePath } from "../constants/constants.mjs";
-import fs from "fs";
+import fs from "node:fs";
 
 const findTransactions = (items) => {
   const preUselessWord = items.findIndex((item) => item.str === "Poplatky");
@@ -25,7 +25,7 @@ const processTransactions = (transactions) => {
 
     return {
       trailingSpace: " ",
-      value: parseFloat(value),
+      value: Number.parseFloat(value),
       date: secondDate,
       source: "air",
       bankAccount: "",
@@ -79,7 +79,7 @@ export const parseAirTransactions = async () => {
       password: airAttachmentPassword,
     });
 
-    return await loadingTask.promise.then(async function (doc) {
+    return await loadingTask.promise.then(async (doc) => {
       console.log("💨  Parsing AIR bank transactions...");
 
       const numPages = doc.numPages;
