@@ -6,11 +6,11 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && tsup",
     "format": "biome format --write",
     "lint": "biome lint",
     "lint:fix": "biome check --write",
-    "start": "yarn build && node dist/index.js",
+    "start": "node dist/index.js",
     "start:prod": "yarn start --environment production --withLabeling true --actions fio",
     "cleanup:all": "yarn start --environment development --withLabeling false --actions none --cleanup all",
     "test:integration": "node ./src/tests/testRunner.mjs",
@@ -37,6 +37,7 @@
     "@commitlint/config-conventional": "^19.8.0",
     "@types/imap-simple": "^4.2.9",
     "@types/yargs": "^17.0.33",
-    "lefthook": "^1.11.6"
+    "lefthook": "^1.11.6",
+    "tsup": "^8.4.0"
   }
 }

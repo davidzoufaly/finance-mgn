@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import type { ImapSimple, ImapSimpleOptions } from 'imap-simple'
-import { connect, getParts } from 'imap-simple'
+import imapSimple from 'imap-simple'
 import {
   attachmentFileName,
   attachmentFilePath,
@@ -9,6 +9,8 @@ import {
   emailTarget,
   emailUsername,
 } from '../constants'
+
+const { connect, getParts } = imapSimple
 
 const validateEmailCredentials = () => {
   if (!emailUsername || !emailHost || !emailPassword || !emailTarget) {
