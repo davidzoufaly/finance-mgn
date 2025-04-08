@@ -8,11 +8,8 @@ commit-msg:
 pre-commit:
   parallel: false
   jobs:
-    - run: yarn format
-      glob: "*.{js,mjs,cjs,ts,tsx,json,scss,css,md,yaml,html}"
-
-    - run: yarn lint:fix
-      glob: "*.{js,mjs,cjs,ts,tsx,json}"
-
     - run: yarn typecheck
       glob: "*.{ts,tsx}"
+
+    - run: yarn lint:fix
+      glob: "*.{js,mjs,cjs,ts,tsx,json,scss,css,md,yaml,html}"

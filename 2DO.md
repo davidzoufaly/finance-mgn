@@ -8,6 +8,7 @@
 - [ ] OSS -> README airbank setup
 
 ## Nice to have
+
 - [ ] open ai model as env
 - [ ] import aliases
 - [ ] tsc check pre commit

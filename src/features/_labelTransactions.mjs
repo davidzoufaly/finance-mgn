@@ -1,20 +1,20 @@
-import OpenAI from "openai";
-import { openaiToken } from "../constants/_constants.mjs";
-import fs from "node:fs";
+import fs from 'node:fs'
+import OpenAI from 'openai'
+import { openaiToken } from '../constants/_constants.mjs'
 
 // helper function
 const sumValuesAtIndex = (array, index) =>
-  array.reduce((acc, item) => acc + Number.parseFloat(item[index]), 0.0);
+  array.reduce((acc, item) => acc + Number.parseFloat(item[index]), 0.0)
 
 const getValidatedLLMResult = (llmOutput, promptFilename) => {
-  let resultObject;
+  let resultObject
   try {
-    resultObject = JSON.parse(llmOutput);
+    resultObject = JSON.parse(llmOutput)
   } catch (error) {
     throw new Error(
       `❌  Failed to parse JSON output for ${promptFilename}\nError: ${error.message}\nOutput: ${llmOutput}`,
       { cause: err },
-    );
+    )
   }
 
   // output check
@@ -24,69 +24,69 @@ const getValidatedLLMResult = (llmOutput, promptFilename) => {
     !Array.isArray(resultObject.transactions) &&
     resultObject.transactions.length === 0
   ) {
-    throw new Error(`❌  Output for ${promptFilename} returned from LLM is misformatted:\n${resultObject}`);
+    throw new Error(`❌  Output for ${promptFilename} returned from LLM is misformatted:\n${resultObject}`)
   }
 
-  return resultObject;
-};
+  return resultObject
+}
 
 const integrityChecks = (existingTransactions, newTransactions, labeledTransactions, promptFilename) => {
-  const allTransactionsPreLabeled = [...newTransactions, ...existingTransactions];
+  const allTransactionsPreLabeled = [...newTransactions, ...existingTransactions]
 
   // integrity check for number of rows
   if (allTransactionsPreLabeled.length !== labeledTransactions.length) {
     throw new Error(
       `❌  Some transactions were lost by LLM process for ${promptFilename}: pre-LLM ${existingTransactions.length} vs. post-LLM ${labeledTransactions.length}`,
-    );
+    )
   }
 
   // integrity check for persisted values
-  const summaryOfTransactionsPreLabeled = sumValuesAtIndex(allTransactionsPreLabeled, 1);
-  const summaryOfTransactionsPostLabeled = sumValuesAtIndex(labeledTransactions, 1);
+  const summaryOfTransactionsPreLabeled = sumValuesAtIndex(allTransactionsPreLabeled, 1)
+  const summaryOfTransactionsPostLabeled = sumValuesAtIndex(labeledTransactions, 1)
 
   if (summaryOfTransactionsPostLabeled !== summaryOfTransactionsPreLabeled) {
     throw new Error(
       `❌  Some transactions values were modified by LLM process ${promptFilename}: pre-LLM ${summaryOfTransactionsPreLabeled} vs. post-LLM ${summaryOfTransactionsPostLabeled}`,
-    );
+    )
   }
 
-  console.log(`🎏  LLM did not mess up ${promptFilename} data`);
-};
+  console.log(`🎏  LLM did not mess up ${promptFilename} data`)
+}
 
 export const labelTransactions = async (existingTransactions, newTransactions, promptFilename) => {
-  if (!openaiToken) throw new Error("❌ OpenAI token is not configured. Set it in .env file");
+  if (!openaiToken) throw new Error('❌ OpenAI token is not configured. Set it in .env file')
 
-  const transactions = [...newTransactions, ...existingTransactions];
+  const transactions = [...newTransactions, ...existingTransactions]
 
-  const genericPromptLogic = fs.readFileSync("./src/prompts/generic-prompt.txt", "utf8");
-  const specificPromptLogic = fs.readFileSync(`./src/prompts/${promptFilename}.txt`, "utf8");
+  const genericPromptLogic = fs.readFileSync('./src/prompts/generic-prompt.txt', 'utf8')
+  const specificPromptLogic = fs.readFileSync(`./src/prompts/${promptFilename}.txt`, 'utf8')
 
   const openai = new OpenAI({
     apiKey: openaiToken,
-  });
+  })
 
   const prompt = `${genericPromptLogic}\n${specificPromptLogic}\n${transactions
-    .map((item) => item.join(" | "))
-    .join("\n")}`;
+    .map((item) => item.join(' | '))
+    .join('\n')}`
 
-  console.log(`🧠  Prompting LLM to add transaction categories for ${promptFilename}...`);
+  console.log(`🧠  Prompting LLM to add transaction categories for ${promptFilename}...`)
 
   const completion = openai.chat.completions.create({
-    model: "o3-mini",
+    model: 'o3-mini',
     store: false,
-    messages: [{ role: "system", content: prompt }],
-  });
+    messages: [{ role: 'system', content: prompt }],
+  })
 
-  const output = await completion;
-  const llmOutput = output.choices[0].message.content;
-  const resultObject = getValidatedLLMResult(llmOutput, promptFilename);
+  const output = await completion
+  const llmOutput = output.choices[0].message.content
+  const resultObject = getValidatedLLMResult(llmOutput, promptFilename)
 
   // throws error if fails
-  integrityChecks(existingTransactions, newTransactions, resultObject.transactions, promptFilename);
+  integrityChecks(existingTransactions, newTransactions, resultObject.transactions, promptFilename)
 
   console.log(
     `🚀  Transaction categories added for ${promptFilename}, consuming ${resultObject.tokens} OpenAI tokens`,
-  );
+  )
 
-  return resultObject.transactions;
-};
+  return resultObject.transactions
+}

@@ -151,6 +151,5 @@ Start commands support flags for configuring the application.
 - If hooks are updated / added there is need to run `yarn lefthook install`.
 - Repository is using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and they are
   enforced by `commitlint` in `commit-msg` hook.
-- Repository is formatted in `pre-commit` hook by prettier configured in [.prettierrc](./.prettierrc) and
-  [.editorconfig](./.editorconfig).
-- Repository code quality is check by [Biome](https://biomejs.dev/) in `pre-commit` hook.
+- Repository code is formatted by [Biome](https://biomejs.dev/) and [.editorconfig](./.editorconfig) in `pre-commit` hook.
+- Quality check is done by [Biome](https://biomejs.dev/) in `pre-commit` hook.
