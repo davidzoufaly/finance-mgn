@@ -3,13 +3,13 @@ import {
   keywordForAttachmentCheck,
   whitelistedAccounts,
   whitelistedInvestmentKeywords,
-} from "./constants/constants.mjs";
-import { dataFederation } from "./features/dataFederation.mjs";
-import { fetchEmailAttachment, markLastSeenEmailAsUnseen } from "./features/fetchEmailAttachement.mjs";
-import { fetchFioTransactions } from "./features/fetchFioTransactions.mjs";
-import { getExistingDataFromSheet, writeSheetBulk, cleanupGoogleSheets } from "./features/googleSheet.mjs";
-import { labelTransactions } from "./features/labelTransactions.mjs";
-import { parseAirTransactions } from "./features/parseAirTransactions.mjs";
+} from "./constants/_constants.mjs";
+import { dataFederation } from "./features/_dataFederation.mjs";
+import { fetchEmailAttachment, markLastSeenEmailAsUnseen } from "./features/_fetchEmailAttachement.mjs";
+import { fetchFioTransactions } from "./features/_fetchFioTransactions.mjs";
+import { getExistingDataFromSheet, writeSheetBulk, cleanupGoogleSheets } from "./features/_googleSheet.mjs";
+import { labelTransactions } from "./features/_labelTransactions.mjs";
+import { parseAirTransactions } from "./features/_parseAirTransactions.mjs";
 
 export const mainFlow = async ({ withLabeling, environment, actions, cleanup }) => {
   process.env.NODE_ENV = environment || "development";
@@ -43,6 +43,7 @@ export const mainFlow = async ({ withLabeling, environment, actions, cleanup }) 
         fioTransactions,
         airTransactions,
       );
+      console.log(expenses);
 
       // fetch existing transactions from Google Sheets
       const existingExpenses = await getExistingDataFromSheet("expenses", sheetId);

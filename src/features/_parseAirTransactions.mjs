@@ -1,16 +1,22 @@
-import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
-import { airAttachmentPassword, attachmentFilePath } from "../constants/constants.mjs";
 import fs from "node:fs";
+import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
+import { airAttachmentPassword, attachmentFilePath } from "../constants/_constants.mjs";
 
-const findTransactions = (items) => {
-  const preUselessWord = items.findIndex((item) => item.str === "Poplatky");
+const findTransactions = (documentItems) => {
+  console.log(documentItems, "items");
+  const preUselessWord = documentItems.findIndex((item) => item.str === "Poplatky");
   const postUselessWord =
-    items.findIndex((item) => item.str.includes("Pokračování") || item.str === "Vklad") - 1;
+    documentItems.findIndex((item) => item.str.includes("Pokračování") || item.str === "Vklad") - 1;
 
-  return items.slice(preUselessWord + 1, postUselessWord);
+  if (preUselessWord === -1 || postUselessWord === -1) {
+    return [];
+  }
+
+  return documentItems.slice(preUselessWord + 1, postUselessWord);
 };
 
 const processTransactions = (transactions) => {
+  // console.log("transactions: ", transactions);
   return transactions.map((row) => {
     // Identify the value (last item)
     // Remove spaces to parse it to float properly
@@ -38,7 +44,7 @@ const splitByZeroZero = (pdfObjects) => {
   const rows = [];
   let currentRow = [];
 
-  for (obj of pdfObjects) {
+  for (const obj of pdfObjects) {
     currentRow.push(obj);
 
     // Parse rows based on fee value which is always 0,00
@@ -89,7 +95,7 @@ export const parseAirTransactions = async () => {
       // will wait on the previous pages.
       for (let i = 1; i <= numPages; i++) {
         const data = await processPage(i, doc);
-        for (item of data) {
+        for (const item of data) {
           finalTrans.push(item);
         }
       }

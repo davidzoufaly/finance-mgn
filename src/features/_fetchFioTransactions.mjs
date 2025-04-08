@@ -1,5 +1,5 @@
 import { subMonths, startOfMonth, endOfMonth, format } from "date-fns";
-import { fioToken } from "../constants/constants.mjs";
+import { fioToken } from "../constants/_constants.mjs";
 
 // returns last month in yyyy-MM-dd/yyyy-MM-dd format
 const getLastMonthRange = () => {
@@ -34,7 +34,7 @@ export const fetchFioTransactions = async (endpoint) => {
     const transactions = trans.map((item) => ({
       trailingSpace: "",
       value: item.column1.value,
-      date: item.column0.value.replace("+0100", ""),
+      date: item.column0.value,
       source: "fio",
       // if contains bank account number -> return with bank id
       bankAccount: item?.column2?.value ? `${item?.column2?.value}/${item?.column3?.value}` : "",

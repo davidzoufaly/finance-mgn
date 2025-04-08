@@ -1,5 +1,6 @@
+import type { ImapSimple, ImapSimpleOptions } from "imap-simple";
+import { connect, getParts } from "imap-simple";
 import fs from "node:fs";
-import imaps from "imap-simple";
 import {
   attachmentFileName,
   attachmentFilePath,
@@ -7,18 +8,7 @@ import {
   emailPassword,
   emailTarget,
   emailUsername,
-} from "../constants/constants.mjs";
-
-const config = {
-  imap: {
-    user: emailUsername,
-    password: emailPassword,
-    host: emailHost,
-    port: 993,
-    tls: true,
-    authTimeout: 30000,
-  },
-};
+} from "../constants";
 
 const validateEmailCredentials = () => {
   if (!emailUsername || !emailHost || !emailPassword || !emailTarget) {
@@ -28,35 +18,47 @@ const validateEmailCredentials = () => {
   }
 };
 
-const connectToImapServer = async () => {
+const connectToImapServer = async (): Promise<ImapSimple> => {
+  const config: ImapSimpleOptions = {
+    imap: {
+      user: emailUsername || "",
+      password: emailPassword || "",
+      host: emailHost,
+      port: 993,
+      tls: true,
+      authTimeout: 30000,
+    },
+  };
+
   console.log("🔌  Connecting to IMAP server...");
-  const connection = await imaps.connect(config);
+  const connection = await connect(config);
   console.log("💡  Connected to IMAP server.");
   return connection;
 };
 
-const openInbox = async (connection) => {
+const openInbox = async (connection: ImapSimple) => {
   console.log("📩  Opening INBOX...");
   await connection.openBox("INBOX");
   console.log("📩  INBOX opened");
 };
 
-const fetchEmails = async (connection, searchCriteria) => {
+const fetchEmails = async (connection: ImapSimple, searchCriteria: (string | (string | undefined)[])[]) => {
   const fetchOptions = { bodies: [], struct: true };
   console.log("🔍  Fetching emails...");
   return await connection.search(searchCriteria, fetchOptions);
 };
 
-const disconnectFromImapServer = (connection) => {
+const disconnectFromImapServer = (connection: ImapSimple) => {
   console.log("🔌  Disconnecting from IMAP server...");
   connection.end();
   console.log("✅  IMAP connection closed.");
 };
 
-export const fetchEmailAttachment = async (keywordForAttachmentCheck) => {
+export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) => {
   validateEmailCredentials();
 
-  let connection;
+  let connection: ImapSimple | undefined;
+
   try {
     connection = await connectToImapServer();
     await openInbox(connection);
@@ -67,7 +69,7 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck) => {
 
     for (const message of messages) {
       console.log("📧  Processing email...");
-      const parts = imaps.getParts(message.attributes.struct);
+      const parts = getParts(message.attributes.struct || []);
       const part = parts.find(
         (part) => part.disposition && part.disposition.type.toUpperCase() === "ATTACHMENT",
       );
@@ -111,7 +113,7 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck) => {
 export const markLastSeenEmailAsUnseen = async () => {
   validateEmailCredentials();
 
-  let connection;
+  let connection: ImapSimple | undefined;
   try {
     connection = await connectToImapServer();
     await openInbox(connection);

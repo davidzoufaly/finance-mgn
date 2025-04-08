@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { openaiToken } from "../constants/constants.mjs";
+import { openaiToken } from "../constants/_constants.mjs";
 import fs from "node:fs";
 
 // helper function

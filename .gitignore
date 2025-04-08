@@ -4,3 +4,4 @@ node_modules
 src/prompts/expenses.txt
 src/prompts/incomes.txt
 service-account.json
+dist

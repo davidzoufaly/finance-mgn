@@ -1,5 +1,6 @@
 ## In progress
-- [ ] changelog and versioning
+
+- [ ] typescript
 
 ## Must have
 
@@ -7,12 +8,15 @@
 - [ ] OSS -> README airbank setup
 
 ## Nice to have
-
+- [ ] open ai model as env
+- [ ] import aliases
+- [ ] tsc check pre commit
+- [ ] changelog and versioning
+- [ ] organize imports -> biome -> only formatter?
 - [ ] public google sheet
-- [ ] unique emojis
-- [ ] typescript
+- [ ] unique emoji
 - [ ] function comments
-- [ ] generated docs
+- [ ] generated doc
 - [ ] ci/cd tests
 - [ ] ci/cd tests email notification
 - [ ] make repo public
@@ -23,6 +27,7 @@
 - [ ] fetch vícero měsíců (pokud zapomenu) přes argument v main funkci
 - [ ] fetch jednoho měsíce v minulosti
 - [ ] fetch i vícero měsíců do jiného sheetu pro ad-hoc analýzu
+- [ ] zod???
 
 ## Bugs
 

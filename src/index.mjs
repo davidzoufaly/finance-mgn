@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { mainFlow } from "./src/mainFlow.mjs";
+import { mainFlow } from "./_mainFlow.mjs";
 
 export const argv = yargs(hideBin(process.argv))
   .option("environment", {

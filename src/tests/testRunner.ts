@@ -1,23 +1,30 @@
 import { spawn } from "child_process";
 import { hideBin } from "yargs/helpers";
-import { integrationTestCases } from "./_integrationTestCases.mjs";
+import { integrationTestCases } from "./integrationTestCases";
 
-const RESET_CASE = {
+type TestCase = {
+  id: number;
+  command: string;
+  args: string[];
+};
+
+const RESET_CASE: TestCase = {
   id: 29,
   command: "yarn",
   args: ["start", "--environment=development", "--withLabeling=false", "--actions=none", "--cleanup=all"],
 };
 
 // Add a sleep function to wait between tests
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
- * Filters test cases based on provided conditions
- * @param {Array<Object>} testCases - Array of test case objects
- * @param {Array<string>} conditions - Array of conditions to filter out
- * @returns {Array<Object>} Filtered array of test cases
+ * Filters test cases based on provided conditions.
+ *
+ * @param testCases - Array of test case objects
+ * @param conditions - Array of conditions to filter out
+ * @returns Filtered array of test cases
  */
-export const getTestsSubset = (testCases, conditions = []) => {
+export const getTestsSubset = (testCases: TestCase[], conditions: string[] = []): TestCase[] => {
   if (!conditions.length) return testCases;
 
   let finalCases = testCases;
@@ -30,7 +37,7 @@ export const getTestsSubset = (testCases, conditions = []) => {
   return finalCases;
 };
 
-async function runTest({ id, command, args }) {
+async function runTest({ id, command, args }: TestCase): Promise<void> {
   return new Promise((resolve, reject) => {
     console.log("\n_________________________________\n");
     console.log(`\n🚀  Running Test Case ID: ${id}...\n`);
@@ -57,14 +64,14 @@ async function runTest({ id, command, args }) {
         }
       } else {
         const error = new Error(`Test Case ${id} FAILED (Exit Code: ${code})`);
-        error.errorOutput = errorOutput;
+        errorOutput += error.message;
         reject(error);
       }
     });
   });
 }
 
-async function runReset() {
+async function runReset(): Promise<void> {
   return new Promise((resolve, reject) => {
     console.log(`🔄  Resetting environment (Test Case ${RESET_CASE.id})...\n`);
 
@@ -84,13 +91,13 @@ async function runReset() {
   });
 }
 
-async function runAllTests(testCases) {
+async function runAllTests(testCases: TestCase[]): Promise<void> {
   const argArray = hideBin(process.argv);
   const finalTestCases = getTestsSubset(testCases, argArray);
 
   console.log(`\n🎃  Condition matching ${finalTestCases.length} tests`);
 
-  const failedTests = [];
+  const failedTests: number[] = [];
   let lastTestStartTime = 0;
 
   for (const testCase of finalTestCases) {
@@ -126,7 +133,7 @@ async function runAllTests(testCases) {
 
   console.log(`🏁  All  ${testCases} tests completed`);
 
-  if (failedTests > 0) {
+  if (failedTests.length > 0) {
     console.error(`❌  ${failedTests.length} test(s) failed, ID: ${failedTests.join()}`);
     process.exit(1); // Exit with error code if any tests failed
   }

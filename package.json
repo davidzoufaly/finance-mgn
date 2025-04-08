@@ -2,20 +2,22 @@
   "name": "finance-mgn",
   "version": "1.0.0",
   "description": "Finance Management Tool (ETL)",
-  "main": "./index.mjs",
+  "main": "./src/index.mjs",
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "dev": "yarn tsc --watch -p config/tsconfig.json",
     "format": "prettier --write .",
     "lint": "biome lint",
     "lint:fix": "biome lint --write",
-    "start": "node index.mjs",
-    "start:prod": "node index.mjs --environment production --withLabeling true --actions fio",
-    "cleanup:all": "node index.mjs --environment development --withLabeling false --actions none --cleanup all",
+    "start": "node src/index.mjs",
+    "start:prod": "yarn start --environment production --withLabeling true --actions fio",
+    "cleanup:all": "yarn start --environment development --withLabeling false --actions none --cleanup all",
     "test:integration": "node ./src/tests/testRunner.mjs",
     "test": "vitest && node test:integration",
     "test:unit": "vitest -w=true",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typecheck": "tsc --noEmit -p config/tsconfig.json"
   },
   "dependencies": {
     "child_process": "^1.0.2",
@@ -26,6 +28,7 @@
     "mailparser": "^3.7.2",
     "openai": "^4.85.4",
     "pdfjs-dist": "^4.10.38",
+    "typescript": "^5.8.2",
     "vitest": "^3.0.9",
     "yargs": "^17.7.2"
   },
@@ -33,6 +36,8 @@
     "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@types/imap-simple": "^4.2.9",
+    "@types/yargs": "^17.0.33",
     "lefthook": "^1.11.6",
     "prettier": "^3.5.3"
   }

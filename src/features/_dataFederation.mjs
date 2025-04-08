@@ -1,20 +1,22 @@
 import { parse, format, compareDesc } from "date-fns";
 
-const normalizeDates = (data) => {
-  return data.map((item) => {
-    // try parsing using different known formats
-    let parsedDate;
 
-    parsedDate = parse(item.date, "yyyy-MM-dd", new Date());
+const normalizeDates = (data) =>
+  data.map((item) => {
+    // e.g. 2025-03-31+0200
+    const regex = new RegExp(/([+-]\d{2})(\d{2})$/);
 
-    parsedDate = Number.isNaN(parsedDate) ? parse(item.date, "dd.MM.yyyy", new Date()) : parsedDate;
+    if (regex.test(item.date)) {
+      const fixedOffsetDate = item.date.replace(regex, "");
+      const date = new Date(fixedOffsetDate);
+      const formattedDate = format(date, "MM/dd/yyyy");
+      return { ...item, date: formattedDate };
+    }
 
-    // format to desired output (dd.MM.yyyy)
-    const formattedDate = format(parsedDate, "MM/dd/yyyy");
-
+    const date = parse(item.date, "dd.MM.yyyy", new Date());
+    const formattedDate = format(date, "MM/dd/yyyy");
     return { ...item, date: formattedDate };
   });
-};
 
 export const dataFederation = (config, fioData = [], airData = []) => {
   const { actions, whitelistedAccounts, whitelistedInvestmentKeywords } = config;
