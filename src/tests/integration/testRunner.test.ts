@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { integrationTestCases } from "./integration/integrationTestCases";
-import { getTestsSubset } from "./integration";
+import { getTestsSubset } from ".";
+import { integrationTestCases } from "./integrationTestCases";
 
 test("get test(s) without LLM only", () => {
   expect(getTestsSubset(integrationTestCases, ["--withLabeling=false"]).length).toBe(15);

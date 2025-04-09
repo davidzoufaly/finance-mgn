@@ -10,7 +10,8 @@
     "format": "biome format --write",
     "lint": "biome lint",
     "lint:fix": "biome check --write",
-    "start": "node dist/app/index.js",
+    "start": "yarn build && node dist/app/index.js",
+    "start:light-check": "yarn start --withLabeling false --actions none --cleanup all",
     "start:prod": "yarn start --environment production --withLabeling true --actions fio",
     "cleanup:all": "yarn start --environment development --withLabeling false --actions none --cleanup all",
     "test:integration": "node ./src/tests/testRunner.mjs",
@@ -27,6 +28,7 @@
     "mailparser": "^3.7.2",
     "openai": "^4.85.4",
     "pdfjs-dist": "^4.10.38",
+    "source-map-support": "^0.5.21",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9",
     "yargs": "^17.7.2"

@@ -1,5 +1,6 @@
 ## In progress
 
+
 ## Must have
 
 - ( ) OSS -> README guide how to OpenAI
@@ -7,7 +8,7 @@
 
 ## Nice to have
 
-- ( ) compiled test-runner -> jak poustet?
+- ( ) semicolons biome
 - ( ) aliases imports
 - ( ) open ai model as env
 - ( ) changelog and versioning
@@ -35,6 +36,8 @@
 
 ## Done
 
+- (x) building and running of unit tests
+- (x) compiled test-runner -> jak poustet?
 - (x) organize imports -> biome -> only formatter?
 - (x) tsc check pre commit
 - (x) typescript
