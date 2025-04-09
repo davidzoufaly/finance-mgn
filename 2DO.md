@@ -7,9 +7,10 @@
 
 ## Nice to have
 
+- ( ) compiled test-runner -> jak poustet?
+- ( ) aliases imports
 - ( ) open ai model as env
 - ( ) changelog and versioning
-- ( ) organize imports -> biome -> only formatter?
 - ( ) public google sheet
 - ( ) unique emoji
 - ( ) function comments
@@ -34,6 +35,7 @@
 
 ## Done
 
+- (x) organize imports -> biome -> only formatter?
 - (x) tsc check pre commit
 - (x) typescript
 - (x) fix biome errors
