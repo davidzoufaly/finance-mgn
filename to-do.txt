@@ -1,5 +1,4 @@
 ## In progress
-- ( ) import aliases
 
 ## Must have
 
@@ -7,6 +6,9 @@
 - ( ) OSS -> README airbank setup
 
 ## Nice to have
+
+- ( ) compiled test-runner -> jak poustet?
+- ( ) aliases imports
 - ( ) open ai model as env
 - ( ) changelog and versioning
 - ( ) public google sheet
