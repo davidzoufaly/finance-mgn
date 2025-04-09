@@ -1,5 +1,7 @@
 ## In progress
 
+- ( ) otestovat -> integration tests run
+- ( ) smazat js files
 
 ## Must have
 
@@ -8,7 +10,6 @@
 
 ## Nice to have
 
-- ( ) semicolons biome
 - ( ) aliases imports
 - ( ) open ai model as env
 - ( ) changelog and versioning
@@ -20,6 +21,7 @@
 - ( ) ci/cd tests email notification
 - ( ) make repo public
 - ( ) CRON prod execution -> lambda
+- ( ) email notification -> success / failure of upload
 - ( ) unit tests
 - ( ) protected branch
 - ( ) limit počet transakcí co se posílá do LLM např. jen poslední + 5 předtím -> LLM kontext + tokens savings
@@ -36,6 +38,7 @@
 
 ## Done
 
+- (x) semicolons biome
 - (x) building and running of unit tests
 - (x) compiled test-runner -> jak poustet?
 - (x) organize imports -> biome -> only formatter?

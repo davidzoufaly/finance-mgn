@@ -146,4 +146,4 @@ export const integrationTestCases = [
       '--cleanup=sheets',
     ],
   },
-]
+];

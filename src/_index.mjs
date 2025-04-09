@@ -1,6 +1,6 @@
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
-import { mainFlow } from './_mainFlow.mjs'
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { mainFlow } from './_mainFlow.mjs';
 
 export const argv = yargs(hideBin(process.argv))
   .option('environment', {
@@ -26,6 +26,6 @@ export const argv = yargs(hideBin(process.argv))
     type: 'string',
     description: 'Reset mailbox after action (all | mail | sheets | none)',
     default: 'none',
-  }).argv
+  }).argv;
 
-mainFlow(argv)
+mainFlow(argv);

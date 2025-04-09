@@ -1,13 +1,13 @@
 // tsup.config.ts
-import { defineConfig } from "tsup";
+import { defineConfig } from 'tsup';
 
 export default defineConfig([
   // main app
   {
-    entry: ["src/index.ts"],
-    outDir: "dist/app",
-    format: ["esm"],
-    target: "es2022",
+    entry: ['src/index.ts'],
+    outDir: 'dist/app',
+    format: ['esm'],
+    target: 'es2022',
     clean: true,
     sourcemap: true,
     dts: false,
@@ -17,10 +17,10 @@ export default defineConfig([
   },
   // integration tests
   {
-    entry: ["src/tests/integration/index.ts"],
-    outDir: "dist/tests",
-    format: ["esm"],
-    target: "es2022",
+    entry: ['src/tests/integration/index.ts'],
+    outDir: 'dist/tests',
+    format: ['esm'],
+    target: 'es2022',
     clean: true,
     sourcemap: true,
     dts: false,

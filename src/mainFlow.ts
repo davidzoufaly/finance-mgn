@@ -3,7 +3,7 @@ import {
   keywordForAttachmentCheck,
   whitelistedAccounts,
   whitelistedInvestmentKeywords,
-} from './constants'
+} from './constants';
 import {
   cleanupGoogleSheets,
   dataFederation,
@@ -14,29 +14,29 @@ import {
   markLastSeenEmailAsUnseen,
   parseAirTransactions,
   writeSheetBulk,
-} from './features'
-import type { MainFlowConfig, Transaction, TransactionObjOptStr, TransactionObject } from './types'
+} from './features';
+import type { MainFlowConfig, Transaction, TransactionObjOptStr, TransactionObject } from './types';
 
 export const mainFlow = async ({ withLabeling, environment, actions, cleanup }: MainFlowConfig) => {
-  process.env.NODE_ENV = environment || 'development'
-  const sheetId = getSheetId()
+  process.env.NODE_ENV = environment || 'development';
+  const sheetId = getSheetId();
 
   if (actions !== 'none') {
     try {
-      let airTransactions: TransactionObject[] | undefined
-      let fioTransactions: TransactionObjOptStr[] | undefined
+      let airTransactions: TransactionObject[] | undefined;
+      let fioTransactions: TransactionObjOptStr[] | undefined;
 
       if (actions !== 'fio') {
         // get AIR transactions PDF from Email
-        await fetchEmailAttachment(keywordForAttachmentCheck)
+        await fetchEmailAttachment(keywordForAttachmentCheck);
 
         // get AIR transactions from PDF
-        airTransactions = await parseAirTransactions()
+        airTransactions = await parseAirTransactions();
       }
 
       if (actions !== 'mail') {
         // get transactions from FIO API
-        fioTransactions = await fetchFioTransactions()
+        fioTransactions = await fetchFioTransactions();
       }
 
       // cleaning & grouping
@@ -48,31 +48,31 @@ export const mainFlow = async ({ withLabeling, environment, actions, cleanup }: 
         },
         fioTransactions,
         airTransactions,
-      )
+      );
 
       // fetch existing transactions from Google Sheets
-      const existingExpenses = await getExistingDataFromSheet('expenses', sheetId)
+      const existingExpenses = await getExistingDataFromSheet('expenses', sheetId);
 
-      const existingIncomes = await getExistingDataFromSheet('incomes', sheetId)
-      const existingInvestments = await getExistingDataFromSheet('investments', sheetId)
+      const existingIncomes = await getExistingDataFromSheet('incomes', sheetId);
+      const existingInvestments = await getExistingDataFromSheet('investments', sheetId);
 
-      const finalInvestments = [...investments, ...existingInvestments]
+      const finalInvestments = [...investments, ...existingInvestments];
 
-      let finalExpenses: Transaction[]
-      let finalIncomes: Transaction[]
+      let finalExpenses: Transaction[];
+      let finalIncomes: Transaction[];
 
       if (withLabeling) {
         // use LLM to add label transactions with categories identifiers
         const [labeledExpenses, labeledIncomes] = await Promise.all([
           labelTransactions(existingExpenses, expenses, 'expenses'),
           labelTransactions(existingIncomes, incomes, 'incomes'),
-        ])
+        ]);
 
-        finalExpenses = labeledExpenses
-        finalIncomes = labeledIncomes
+        finalExpenses = labeledExpenses;
+        finalIncomes = labeledIncomes;
       } else {
-        finalExpenses = [...expenses, ...existingExpenses]
-        finalIncomes = [...incomes, ...existingIncomes]
+        finalExpenses = [...expenses, ...existingExpenses];
+        finalIncomes = [...incomes, ...existingIncomes];
       }
 
       // write data to all sheets
@@ -92,56 +92,56 @@ export const mainFlow = async ({ withLabeling, environment, actions, cleanup }: 
           sheetName: 'investments',
           sheetId,
         },
-      ])
+      ]);
 
-      console.log('🍻  Every action completed')
+      console.log('🍻  Every action completed');
     } catch (error) {
       // reset email and googlesheets on fail
-      console.error(error)
+      console.error(error);
       try {
-        console.log('🪣   Something has failed, fallbacking to cleanup')
-        await markLastSeenEmailAsUnseen()
-        await cleanupGoogleSheets(sheetId)
+        console.log('🪣   Something has failed, fallbacking to cleanup');
+        await markLastSeenEmailAsUnseen();
+        await cleanupGoogleSheets(sheetId);
       } catch (error) {
-        console.error(error)
-        process.exit(1)
+        console.error(error);
+        process.exit(1);
       }
-      process.exit(1)
+      process.exit(1);
     }
   }
 
   // TODO: Refactor this part
   if (cleanup === 'all') {
     try {
-      console.log(`🪣   Initializing cleanup: ${cleanup}`)
-      await markLastSeenEmailAsUnseen()
-      await cleanupGoogleSheets(sheetId)
-      return
+      console.log(`🪣   Initializing cleanup: ${cleanup}`);
+      await markLastSeenEmailAsUnseen();
+      await cleanupGoogleSheets(sheetId);
+      return;
     } catch (error) {
-      console.error(error)
-      process.exit(1)
+      console.error(error);
+      process.exit(1);
     }
   }
 
   if (cleanup === 'mail') {
     try {
-      console.log(`🪣   Initializing cleanup: ${cleanup}`)
-      await markLastSeenEmailAsUnseen()
-      return
+      console.log(`🪣   Initializing cleanup: ${cleanup}`);
+      await markLastSeenEmailAsUnseen();
+      return;
     } catch (error) {
-      console.error(error)
-      process.exit(1)
+      console.error(error);
+      process.exit(1);
     }
   }
 
   if (cleanup === 'sheets') {
-    console.log(`🪣   Initializing cleanup: ${cleanup}`)
+    console.log(`🪣   Initializing cleanup: ${cleanup}`);
     try {
-      await cleanupGoogleSheets(sheetId)
-      return
+      await cleanupGoogleSheets(sheetId);
+      return;
     } catch (error) {
-      console.error(error)
-      process.exit(1)
+      console.error(error);
+      process.exit(1);
     }
   }
-}
+};

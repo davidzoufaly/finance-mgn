@@ -1,5 +1,5 @@
-import { compareDesc, format, parse } from "date-fns";
-import type { Transaction, TransactionObjOptStr, TransactionObject } from "../types";
+import { compareDesc, format, parse } from 'date-fns';
+import type { Transaction, TransactionObjOptStr, TransactionObject } from '../types';
 
 type Config = {
   actions: string;
@@ -8,7 +8,7 @@ type Config = {
 };
 
 const normalizeValue = (item: string | number): string => {
-  if (typeof item === "number") {
+  if (typeof item === 'number') {
     return item.toString();
   }
   return item;
@@ -20,21 +20,21 @@ const normalizeDates = (data: TransactionObjOptStr[]) =>
     const regex = new RegExp(/([+-]\d{2})(\d{2})$/);
 
     if (regex.test(item.date)) {
-      const fixedOffsetDate = item.date.replace(regex, "");
+      const fixedOffsetDate = item.date.replace(regex, '');
       const date = new Date(fixedOffsetDate);
-      const formattedDate = format(date, "MM/dd/yyyy");
+      const formattedDate = format(date, 'MM/dd/yyyy');
       return { ...item, date: formattedDate };
     }
 
-    const date = parse(item.date, "dd.MM.yyyy", new Date());
-    const formattedDate = format(date, "MM/dd/yyyy");
+    const date = parse(item.date, 'dd.MM.yyyy', new Date());
+    const formattedDate = format(date, 'MM/dd/yyyy');
     return { ...item, date: formattedDate };
   });
 
 export const dataFederation = (
   config: Config,
   fioData: TransactionObjOptStr[] = [],
-  airData: TransactionObject[] = []
+  airData: TransactionObject[] = [],
 ): {
   expenses: Transaction[];
   incomes: Transaction[];
@@ -42,22 +42,22 @@ export const dataFederation = (
 } => {
   const { actions, whitelistedAccounts, whitelistedInvestmentKeywords } = config;
 
-  if (actions !== "mail" && fioData.length === 0) {
-    throw new Error("❌  Data federation is not possible: the first data source is missing.");
+  if (actions !== 'mail' && fioData.length === 0) {
+    throw new Error('❌  Data federation is not possible: the first data source is missing.');
   }
 
-  if (actions !== "fio" && airData.length === 0) {
-    throw new Error("❌  Data federation is not possible: the second data source is missing.");
+  if (actions !== 'fio' && airData.length === 0) {
+    throw new Error('❌  Data federation is not possible: the second data source is missing.');
   }
 
-  console.log("🧹  Federating, sorting and cleaning the data...");
+  console.log('🧹  Federating, sorting and cleaning the data...');
 
   const data = [...fioData, ...airData]
     // remove transfers between whitelisted accounts
     .filter(({ bankAccount, label }) => {
       const isBankAccountSame = whitelistedAccounts.includes(bankAccount);
       const isBankAccountIncludedInLabel = whitelistedAccounts.some((i) =>
-        label.replace(/\s/g, "").includes(i)
+        label.replace(/\s/g, '').includes(i),
       );
       return !isBankAccountSame && !isBankAccountIncludedInLabel;
     });
@@ -85,11 +85,11 @@ export const dataFederation = (
   }>(
     (acc, currVal) => {
       const isInvestmentKeywordMatching = whitelistedInvestmentKeywords.some((item) =>
-        currVal.label?.includes(item)
+        currVal.label?.includes(item),
       );
 
       const currentTransactionAsArray: Transaction = Object.values(currVal).map((item) =>
-        normalizeValue(item)
+        normalizeValue(item),
       );
 
       if (isInvestmentKeywordMatching) {
@@ -100,10 +100,10 @@ export const dataFederation = (
 
       return acc;
     },
-    { investments: [], expenses: [] }
+    { investments: [], expenses: [] },
   );
 
-  console.log("✨  Data prepared");
+  console.log('✨  Data prepared');
 
   return {
     incomes,
