@@ -19,13 +19,17 @@ export const attachmentFilePath = path.join('./src/attachments', attachmentFileN
 export const serviceAccountPath = path.resolve('./service-account.json');
 
 export const openaiToken = process.env.OPENAI_TOKEN;
-export const openaiModel: OpenAI.Chat.ChatModel =
-  (process.env.OPENAI_MODEL as OpenAI.Chat.ChatModel) ?? 'o3-mini';
+export const openaiModel: OpenAI.Chat.ChatModel = process.env.OPENAI_MODEL_PROD as OpenAI.Chat.ChatModel;
+
+export const getOpenAIModel = () =>
+  // this has to be dane like this, when this file imports are executed, env is not yet set
+  process.env.NODE_ENV === 'development'
+    ? (process.env.OPENAI_MODEL_DEV as OpenAI.Chat.ChatModel | undefined)
+    : (process.env.OPENAI_MODEL_PROD as OpenAI.Chat.ChatModel | undefined);
 
 export const getSheetId = () =>
-  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-    ? (process.env.GOOGLE_SHEET_ID_DEV ?? '')
-    : (process.env.GOOGLE_SHEET_ID_PROD ?? '');
+  // this has to be dane like this, when this file imports are executed, env is not yet set
+  process.env.NODE_ENV === 'development' ? process.env.GOOGLE_SHEET_ID_DEV : process.env.GOOGLE_SHEET_ID_PROD;
 
 export const whitelistedAccounts = JSON.parse(process.env.WHITELISTED_ACCOUNTS ?? '[]');
 export const whitelistedInvestmentKeywords = JSON.parse(process.env.WHITELISTED_INVESTMENT_KEYWORDS ?? '');

@@ -18,8 +18,14 @@ import {
 import type { MainFlowConfig, Transaction, TransactionObjOptStr, TransactionObject } from './types';
 
 export const mainFlow = async ({ withLabeling, environment, actions, cleanup }: MainFlowConfig) => {
+  // need to set environment from args
   process.env.NODE_ENV = environment || 'development';
+
   const sheetId = getSheetId();
+
+  if (!sheetId) {
+    throw new Error('❌  Google Sheets ID is not configured. Set it in .env file');
+  }
 
   if (actions !== 'none') {
     try {

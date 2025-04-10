@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { openaiModel, openaiToken } from '@constants';
+import { getOpenAIModel, openaiToken } from '@constants';
 import type { Transaction } from '@types';
 import OpenAI from 'openai';
 
@@ -69,7 +69,10 @@ export const labelTransactions = async (
   newTransactions: Transaction[],
   promptFilename: string,
 ) => {
-  if (!openaiToken) throw new Error('❌ OpenAI token is not configured. Set it in .env file');
+  const openaiModel = getOpenAIModel();
+
+  if (!openaiToken || !openaiModel)
+    throw new Error('❌ OpenAI token OR model is not configured. Set it in .env file');
 
   const transactions = [...newTransactions, ...existingTransactions];
 
