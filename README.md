@@ -86,10 +86,10 @@ Additionally, it aggregates transaction data from various sources.
 
    - If you want to enable transaction categorization, rename the following files and fill in your category
      identifiers and descriptions:
-     - `expenses.template.txt` -> `expenses.txt`
-     - `incomes.template.txt` -> `incomes.txt`
+     - `./src/static/prompts/expenses.template.txt` -> `./src/static/prompts/expenses.txt`
+     - `./src/static/prompts/incomes.template.txt` -> `./src/static/prompts/incomes.txt`
 
-TODO: mention default model, possible to set it in .env and tried models
+TODO: mention default model, possible to set it in .env and tried models,
 
 1. **Other `.env` Values**
 
@@ -102,7 +102,7 @@ The application and integration tests support the following flags:
 | Flag           | Shortcut | Values                  | Default     |
 | -------------- | -------- | ----------------------- | ----------- |
 | --environment  | -e       | development, production | development |
-| --withLabeling | -w       | boolean                 | true        |
+| --withLabeling | -w       | boolean                 | false       |
 | --actions      | -a       | all, mail, fio, none    | all         |
 | --cleanup      | -c       | all, mail, sheets, none | none        |
 

@@ -1,6 +1,4 @@
 import fs from 'node:fs';
-import type { ImapSimple, ImapSimpleOptions } from 'imap-simple';
-import imapSimple from 'imap-simple';
 import {
   attachmentFileName,
   attachmentFilePath,
@@ -8,7 +6,9 @@ import {
   emailPassword,
   emailTarget,
   emailUsername,
-} from '../constants';
+} from '@constants';
+import type { ImapSimple, ImapSimpleOptions } from 'imap-simple';
+import imapSimple from 'imap-simple';
 
 const { connect, getParts } = imapSimple;
 

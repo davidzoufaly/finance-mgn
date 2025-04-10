@@ -2,6 +2,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { mainFlow } from './mainFlow';
 import type { MainFlowConfig } from './types';
+// without this is not possible track errors in files after build
 import 'source-map-support/register.js';
 
 export const argv: MainFlowConfig = yargs(hideBin(process.argv))
@@ -15,7 +16,7 @@ export const argv: MainFlowConfig = yargs(hideBin(process.argv))
     alias: 'l',
     type: 'boolean',
     description: 'Enable or disable transaction labeling',
-    default: true,
+    default: false,
   })
   .option('actions', {
     alias: 'a',

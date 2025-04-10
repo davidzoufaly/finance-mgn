@@ -6,18 +6,18 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "tsup",
+    "build": "yarn typecheck && tsup",
     "format": "biome format --write",
     "lint": "biome lint",
     "lint:fix": "biome check --write",
     "start": "yarn build && node dist/app/index.js",
-    "start:light-check": "yarn start --withLabeling false --actions none --cleanup all",
-    "start:prod": "yarn start --environment production --withLabeling true --actions fio",
-    "cleanup:all": "yarn start --environment development --withLabeling false --actions none --cleanup all",
-    "test:integration": "node ./src/tests/testRunner.mjs",
+    "start:light-check": "yarn start --actions none --cleanup all",
+    "start:prod": "yarn start --environment production --withLabeling true --actions all",
+    "cleanup:all": "yarn start --environment development --actions none --cleanup all",
+    "test:integration": "yarn build && node ./dist/test/integration/index.js",
     "test": "vitest && node test:integration",
     "test:unit": "vitest -w=true",
-    "typecheck": "tsc --noEmit -p config/tsconfig.json"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "child_process": "^1.0.2",

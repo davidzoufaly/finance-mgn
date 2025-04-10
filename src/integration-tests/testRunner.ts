@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
+import { integrationTestCases } from '@integrationTests';
 import { hideBin } from 'yargs/helpers';
-import { integrationTestCases } from './integrationTestCases';
 
 type TestCase = {
   id: number;

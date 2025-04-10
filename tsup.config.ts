@@ -17,7 +17,7 @@ export default defineConfig([
   },
   // integration tests
   {
-    entry: ['src/tests/integration/index.ts'],
+    entry: ['src/integration-tests/index.ts'],
     outDir: 'dist/tests',
     format: ['esm'],
     target: 'es2022',

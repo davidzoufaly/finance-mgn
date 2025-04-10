@@ -1,8 +1,8 @@
 import fs from 'node:fs';
+import { serviceAccountPath } from '@constants';
+import type { Transaction } from '@types';
 import { format, subMonths } from 'date-fns';
 import { google } from 'googleapis';
-import { serviceAccountPath } from '../constants';
-import type { Transaction } from '../types';
 
 // authenticate using the service account
 const auth = new google.auth.GoogleAuth({

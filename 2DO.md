@@ -1,7 +1,6 @@
 ## In progress
 
 - ( ) otestovat -> integration tests run
-- ( ) smazat js files
 
 ## Must have
 
@@ -10,7 +9,6 @@
 
 ## Nice to have
 
-- ( ) aliases imports
 - ( ) open ai model as env
 - ( ) changelog and versioning
 - ( ) public google sheet
@@ -19,6 +17,7 @@
 - ( ) generated doc
 - ( ) ci/cd tests
 - ( ) ci/cd tests email notification
+- ( ) move configs to /configs
 - ( ) make repo public
 - ( ) CRON prod execution -> lambda
 - ( ) email notification -> success / failure of upload
@@ -38,6 +37,8 @@
 
 ## Done
 
+- (x) smazat js files
+- (x) aliases imports
 - (x) semicolons biome
 - (x) building and running of unit tests
 - (x) compiled test-runner -> jak poustet?

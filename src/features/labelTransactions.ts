@@ -1,7 +1,7 @@
 import fs from 'node:fs';
+import { openaiToken } from '@constants';
+import type { Transaction } from '@types';
 import OpenAI from 'openai';
-import { openaiToken } from '../constants';
-import type { Transaction } from '../types';
 
 type TransactionData = {
   transactions: Transaction[];
@@ -73,8 +73,8 @@ export const labelTransactions = async (
 
   const transactions = [...newTransactions, ...existingTransactions];
 
-  const genericPromptLogic = fs.readFileSync('./src/prompts/generic-prompt.txt', 'utf8');
-  const specificPromptLogic = fs.readFileSync(`./src/prompts/${promptFilename}.txt`, 'utf8');
+  const genericPromptLogic = fs.readFileSync('./src/static/prompts/generic-prompt.txt', 'utf8');
+  const specificPromptLogic = fs.readFileSync(`./src/static/prompts/${promptFilename}.txt`, 'utf8');
 
   const openai = new OpenAI({
     apiKey: openaiToken,

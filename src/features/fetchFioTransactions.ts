@@ -1,6 +1,6 @@
+import { fioToken } from '@constants';
+import type { TransactionObjOptStr } from '@types';
 import { endOfMonth, format, startOfMonth, subMonths } from 'date-fns';
-import { fioToken } from '../constants';
-import type { TransactionObjOptStr } from '../types';
 
 type ColumnValueString = {
   value: string;

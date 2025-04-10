@@ -1,8 +1,8 @@
 import fs from 'node:fs';
+import { airAttachmentPassword, attachmentFilePath } from '@constants';
+import type { TransactionObject } from '@types';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import type { PDFDocumentProxy, TextItem, TextMarkedContent } from 'pdfjs-dist/types/src/display/api';
-import { airAttachmentPassword, attachmentFilePath } from '../constants';
-import type { TransactionObject } from '../types';
 
 /**
  * Type guard to check if an item is a TextItem

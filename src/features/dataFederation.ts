@@ -1,5 +1,5 @@
+import type { Transaction, TransactionObjOptStr, TransactionObject } from '@types';
 import { compareDesc, format, parse } from 'date-fns';
-import type { Transaction, TransactionObjOptStr, TransactionObject } from '../types';
 
 type Config = {
   actions: string;
