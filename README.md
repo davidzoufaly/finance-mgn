@@ -153,3 +153,5 @@ Start commands support flags for configuring the application.
   enforced by `commitlint` in `commit-msg` hook.
 - Repository code is formatted by [Biome](https://biomejs.dev/) and [.editorconfig](./.editorconfig) in `pre-commit` hook.
 - Quality check is done by [Biome](https://biomejs.dev/) in `pre-commit` hook.
+
+TODO: Bundling, how to run integration tests, unit tests

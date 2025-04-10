@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { format, subMonths } from 'date-fns';
 import dotenv from 'dotenv';
+import type OpenAI from 'openai';
 
 dotenv.config();
 
@@ -18,15 +19,16 @@ export const attachmentFilePath = path.join('./src/attachments', attachmentFileN
 export const serviceAccountPath = path.resolve('./service-account.json');
 
 export const openaiToken = process.env.OPENAI_TOKEN;
-export const openaiModel = process.env.OPENAI_MODEL;
+export const openaiModel: OpenAI.Chat.ChatModel =
+  (process.env.OPENAI_MODEL as OpenAI.Chat.ChatModel) ?? 'o3-mini';
 
 export const getSheetId = () =>
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-    ? process.env.GOOGLE_SHEET_ID_DEV || ''
-    : process.env.GOOGLE_SHEET_ID_PROD || '';
+    ? (process.env.GOOGLE_SHEET_ID_DEV ?? '')
+    : (process.env.GOOGLE_SHEET_ID_PROD ?? '');
 
-export const whitelistedAccounts = JSON.parse(process.env.WHITELISTED_ACCOUNTS || '[]');
-export const whitelistedInvestmentKeywords = JSON.parse(process.env.WHITELISTED_INVESTMENT_KEYWORDS || '');
+export const whitelistedAccounts = JSON.parse(process.env.WHITELISTED_ACCOUNTS ?? '[]');
+export const whitelistedInvestmentKeywords = JSON.parse(process.env.WHITELISTED_INVESTMENT_KEYWORDS ?? '');
 
 const getLastMonth = () => {
   const lastMonth = subMonths(new Date(), 1);

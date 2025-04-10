@@ -81,7 +81,7 @@ export const getExistingDataFromSheet = async (
 
     console.log(`🖨️   ${filteredValues?.length} ransactions for ${sheetName} from Google Spreadsheet fetched`);
 
-    return filteredValues || [];
+    return filteredValues ?? [];
   } catch (error) {
     throw new Error(
       `❌  Error fetching data from Google Spreadsheet for sheet '${sheetName}': ${error.message}`,

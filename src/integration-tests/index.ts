@@ -1,2 +1,2 @@
-export * from './testRunner';
 export * from './integrationTestCases';
+export * from './testRunner';

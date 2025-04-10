@@ -95,8 +95,8 @@ async function runReset(): Promise<void> {
 
 async function runTests(testCases: TestCase[]): Promise<void> {
   const argArray = hideBin(process.argv);
-  const finalTestCases = getTestsSubset(testCases, argArray);
 
+  const finalTestCases = getTestsSubset(testCases, argArray);
   console.log(`\n🎃  Condition matching ${finalTestCases.length} tests`);
 
   const failedTests: number[] = [];

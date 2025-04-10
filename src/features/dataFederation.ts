@@ -7,6 +7,12 @@ type Config = {
   whitelistedInvestmentKeywords: string[];
 };
 
+type DataFederation = {
+  expenses: Transaction[];
+  incomes: Transaction[];
+  investments: Transaction[];
+};
+
 const normalizeValue = (item: string | number): string => {
   if (typeof item === 'number') {
     return item.toString();
@@ -35,11 +41,7 @@ export const dataFederation = (
   config: Config,
   fioData: TransactionObjOptStr[] = [],
   airData: TransactionObject[] = [],
-): {
-  expenses: Transaction[];
-  incomes: Transaction[];
-  investments: Transaction[];
-} => {
+): DataFederation => {
   const { actions, whitelistedAccounts, whitelistedInvestmentKeywords } = config;
 
   if (actions !== 'mail' && fioData.length === 0) {

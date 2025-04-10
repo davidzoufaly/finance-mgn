@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { openaiToken } from '@constants';
+import { openaiModel, openaiToken } from '@constants';
 import type { Transaction } from '@types';
 import OpenAI from 'openai';
 
@@ -87,7 +87,7 @@ export const labelTransactions = async (
   console.log(`🧠  Prompting LLM to add transaction categories for ${promptFilename}...`);
 
   const completion = openai.chat.completions.create({
-    model: 'o3-mini',
+    model: openaiModel,
     store: false,
     messages: [{ role: 'system', content: prompt }],
   });

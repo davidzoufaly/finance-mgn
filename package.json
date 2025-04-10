@@ -14,7 +14,7 @@
     "start:light-check": "yarn start --actions none --cleanup all",
     "start:prod": "yarn start --environment production --withLabeling true --actions all",
     "cleanup:all": "yarn start --environment development --actions none --cleanup all",
-    "test:integration": "yarn build && node ./dist/test/integration/index.js",
+    "test:integration": "yarn build && node ./dist/tests/index.js",
     "test": "vitest && node test:integration",
     "test:unit": "vitest -w=true",
     "typecheck": "tsc --noEmit"

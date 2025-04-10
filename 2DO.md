@@ -1,5 +1,6 @@
 ## In progress
 
+- ( ) unique emoji
 - ( ) otestovat -> integration tests run
 
 ## Must have
@@ -9,25 +10,23 @@
 
 ## Nice to have
 
-- ( ) open ai model as env
 - ( ) changelog and versioning
 - ( ) public google sheet
-- ( ) unique emoji
 - ( ) function comments
 - ( ) generated doc
+- ( ) move configs to /configs
+- ( ) unit tests
 - ( ) ci/cd tests
 - ( ) ci/cd tests email notification
-- ( ) move configs to /configs
 - ( ) make repo public
 - ( ) CRON prod execution -> lambda
 - ( ) email notification -> success / failure of upload
-- ( ) unit tests
 - ( ) protected branch
 - ( ) limit počet transakcí co se posílá do LLM např. jen poslední + 5 předtím -> LLM kontext + tokens savings
 - ( ) fetch vícero měsíců (pokud zapomenu) přes argument v main funkci
 - ( ) fetch jednoho měsíce v minulosti
 - ( ) fetch i vícero měsíců do jiného sheetu pro ad-hoc analýzu
-- ( ) zod???
+- ( ) zod??? -> for LLM scheme
 
 ## Bugs
 
@@ -37,6 +36,7 @@
 
 ## Done
 
+- (x) open ai model as env
 - (x) smazat js files
 - (x) aliases imports
 - (x) semicolons biome

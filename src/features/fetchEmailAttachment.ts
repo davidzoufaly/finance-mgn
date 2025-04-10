@@ -71,7 +71,7 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) =>
 
     for (const message of messages) {
       console.log('📧  Processing email...');
-      const parts = getParts(message.attributes.struct || []);
+      const parts = getParts(message.attributes.struct ?? []);
       const part = parts.find(
         (part) => part.disposition && part.disposition.type.toUpperCase() === 'ATTACHMENT',
       );
