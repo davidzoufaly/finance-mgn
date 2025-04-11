@@ -47,7 +47,7 @@ const integrityChecks = (
   // integrity check for number of rows
   if (allTransactionsPreLabeled.length !== labeledTransactions.length) {
     throw new Error(
-      `❌  Some transactions were lost by LLM process for ${promptFilename}: pre-LLM ${existingTransactions.length} vs. post-LLM ${labeledTransactions.length}`,
+      `❌  Some transactions were lost by LLM process for ${promptFilename}: pre-LLM ${allTransactionsPreLabeled.length} vs. post-LLM ${labeledTransactions.length}`,
     );
   }
 

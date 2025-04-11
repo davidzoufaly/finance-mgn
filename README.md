@@ -39,6 +39,8 @@ Additionally, it aggregates transaction data from various sources.
 
 ## Configuration
 
+Note: As step 4 and 5 are optimal one of them needs to be set -> app cannot work properly without a "data source".
+
 1. **Install Dependencies**
 
    Ensure all necessary packages are installed by running:
@@ -54,9 +56,10 @@ Additionally, it aggregates transaction data from various sources.
 3. **Google Sheets Integration**
 
    - It is recommended to use two different Google Sheets files: one for development/testing and another for
-     production (stable financial transactions).
-   - Google Sheet identifiers must be copied from the URL and set in `.env`.
+     production.
+   - Google Sheets identifiers must be copied from the URL and set in [./.env](.env) for `GOOGLE_SHEET_ID_PROD` and `GOOGLE_SHEET_ID_DEV` (optional).
    - Google Sheets sharing settings must be set to "Everyone with the link can edit."
+   - At [this link](https://docs.google.com/spreadsheets/d/1Izk8IJrqmZxZtTmh4nCfjaUFT2m6Uf_YKNHiCh0ulzI/edit?usp=sharing) you can copy generic template with all calculations prepared
    - **Authentication:**
      - A Google Sheets service account must be created, and the credentials file (`service-account.json`) must
        exist in the root folder of this project.
@@ -66,32 +69,55 @@ Additionally, it aggregates transaction data from various sources.
        3. Under "Credentials," create a service account.
        4. Generate a JSON key for the account, which will be downloaded automatically.
        5. Place the JSON file in the root folder of this project.
-   - Some data sources need to be configured. It can be FIO Bank, AIR Bank, or a custom source (e.g., parsing
-     transaction PDFs from other banks).
+
+   Note: Some data sources need to be configured. It can be FIO Bank, AIR Bank, or a custom source (e.g., parsing
+   transaction PDFs from other banks).
 
 4. **FIO Bank (Optional)**
 
-   - Go to your internet banking settings -> API.
-   - Add a new token.
-   - Select the requested bank account, set the token validity (maximum of 6 months), mark it as read-only,
-     and enable the "prolong validity when logged in" option.
-   - Authorize the token creation.
-   - Copy the token value and paste it into your `.env` file.
-   - If you need to modify FIO API calls, refer to
-     [their documentation](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf).
+   1. Go to your internet banking settings -> API.
+   2. Add a new token.
+   3. Select the requested bank account, set the token validity (maximum of 6 months), mark it as read-only,
+      and enable the "prolong validity when logged in" option.
+   4. Authorize the token creation.
+   5. Copy the token value and paste it into your [./.env](.env) file for `FIO_TOKEN`.
+
+   Note: If you need to modify FIO API calls, refer to
+   [their documentation](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf).
 
 5. **AIR Bank (Optional)**
 
+   - Go to your internet banking
+   - Go to Accounts and Cards -> Options -> Setting up statement sending.
+   - Set sending into your mailbox (default mail tight to air bank account) OR you can set different email via "Statement sending for others settings".
+   - Make sure you picked "monthly" sending.
+   - First email should arrive first day of the next month at 7am CET.
+   - By default email attachment is password protected by phone number tight to air bank account
+   - Add `EMAIL_USERNAME`, `EMAIL_PASSWORD`, `EMAIL_HOST`, `AIR_ATTACHMENT_PASSWORD` in [./.env](.env)
+
+   Note: It is not possible to use gmail as it does not support basic authentication. For example you can use email by Seznam.cz.
+
 6. **OpenAI Integration (Optional)**
 
-   - If you want to enable transaction categorization, rename the following files and fill in your category
-     identifiers and descriptions:
-     - `./src/static/prompts/expenses.template.txt` -> `./src/static/prompts/expenses.txt`
-     - `./src/static/prompts/incomes.template.txt` -> `./src/static/prompts/incomes.txt`
+   - If you want to enable transaction categorization, folow these steps.
 
-TODO: mention default model, possible to set it in .env and tried models,
+   1. rename the following files and fill in your category
+      identifiers and descriptions:
 
-1. **Other `.env` Values**
+   - `./src/static/prompts/expenses.template.txt` -> `./src/static/prompts/expenses.txt`
+   - `./src/static/prompts/incomes.template.txt` -> `./src/static/prompts/incomes.txt`
+     Register & Sign-in to [OpenAI developer platform](https://platform.openai.com)
+
+   2. Go to Settings -> Organization -> Billing
+   3. Add credit balance (5USD is enough for more than a year of monthly execution -> depends on used model, price changes, number of transactions, if you will do more frequent tests etc.)
+   4. Create new project
+   5. Go to API keys
+   6. Create new secret key -> owned by you, fill name, assign project, permissions all -> create secret key
+   7. Copy the key value and add it to [./.env](.env) for OPENAI_TOKEN.
+
+   Note: Default model for development is `gpt-4o-mini` as is fast and cheap, for production `o3-mini` is used as it returns good results and reliable output structure
+
+7. **Other `.env` Values**
 
 ## Run
 

@@ -53,7 +53,7 @@ const fetchEmails = async (connection: ImapSimple, searchCriteria: (string | (st
 const disconnectFromImapServer = (connection: ImapSimple) => {
   console.log('🔌  Disconnecting from IMAP server...');
   connection.end();
-  console.log('✅  IMAP connection closed.');
+  console.log('🚪  IMAP connection closed.');
 };
 
 export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) => {

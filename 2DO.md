@@ -1,34 +1,48 @@
 ## In progress
 
-- ( ) unique emoji
-- ( ) otestovat -> integration tests run
+- ( ) public google sheet
+
+## Bugs
+
+- ( ) 🏁 All [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] tests completed
 
 ## Must have
 
-- ( ) OSS -> README guide how to OpenAI
-- ( ) OSS -> README airbank setup
-
 ## Nice to have
 
-- ( ) changelog and versioning
-- ( ) public google sheet
+- ( ) run agregation tests based on ID
 - ( ) function comments
 - ( ) generated doc
 - ( ) move configs to /configs
+
+---
+
 - ( ) unit tests
-- ( ) ci/cd tests
-- ( ) ci/cd tests email notification
+- ( ) ci/cd unit tests
+- ( ) ci/cd integration tests
+
+---
+
+- ( ) changelog and versioning
 - ( ) make repo public
-- ( ) CRON prod execution -> lambda
-- ( ) email notification -> success / failure of upload
+- ( ) polish readme
 - ( ) protected branch
+
+---
+
+- ( ) CRON prod execution -> github action
+- ( ) email notification -> success / failure of upload
+
+---
+
 - ( ) limit počet transakcí co se posílá do LLM např. jen poslední + 5 předtím -> LLM kontext + tokens savings
 - ( ) fetch vícero měsíců (pokud zapomenu) přes argument v main funkci
 - ( ) fetch jednoho měsíce v minulosti
 - ( ) fetch i vícero měsíců do jiného sheetu pro ad-hoc analýzu
-- ( ) zod??? -> for LLM scheme
 
-## Bugs
+---
+
+- ( ) zod??? -> for LLM scheme
 
 ## Refactor
 
@@ -36,6 +50,11 @@
 
 ## Done
 
+- (x) OSS -> README guide how to OpenAI
+- (x) OSS -> README airbank setup
+- (x) unique emoji
+- (x) Some transactions were lost by LLM process for incomes: pre-LLM 12 vs. post-LLM 12
+- (x) otestovat -> integration tests run
 - (x) open ai model as env
 - (x) smazat js files
 - (x) aliases imports
@@ -91,7 +110,7 @@
 - (x) investments better sheet
 - (x) kategorie prijmy sheet
 - (x) gmail fetch airbank mail pouze adekvatni mesice ->
-      (imap-simple)(https://www.npmjs.com/package/imap-simple)
+  (imap-simple)(https://www.npmjs.com/package/imap-simple)
 - (x) filtrovat prevody mezi mými účty lépe -> airbank neparsuju bank account ID -> filtrovat skrz label
 - (x) incomes from airbank suspicious -> fix parsování větších transakcí
 - (x) napojit air bank

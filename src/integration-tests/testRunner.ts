@@ -84,7 +84,7 @@ async function runReset(): Promise<void> {
 
     child.on('close', (code) => {
       if (code === 0) {
-        console.log('\n✅  Environment reset successfully\n');
+        console.log('\n🕹️  Environment reset successfully\n');
         resolve();
       } else {
         reject(new Error(`❌  Environment reset FAILED (Exit Code: ${code})`));
