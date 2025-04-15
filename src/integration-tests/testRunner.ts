@@ -135,11 +135,16 @@ async function runTests(testCases: TestCase[]): Promise<void> {
     }
   }
 
-  console.log(`🏁  All  ${testCases} tests completed`);
+  const testsIds = testCases.map((item) => item.id);
+  const passedTests = testsIds.filter((item) => !failedTests.includes(item));
 
   if (failedTests.length > 0) {
-    console.error(`❌  ${failedTests.length} test(s) failed, ID: ${failedTests.join()}`);
+    console.error(
+      `❌  ${failedTests.length} test(s) failed, ID: ${failedTests.join()}. ${testsIds.length - failedTests.length} test(s) passed, ID: ${passedTests.join()}`,
+    );
     process.exit(1); // Exit with error code if any tests failed
+  } else {
+    console.log(`🏁  ${testsIds.length} test(s) completed succesfully, ID:  ${testsIds.join()}`);
   }
 }
 

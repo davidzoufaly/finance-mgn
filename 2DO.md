@@ -1,16 +1,15 @@
 ## In progress
 
-- ( ) public google sheet
+- ( ) Run agregation tests based on ID
 
 ## Bugs
 
-- ( ) 🏁 All [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] tests completed
+- ( ) Tabulka 2025 -> po přidání nového Q v progress -> check jestli jsou správně data -> pokud ne upravit makro
 
 ## Must have
 
 ## Nice to have
 
-- ( ) run agregation tests based on ID
 - ( ) function comments
 - ( ) generated doc
 - ( ) move configs to /configs
@@ -27,6 +26,7 @@
 - ( ) make repo public
 - ( ) polish readme
 - ( ) protected branch
+- ( ) final verze public tabulky?
 
 ---
 
@@ -42,7 +42,7 @@
 
 ---
 
-- ( ) zod??? -> for LLM scheme
+- zod? -> tip for other with working with LLM
 
 ## Refactor
 
@@ -50,6 +50,9 @@
 
 ## Done
 
+- (x) 🏁 All [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] tests completed
+- (x) Tabulka 2025 overview chyby ve vzorci -> expected
+- (x) public google sheet
 - (x) OSS -> README guide how to OpenAI
 - (x) OSS -> README airbank setup
 - (x) unique emoji
