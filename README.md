@@ -162,6 +162,14 @@ Start commands support flags for configuring the application.
   yarn test:integration
   ```
 
+  Note: Intregration tests also accepts flag `--id` to run specific test case(s) by id.
+
+  Example using id:
+
+  ```shell
+  yarn test:integration --id 12 25 5
+  ```
+
 - To run unit tests (by default in watch mode), run:
 
   ```shell
@@ -181,3 +189,7 @@ Start commands support flags for configuring the application.
 - Quality check is done by [Biome](https://biomejs.dev/) in `pre-commit` hook.
 
 TODO: Bundling, how to run integration tests, unit tests
+
+### imports
+
+imports are using @ for

@@ -18,7 +18,7 @@ export type Transaction = string[];
 type ValueOf<T> = T[keyof T][];
 export type TransactionValue = ValueOf<TransactionObject>;
 
-export type MainFlowConfig = {
+export type AppArguments = {
   withLabeling: boolean;
   environment: string;
   actions: string;

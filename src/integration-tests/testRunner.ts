@@ -1,48 +1,82 @@
 import { spawn } from 'child_process';
+import { appArguments } from '@constants';
 import { integrationTestCases } from '@integrationTests';
+import type { AppArguments } from '@types';
+import type { Arguments } from 'yargs';
+import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+
+type IntegrationTestsArguments = AppArguments & { id: number[] };
 
 type TestCase = {
   id: number;
-  command: string;
-  args: string[];
+  environment: string;
+  withLabeling: boolean;
+  actions: string;
+  cleanup: string;
 };
 
-const RESET_CASE: TestCase = {
-  id: 29,
-  command: 'yarn',
-  args: ['start', '--environment=development', '--withLabeling=false', '--actions=none', '--cleanup=all'],
-};
+type IntegrationTestsArgv = Partial<Arguments<IntegrationTestsArguments>>;
 
-// Add a sleep function to wait between tests
+const RESET_CASE = integrationTestCases.find((item) => item.id === 25) as TestCase;
+
+/**
+ * Sleeps for a specified amount of time.
+ *
+ * @param ms - The number of milliseconds to sleep.
+ * @returns A promise that resolves after the specified time.
+ */
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Filters test cases based on provided conditions.
  *
- * @param testCases - Array of test case objects
- * @param conditions - Array of conditions to filter out
- * @returns Filtered array of test cases
+ * @param testCases - Array of test case objects to filter.
+ * @param conditions - Conditions to filter the test cases.
+ * @returns Filtered array of test cases that match the conditions.
  */
-export const getTestsSubset = (testCases: TestCase[], conditions: string[] = []): TestCase[] => {
-  if (!conditions.length) return testCases;
+export const getTestsSubset = (testCases: TestCase[], conditions?: IntegrationTestsArgv): TestCase[] => {
+  if (!conditions) return testCases;
 
-  let finalCases = testCases;
-
-  for (let i = 0; i < conditions.length; i++) {
-    finalCases = finalCases.filter((item) => {
-      return item.args.includes(conditions[i]);
-    });
+  // Extracted as a separate variable to avoid TypeScript errors when directly using conditions.id
+  const ids = conditions.id;
+  if (ids && ids.length > 0) {
+    return testCases.filter((item) => ids.some((id) => id === item.id)) as TestCase[];
   }
-  return finalCases;
+
+  return testCases.filter((testCase) => {
+    const matchesEnvironment = conditions.environment === testCase.environment;
+    const matchesWithLabeling =
+      conditions.withLabeling === undefined || conditions.withLabeling === testCase.withLabeling;
+    const matchesActions = conditions.actions === undefined || conditions.actions === testCase.actions;
+    const matchesCleanup = conditions.cleanup === undefined || conditions.cleanup === testCase.cleanup;
+
+    return matchesEnvironment && matchesWithLabeling && matchesActions && matchesCleanup;
+  });
 };
 
-async function runTest({ id, command, args }: TestCase): Promise<void> {
+/**
+ * Runs a single test case.
+ *
+ * @param testCase - The test case to run.
+ * @returns A promise that resolves to `true` if the test passes, or rejects with an error if it fails.
+ */
+const runTest = async (testCase: TestCase): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    console.log('\n_________________________________\n');
-    console.log(`\n🚀  Running Test Case ID: ${id}...\n`);
+    console.log(`\n🚀  Running Test Case ID: ${testCase.id}...\n`);
 
-    const child = spawn(command, args, { stdio: ['inherit', 'pipe', 'pipe'] });
+    const argv = [
+      '--withLabeling',
+      testCase.withLabeling.toString(),
+      '--environment',
+      testCase.environment,
+      '--actions',
+      testCase.actions,
+      '--cleanup',
+      testCase.cleanup,
+    ];
+
+    const child = spawn('yarn', ['start', ...argv], { stdio: ['inherit', 'pipe', 'pipe'] });
 
     child.stdout.pipe(process.stdout);
     child.stderr.pipe(process.stderr);
@@ -53,50 +87,45 @@ async function runTest({ id, command, args }: TestCase): Promise<void> {
       errorOutput += data.toString();
     });
 
-    child.on('close', async (code) => {
+    child.on('close', (code) => {
       if (code === 0) {
-        console.log(`\n✅  Test Case ${id} PASSED\n`);
-        try {
-          await runReset(); // Reset environment if test passes
-          resolve();
-        } catch (resetError) {
-          reject(new Error(`Test passed but environment reset failed: ${resetError.message}`));
-        }
+        console.log(`\n✅  Test Case ${testCase.id} passed\n`);
+        resolve(true);
       } else {
-        const error = new Error(`Test Case ${id} FAILED (Exit Code: ${code})`);
+        const error = new Error(`Test Case ${testCase.id} failed (Exit Code: ${code})`);
         errorOutput += error.message;
+        console.error('❌  Errors:\n', errorOutput);
         reject(error);
       }
     });
   });
-}
+};
 
-async function runReset(): Promise<void> {
-  return new Promise((resolve, reject) => {
-    console.log(`🔄  Resetting environment (Test Case ${RESET_CASE.id})...\n`);
+/**
+ * Resets the environment by running a specific reset test case.
+ *
+ * @param resetCase - The test case to use for resetting the environment.
+ * @returns A promise that resolves when the reset is successful, or logs an error if it fails.
+ */
+const runReset = async (resetCase: TestCase): Promise<void> => {
+  console.log(`🔄  Resetting environment (Test Case ${resetCase.id})...\n`);
+  try {
+    await runTest(resetCase);
+    console.log('🕹️  Environment reset successfully\n');
+  } catch (error) {
+    console.error(`❌  Environment reset failed for Test Case ${resetCase.id}: ${error.message}`);
+  }
+};
 
-    const child = spawn(RESET_CASE.command, RESET_CASE.args, {
-      stdio: ['inherit', 'pipe', 'pipe'],
-    });
-
-    child.stdout.pipe(process.stdout);
-    child.stderr.pipe(process.stderr);
-
-    child.on('close', (code) => {
-      if (code === 0) {
-        console.log('\n🕹️  Environment reset successfully\n');
-        resolve();
-      } else {
-        reject(new Error(`❌  Environment reset FAILED (Exit Code: ${code})`));
-      }
-    });
-  });
-}
-
-async function runTests(testCases: TestCase[]): Promise<void> {
-  const argArray = hideBin(process.argv);
-
-  const finalTestCases = getTestsSubset(testCases, argArray);
+/**
+ * Runs a series of test cases based on the provided arguments.
+ *
+ * @param testCases - Array of test cases to run.
+ * @param argv - Parsed command-line arguments specifying conditions for running tests.
+ * @returns A promise that resolves when all tests have been executed.
+ */
+const runTests = async (testCases: TestCase[], argv: IntegrationTestsArgv): Promise<void> => {
+  const finalTestCases = getTestsSubset(testCases, argv);
   console.log(`\n🎃  Condition matching ${finalTestCases.length} tests`);
 
   const failedTests: number[] = [];
@@ -125,17 +154,17 @@ async function runTests(testCases: TestCase[]): Promise<void> {
     lastTestStartTime = Date.now();
 
     try {
-      await runTest(testCase);
+      const success = await runTest(testCase);
+      if (success) {
+        await runReset(RESET_CASE);
+      }
     } catch (error) {
       console.error(`❌  ${error.message}`);
-      if (error.errorOutput) {
-        console.error('❌  Errors:\n', error.errorOutput);
-      }
       failedTests.push(testCase.id);
     }
   }
 
-  const testsIds = testCases.map((item) => item.id);
+  const testsIds = finalTestCases.map((item) => item.id);
   const passedTests = testsIds.filter((item) => !failedTests.includes(item));
 
   if (failedTests.length > 0) {
@@ -144,8 +173,24 @@ async function runTests(testCases: TestCase[]): Promise<void> {
     );
     process.exit(1); // Exit with error code if any tests failed
   } else {
-    console.log(`🏁  ${testsIds.length} test(s) completed succesfully, ID:  ${testsIds.join()}`);
+    console.log(`🏁  ${testsIds.length} test(s) completed successfully, ID: ${testsIds.join()}`);
   }
-}
+};
 
-runTests(integrationTestCases);
+/**
+ * Parses command-line arguments and runs the integration tests.
+ */
+const testCaseArgv: IntegrationTestsArgv = yargs(hideBin(process.argv))
+  .options({
+    ...appArguments,
+    id: {
+      alias: 'i',
+      type: 'array' as const,
+      description: 'Provide test case IDs to run',
+      default: [],
+      coerce: (ids) => ids.map((id: string | number) => Number(id)),
+    },
+  })
+  .parseSync();
+
+runTests(integrationTestCases, testCaseArgv);

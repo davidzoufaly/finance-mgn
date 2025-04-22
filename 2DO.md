@@ -1,12 +1,14 @@
 ## In progress
 
-- ( ) Run agregation tests based on ID
+- ( ) cleanups in mainFlow.mjs
 
 ## Bugs
 
-- ( ) Tabulka 2025 -> po přidání nového Q v progress -> check jestli jsou správně data -> pokud ne upravit makro
+- ( ) Tabulka 2025 -> po přidání nového Q v Progress -> check jestli jsou správně data -> pokud ne upravit makro
 
 ## Must have
+
+- zod? -> tip for other with working with LLM
 
 ## Nice to have
 
@@ -26,7 +28,7 @@
 - ( ) make repo public
 - ( ) polish readme
 - ( ) protected branch
-- ( ) final verze public tabulky?
+- ( ) hosted docs -> github pages
 
 ---
 
@@ -42,14 +44,12 @@
 
 ---
 
-- zod? -> tip for other with working with LLM
-
 ## Refactor
-
-- ( ) cleanups in mainFlow.mjs
 
 ## Done
 
+- (x) integration tests support --actions none instead of only --actions=none
+- (x) Run agregation tests based on ID
 - (x) 🏁 All [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] tests completed
 - (x) Tabulka 2025 overview chyby ve vzorci -> expected
 - (x) public google sheet

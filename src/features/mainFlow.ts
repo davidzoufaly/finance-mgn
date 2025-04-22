@@ -3,7 +3,7 @@ import {
   keywordForAttachmentCheck,
   whitelistedAccounts,
   whitelistedInvestmentKeywords,
-} from './constants';
+} from '@constants';
 import {
   cleanupGoogleSheets,
   dataFederation,
@@ -14,10 +14,16 @@ import {
   markLastSeenEmailAsUnseen,
   parseAirTransactions,
   writeSheetBulk,
-} from './features';
-import type { MainFlowConfig, Transaction, TransactionObjOptStr, TransactionObject } from './types';
+} from '@features';
+import type { AppArguments, Transaction, TransactionObjOptStr, TransactionObject } from '@types';
+import type { Arguments } from 'yargs';
 
-export const mainFlow = async ({ withLabeling, environment, actions, cleanup }: MainFlowConfig) => {
+export const mainFlow = async ({
+  withLabeling,
+  environment,
+  actions,
+  cleanup,
+}: Partial<Arguments<AppArguments>>) => {
   // need to set environment from args
   process.env.NODE_ENV = environment || 'development';
 
@@ -27,7 +33,7 @@ export const mainFlow = async ({ withLabeling, environment, actions, cleanup }: 
     throw new Error('❌  Google Sheets ID is not configured. Set it in .env file');
   }
 
-  if (actions !== 'none') {
+  if (actions && actions !== 'none') {
     try {
       let airTransactions: TransactionObject[] | undefined;
       let fioTransactions: TransactionObjOptStr[] | undefined;
