@@ -12,6 +12,11 @@ import imapSimple from 'imap-simple';
 
 const { connect, getParts } = imapSimple;
 
+/**
+ * Validates that all mandatory email credentials are set.
+ *
+ * @throws An error if any of the required email credentials are missing.
+ */
 const validateEmailCredentials = () => {
   if (!emailUsername || !emailHost || !emailPassword || !emailTarget) {
     throw new Error(
@@ -20,6 +25,12 @@ const validateEmailCredentials = () => {
   }
 };
 
+/**
+ * Connects to the IMAP server using the provided email credentials.
+ *
+ * @returns A promise that resolves to an IMAP connection object.
+ * @throws An error if the connection fails.
+ */
 const connectToImapServer = async (): Promise<ImapSimple> => {
   const config: ImapSimpleOptions = {
     imap: {
@@ -38,24 +49,50 @@ const connectToImapServer = async (): Promise<ImapSimple> => {
   return connection;
 };
 
+/**
+ * Opens the INBOX folder on the IMAP server.
+ *
+ * @param connection - The IMAP connection object.
+ * @returns A promise that resolves when the INBOX is opened.
+ * @throws An error if the INBOX cannot be opened.
+ */
 const openInbox = async (connection: ImapSimple) => {
   console.log('📩  Opening INBOX...');
   await connection.openBox('INBOX');
   console.log('📩  INBOX opened');
 };
 
+/**
+ * Fetches emails from the IMAP server based on the provided search criteria.
+ *
+ * @param connection - The IMAP connection object.
+ * @param searchCriteria - The search criteria for fetching emails.
+ * @returns A promise that resolves to an array of fetched emails.
+ * @throws An error if fetching emails fails.
+ */
 const fetchEmails = async (connection: ImapSimple, searchCriteria: (string | (string | undefined)[])[]) => {
   const fetchOptions = { bodies: [], struct: true };
   console.log('🔍  Fetching emails...');
   return await connection.search(searchCriteria, fetchOptions);
 };
 
+/**
+ * Disconnects from the IMAP server.
+ *
+ * @param connection - The IMAP connection object.
+ */
 const disconnectFromImapServer = (connection: ImapSimple) => {
   console.log('🔌  Disconnecting from IMAP server...');
   connection.end();
   console.log('🚪  IMAP connection closed.');
 };
 
+/**
+ * Fetches email attachments from the IMAP server that match a specific keyword.
+ *
+ * @param keywordForAttachmentCheck - The keyword to check in attachment filenames.
+ * @throws An error if fetching attachments fails.
+ */
 export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) => {
   validateEmailCredentials();
 
@@ -95,7 +132,7 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) =>
         console.log(`💾  Saving attachment: ${filename} as ${attachmentFileName}`);
         fs.writeFileSync(attachmentFilePath, attachment.data);
 
-        // mark email as seen
+        // Mark email as seen
         console.log('👀  Marking email as seen');
         await connection.addFlags(message.attributes.uid, ['\\Seen']);
       } else {
@@ -113,7 +150,11 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) =>
   }
 };
 
-// cleanup -> reset email setting
+/**
+ * Marks the last seen email as unseen.
+ *
+ * @throws An error if marking the email as unseen fails.
+ */
 export const markLastSeenEmailAsUnseen = async () => {
   validateEmailCredentials();
 

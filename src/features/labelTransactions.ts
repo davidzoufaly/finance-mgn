@@ -1,8 +1,8 @@
-import { z } from 'zod';
 import fs from 'node:fs';
 import { getOpenAIModel, openaiToken } from '@constants';
 import type { Transaction } from '@types';
 import OpenAI from 'openai';
+import { z } from 'zod';
 
 const TransactionSchema = z.object({
   transactions: z.array(z.array(z.string())),

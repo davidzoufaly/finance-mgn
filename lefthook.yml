@@ -12,9 +12,11 @@ pre-commit:
       run: |
         biome check --apply {staged_files}
         git add {staged_files}
-  jobs:
-    - run: yarn typecheck
-      glob: "*.{ts,tsx}"
 
-    - run: yarn lint:fix
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: yarn typecheck
+
+    lint:
       glob: "*.{js,mjs,cjs,ts,tsx,json,md,yaml}"
+      run: yarn lint:fix
