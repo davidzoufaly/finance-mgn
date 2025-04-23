@@ -21,7 +21,7 @@
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@constants": ["./src/constants"],
       "@types": ["./src/types"],

@@ -5,3 +5,4 @@ src/static/prompts/expenses.txt
 src/static/prompts/incomes.txt
 service-account.json
 dist
+docs

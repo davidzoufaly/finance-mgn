@@ -5,12 +5,12 @@ import { format, subMonths } from 'date-fns';
 import { google } from 'googleapis';
 
 // Authenticate using the service account
-const auth = new google.auth.GoogleAuth({
+export const auth = new google.auth.GoogleAuth({
   keyFile: './service-account.json',
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-const sheets = google.sheets({
+export const sheets = google.sheets({
   version: 'v4',
   auth,
 });
@@ -23,7 +23,7 @@ const sheets = google.sheets({
  * @param serviceAccountPath - The path to the service account JSON file.
  * @throws Error If the service account file is missing or invalid, or if the sheet ID is not set.
  */
-const configurationCheck = (sheetId: string, serviceAccountPath: string) => {
+export const configurationCheck = (sheetId: string, serviceAccountPath: string) => {
   if (!fs.existsSync(serviceAccountPath)) {
     throw new Error('❌  service-account.json file is missing. Please provide the file in the root folder.');
   }
@@ -62,7 +62,7 @@ const configurationCheck = (sheetId: string, serviceAccountPath: string) => {
  * @param sheetId - The Google Spreadsheet ID.
  * @throws Error If clearing the sheet data fails.
  */
-const clearSheetData = async (sheetName: string, sheetId: string) => {
+export const clearSheetData = async (sheetName: string, sheetId: string) => {
   try {
     console.log(`🧼  Deleting data from ${sheetName} in Google Spreadsheet`);
     await sheets.spreadsheets.values.clear({
@@ -186,7 +186,7 @@ export const writeSheetBulk = async (
  * @param transactions - Array of transactions to filter.
  * @returns An array of transactions excluding those from the last month.
  */
-const filterOutLastMonth = (sheetName: string, transactions: Transaction[]) => {
+export const filterOutLastMonth = (sheetName: string, transactions: Transaction[]) => {
   console.log(`🧸  Filtering out last month transactions for ${sheetName}`);
 
   const lastMonth = format(subMonths(new Date(), 1), 'M');

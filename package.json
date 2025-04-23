@@ -8,6 +8,8 @@
   "scripts": {
     "build": "yarn lint:fix && yarn typecheck && tsup",
     "build-dirty": "tsup",
+    "docs:generate": "npx typedoc --options typedoc.json",
+    "docs:start": "http-server ./docs",
     "format": "biome format --write",
     "lint": "biome lint",
     "lint:fix": "biome check --write",
@@ -43,7 +45,9 @@
     "@types/imap-simple": "^4.2.9",
     "@types/yargs": "^17.0.33",
     "@types/yargs-unparser": "^2.0.3",
+    "http-server": "^14.1.1",
     "lefthook": "^1.11.6",
-    "tsup": "^8.4.0"
+    "tsup": "^8.4.0",
+    "typedoc": "^0.28.3"
   }
 }

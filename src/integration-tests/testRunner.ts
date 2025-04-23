@@ -9,12 +9,12 @@ import { hideBin } from 'yargs/helpers';
 /**
  * Represents the parsed command-line arguments for integration tests.
  */
-type IntegrationTestsArgv = Partial<Arguments<IntegrationTestsArguments>>;
+export type IntegrationTestsArgv = Partial<Arguments<IntegrationTestsArguments>>;
 
 /**
  * A predefined test case used for resetting the environment.
  */
-const RESET_CASE = integrationTestCases.find((item) => item.id === 25) as TestCase;
+export const RESET_CASE = integrationTestCases.find((item) => item.id === 25) as TestCase;
 
 /**
  * Sleeps for a specified amount of time.
@@ -22,7 +22,7 @@ const RESET_CASE = integrationTestCases.find((item) => item.id === 25) as TestCa
  * @param ms - The number of milliseconds to sleep.
  * @returns A promise that resolves after the specified time.
  */
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Filters test cases based on provided conditions.
@@ -56,7 +56,7 @@ export const getTestsSubset = (testCases: TestCase[], conditions?: IntegrationTe
  * @param testCase - The test case to run.
  * @returns A promise that resolves to `true` if the test passes, or rejects with an error if it fails.
  */
-const runTest = async (testCase: TestCase): Promise<boolean> => {
+export const runTest = async (testCase: TestCase): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     console.log(`\n🚀  Running Test Case ID: ${testCase.id}...\n`);
 
@@ -102,7 +102,7 @@ const runTest = async (testCase: TestCase): Promise<boolean> => {
  * @param resetCase - The test case to use for resetting the environment.
  * @returns A promise that resolves when the reset is successful, or logs an error if it fails.
  */
-const runReset = async (resetCase: TestCase): Promise<void> => {
+export const runReset = async (resetCase: TestCase): Promise<void> => {
   console.log(`🔄  Resetting environment (Test Case ${resetCase.id})...\n`);
   try {
     await runTest(resetCase);
@@ -119,7 +119,7 @@ const runReset = async (resetCase: TestCase): Promise<void> => {
  * @param argv - Parsed command-line arguments specifying conditions for running tests.
  * @returns A promise that resolves when all tests have been executed.
  */
-const runTests = async (testCases: TestCase[], argv: IntegrationTestsArgv): Promise<void> => {
+export const runTests = async (testCases: TestCase[], argv: IntegrationTestsArgv): Promise<void> => {
   const finalTestCases = getTestsSubset(testCases, argv);
   console.log(`\n🎃  Condition matching ${finalTestCases.length} tests`);
 
@@ -175,7 +175,7 @@ const runTests = async (testCases: TestCase[], argv: IntegrationTestsArgv): Prom
 /**
  * Parses command-line arguments and runs the integration tests.
  */
-const testCaseArgv = yargs(hideBin(process.argv))
+export const testCaseArgv = yargs(hideBin(process.argv))
   .options({
     ...appArguments,
     id: {

@@ -113,7 +113,7 @@ export const whitelistedInvestmentKeywords = JSON.parse(process.env.WHITELISTED_
  *
  * @returns The last month as a string (e.g., "03-2025").
  */
-const getLastMonth = () => {
+export const getLastMonth = () => {
   const lastMonth = subMonths(new Date(), 1);
   return format(lastMonth, 'MM-yyyy');
 };

@@ -5,12 +5,12 @@ import OpenAI from 'openai';
 import { z } from 'zod';
 
 // Define the Zod schema for validating LLM output
-const TransactionSchema = z.object({
+export const TransactionSchema = z.object({
   transactions: z.array(z.array(z.string())), // Array of transactions, each represented as an array of strings
   tokens: z.number(), // Number of tokens consumed by the LLM
 });
 
-type TransactionData = z.infer<typeof TransactionSchema>;
+export type TransactionData = z.infer<typeof TransactionSchema>;
 
 /**
  * Sums the values at a specific index in an array of transactions.
@@ -19,7 +19,7 @@ type TransactionData = z.infer<typeof TransactionSchema>;
  * @param index - The index of the value to sum.
  * @returns The sum of the values at the specified index.
  */
-const sumValuesAtIndex = (array: Transaction[], index: number): number =>
+export const sumValuesAtIndex = (array: Transaction[], index: number): number =>
   array.reduce((acc, item) => acc + Number.parseFloat(item[index]), 0.0);
 
 /**
@@ -30,7 +30,7 @@ const sumValuesAtIndex = (array: Transaction[], index: number): number =>
  * @returns The validated and parsed `TransactionData` object.
  * @throws An error if the output is invalid or misformatted.
  */
-const getValidatedLLMResult = (llmOutput: string, promptFilename: string): TransactionData => {
+export const getValidatedLLMResult = (llmOutput: string, promptFilename: string): TransactionData => {
   try {
     // Parse and validate the JSON output
     const result = TransactionSchema.safeParse(JSON.parse(llmOutput));
@@ -66,7 +66,7 @@ const getValidatedLLMResult = (llmOutput: string, promptFilename: string): Trans
  * @param promptFilename - The name of the prompt file for error context.
  * @throws An error if integrity checks fail.
  */
-const integrityChecks = (
+export const integrityChecks = (
   existingTransactions: Transaction[],
   newTransactions: Transaction[],
   labeledTransactions: Transaction[],

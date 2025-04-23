@@ -4,7 +4,7 @@ import { compareDesc, format, parse } from 'date-fns';
 /**
  * Configuration object for data federation.
  */
-type Config = {
+export type Config = {
   /** Specifies the action to be performed (e.g., 'mail', 'fio'). */
   actions: string;
   /** List of whitelisted bank accounts to exclude from processing. */
@@ -16,7 +16,7 @@ type Config = {
 /**
  * Federated data categorized into expenses, incomes, and investments.
  */
-type DataFederation = {
+export type DataFederation = {
   /** Array of expense transactions. */
   expenses: Transaction[];
   /** Array of income transactions. */
@@ -31,7 +31,7 @@ type DataFederation = {
  * @param item - The value to normalize (string or number).
  * @returns The normalized value as a string.
  */
-const normalizeValue = (item: string | number): string => {
+export const normalizeValue = (item: string | number): string => {
   if (typeof item === 'number') {
     return item.toString();
   }
@@ -44,7 +44,7 @@ const normalizeValue = (item: string | number): string => {
  * @param data - Array of transactions with optional string properties.
  * @returns A new array of transactions with normalized date formats.
  */
-const normalizeDates = (data: TransactionObjOptStr[]) =>
+export const normalizeDates = (data: TransactionObjOptStr[]) =>
   data.map((item) => {
     // Regex to match timezone offsets (e.g., +0200)
     const regex = new RegExp(/([+-]\d{2})(\d{2})$/);

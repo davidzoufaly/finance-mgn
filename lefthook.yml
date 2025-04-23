@@ -8,6 +8,10 @@ commit-msg:
 pre-commit:
   parallel: false
   commands:
+    lint:
+      glob: "*.{js,mjs,cjs,ts,tsx,json,md,yaml}"
+      run: yarn lint:fix
+
     biome:
       run: |
         biome check --apply {staged_files}
@@ -16,7 +20,3 @@ pre-commit:
     typecheck:
       glob: "*.{ts,tsx}"
       run: yarn typecheck
-
-    lint:
-      glob: "*.{js,mjs,cjs,ts,tsx,json,md,yaml}"
-      run: yarn lint:fix

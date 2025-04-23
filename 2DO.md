@@ -1,37 +1,32 @@
 ## In progress
 
-- ( ) zod? -> tip for other with working with LLM
-- ( ) function comments
-- ( ) generated doc
+- ( ) Tabulka 2025 -> po přidání nového Q v Progress -> check jestli jsou správně data -> pokud ne upravit makro
+- ( ) move configs to /configs
 
 ## Bugs
-
-- ( ) Tabulka 2025 -> po přidání nového Q v Progress -> check jestli jsou správně data -> pokud ne upravit makro
-- ( ) Pri gitu biome import sort někdy prehaze import a neni to commitnuté
 
 ## Must have
 
 ## Nice to have
 
-- ( ) move configs to /configs
-
 ---
 
 - ( ) unit tests
+- ( ) exclude unit tests from docs
+- ( ) changelog and versioning
+- ( ) polish readme (add new scripts,..)
+- ( ) contribution guide as separate md
+
+---
+
+- ( ) make repo public
+- ( ) protected branch
 - ( ) ci/cd unit tests
 - ( ) ci/cd integration tests
 
 ---
 
-- ( ) changelog and versioning
-- ( ) make repo public
-- ( ) polish readme (add new scripts,..)
-- ( ) contribution guide as separate md
-- ( ) protected branch
 - ( ) hosted docs -> github pages
-
----
-
 - ( ) CRON prod execution -> github action
 - ( ) email notification -> success / failure of upload
 
@@ -48,6 +43,10 @@
 
 ## Done
 
+- (x) generated doc
+- (x) Pri gitu biome import sort někdy prehaze import a neni to commitnuté
+- (x) zod -> tip for other with working with LLM
+- (x) function comments
 - (x) cleanups in mainFlow.mjs
 - (x) integration tests support --actions none instead of only --actions=none
 - (x) Run agregation tests based on ID

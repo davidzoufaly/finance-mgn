@@ -5,7 +5,7 @@ import { endOfMonth, format, startOfMonth, subMonths } from 'date-fns';
 /**
  * Represents a column value that is a string.
  */
-type ColumnValueString = {
+export type ColumnValueString = {
   value: string;
   name: string;
   id: number;
@@ -14,7 +14,7 @@ type ColumnValueString = {
 /**
  * Represents a column value that is a number.
  */
-type ColumnValueNumber = {
+export type ColumnValueNumber = {
   value: number;
   name: string;
   id: number;
@@ -23,7 +23,7 @@ type ColumnValueNumber = {
 /**
  * Represents a single transaction from the FIO API.
  */
-type FioTransaction = {
+export type FioTransaction = {
   column0: ColumnValueString; // Date of the transaction
   column1: ColumnValueNumber; // Amount of the transaction
   column2: ColumnValueString; // Bank account number
@@ -49,7 +49,7 @@ type FioTransaction = {
 /**
  * Represents the account statement returned by the FIO API.
  */
-type AccountStatement = {
+export type AccountStatement = {
   accountStatement: {
     info: {
       accountId: string;
@@ -78,7 +78,7 @@ type AccountStatement = {
  *
  * @returns The date range for the last month.
  */
-const getLastMonthRange = (): string => {
+export const getLastMonthRange = (): string => {
   const lastMonth = subMonths(new Date(), 1);
 
   const lastMonthStart = startOfMonth(lastMonth);

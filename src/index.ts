@@ -1,5 +1,5 @@
 import { argv } from '@constants';
-import { mainFlow } from '@features';
+import { mainFlow } from './features/main';
 // without this, it is not possible to track errors in files after build
 import 'source-map-support/register.js';
 
@@ -14,4 +14,4 @@ import 'source-map-support/register.js';
  * @see mainFlow - The main application logic.
  * @see argv - Parsed command-line arguments.
  */
-mainFlow(argv);
+export default mainFlow(argv);

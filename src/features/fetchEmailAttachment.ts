@@ -17,7 +17,7 @@ const { connect, getParts } = imapSimple;
  *
  * @throws An error if any of the required email credentials are missing.
  */
-const validateEmailCredentials = () => {
+export const validateEmailCredentials = () => {
   if (!emailUsername || !emailHost || !emailPassword || !emailTarget) {
     throw new Error(
       '❌  Mandatory email credentials are not set (username, password, host, target email). Set them in .env file',
@@ -31,7 +31,7 @@ const validateEmailCredentials = () => {
  * @returns A promise that resolves to an IMAP connection object.
  * @throws An error if the connection fails.
  */
-const connectToImapServer = async (): Promise<ImapSimple> => {
+export const connectToImapServer = async (): Promise<ImapSimple> => {
   const config: ImapSimpleOptions = {
     imap: {
       user: emailUsername || '',
@@ -56,7 +56,7 @@ const connectToImapServer = async (): Promise<ImapSimple> => {
  * @returns A promise that resolves when the INBOX is opened.
  * @throws An error if the INBOX cannot be opened.
  */
-const openInbox = async (connection: ImapSimple) => {
+export const openInbox = async (connection: ImapSimple) => {
   console.log('📩  Opening INBOX...');
   await connection.openBox('INBOX');
   console.log('📩  INBOX opened');
@@ -70,7 +70,10 @@ const openInbox = async (connection: ImapSimple) => {
  * @returns A promise that resolves to an array of fetched emails.
  * @throws An error if fetching emails fails.
  */
-const fetchEmails = async (connection: ImapSimple, searchCriteria: (string | (string | undefined)[])[]) => {
+export const fetchEmails = async (
+  connection: ImapSimple,
+  searchCriteria: (string | (string | undefined)[])[],
+) => {
   const fetchOptions = { bodies: [], struct: true };
   console.log('🔍  Fetching emails...');
   return await connection.search(searchCriteria, fetchOptions);
@@ -81,7 +84,7 @@ const fetchEmails = async (connection: ImapSimple, searchCriteria: (string | (st
  *
  * @param connection - The IMAP connection object.
  */
-const disconnectFromImapServer = (connection: ImapSimple) => {
+export const disconnectFromImapServer = (connection: ImapSimple) => {
   console.log('🔌  Disconnecting from IMAP server...');
   connection.end();
   console.log('🚪  IMAP connection closed.');

@@ -7,7 +7,7 @@ export type TransactionObject = {
   label: string;
 };
 
-type ChangeSomeKeys<T, K extends keyof T> = {
+export type ChangeSomeKeys<T, K extends keyof T> = {
   [P in keyof T]: P extends K ? number : T[P];
 };
 
@@ -15,7 +15,7 @@ export type TransactionObjOptStr = ChangeSomeKeys<TransactionObject, 'value'>;
 
 export type Transaction = string[];
 
-type ValueOf<T> = T[keyof T][];
+export type ValueOf<T> = T[keyof T][];
 export type TransactionValue = ValueOf<TransactionObject>;
 
 export type AppArguments = {

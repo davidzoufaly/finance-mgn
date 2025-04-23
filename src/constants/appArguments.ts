@@ -10,10 +10,12 @@ export const appArguments = {
   /**
    * Specifies the environment in which the application will run.
    *
-   * @alias e
+   * @remarks
+   * Command line alias: -e
+   * Command line choices: "development", "production"
+   *
    * @type string
    * @default "development"
-   * @choices "development", "production"
    */
   environment: {
     alias: 'e',
@@ -26,7 +28,9 @@ export const appArguments = {
   /**
    * Enables or disables transaction labeling using the LLM.
    *
-   * @alias l
+   * @remarks
+   * Command line alias: -l
+   *
    * @type boolean
    * @default undefined
    */
@@ -40,10 +44,12 @@ export const appArguments = {
   /**
    * Specifies the action(s) the ETL process should trigger.
    *
-   * @alias a
+   * @remarks
+   * Command line alias:  -a
+   * Command line choices: "all", "fio", "mail"
+   *
    * @type string
    * @default undefined
-   * @choices "all", "fio", "mail"
    */
   actions: {
     alias: 'a',
@@ -56,10 +62,12 @@ export const appArguments = {
   /**
    * Specifies the cleanup mode for the application.
    *
-   * @alias c
+   * @remarks
+   * Command line alias: -c
+   * Command line choices: "all", "mail", "sheets"
+   *
    * @type string
    * @default undefined
-   * @choices "all", "mail", "sheets"
    */
   cleanup: {
     alias: 'c',

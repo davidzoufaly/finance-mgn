@@ -10,7 +10,7 @@ import type { PDFDocumentProxy, TextItem, TextMarkedContent } from 'pdfjs-dist/t
  * @param item - The item to check.
  * @returns True if the item is a TextItem.
  */
-const isTextItem = (item: unknown): item is TextItem => {
+export const isTextItem = (item: unknown): item is TextItem => {
   return typeof item === 'object' && item !== null && 'str' in item;
 };
 
@@ -20,7 +20,7 @@ const isTextItem = (item: unknown): item is TextItem => {
  * @param items - The items to check.
  * @returns True if all items are TextItem[].
  */
-const isTextItemArray = (items: unknown[]): items is TextItem[] => {
+export const isTextItemArray = (items: unknown[]): items is TextItem[] => {
   return items.every(isTextItem);
 };
 
@@ -31,7 +31,7 @@ const isTextItemArray = (items: unknown[]): items is TextItem[] => {
  * @returns A filtered array of document items containing transactions.
  * @throws An error if the document items are not of the expected type.
  */
-const findTransactions = (documentItems: (TextItem | TextMarkedContent)[]): TextItem[] => {
+export const findTransactions = (documentItems: (TextItem | TextMarkedContent)[]): TextItem[] => {
   if (!isTextItemArray(documentItems)) {
     throw new Error('❌ Invalid content.items: Expected TextItem[]');
   }
@@ -53,7 +53,7 @@ const findTransactions = (documentItems: (TextItem | TextMarkedContent)[]): Text
  * @param transactions - The array of raw transaction rows.
  * @returns An array of structured transaction objects.
  */
-const processTransactions = (transactions: string[][]): TransactionObject[] => {
+export const processTransactions = (transactions: string[][]): TransactionObject[] => {
   return transactions.map((row) => {
     // Identify the value (last item)
     const value = row[row.length - 1].replace(/\s/g, '');
@@ -82,7 +82,7 @@ const processTransactions = (transactions: string[][]): TransactionObject[] => {
  * @param documentItems - The array of document items to process.
  * @returns An array of rows, each containing transaction data.
  */
-const splitByZeroZero = (documentItems: TextItem[]): string[][] => {
+export const splitByZeroZero = (documentItems: TextItem[]): string[][] => {
   const rows: TextItem[][] = [];
   let currentRow: TextItem[] = [];
 
@@ -114,7 +114,7 @@ const splitByZeroZero = (documentItems: TextItem[]): string[][] => {
  * @param doc - The PDF document proxy object.
  * @returns A promise that resolves to an array of processed transactions.
  */
-const processPage = async (pageNum: number, doc: PDFDocumentProxy): Promise<TransactionObject[]> => {
+export const processPage = async (pageNum: number, doc: PDFDocumentProxy): Promise<TransactionObject[]> => {
   const page = await doc.getPage(pageNum);
   const content = await page.getTextContent();
   const rawTransactions = findTransactions(content.items);

@@ -193,3 +193,7 @@ TODO: Bundling, how to run integration tests, unit tests
 ### imports
 
 imports are using @ for
+
+### typedoc
+
+all objects (methods, contants, type, classes) has to be exported even when they are used within single module, otherwise typedoc won't include it
