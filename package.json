@@ -6,9 +6,9 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "yarn lint:fix && yarn typecheck && tsup",
-    "build-dirty": "tsup",
-    "docs:generate": "npx typedoc --options typedoc.json",
+    "build": "yarn lint:fix && yarn typecheck && tsup --config ./config/tsup.config.ts",
+    "build-dirty": "tsup --config ./config/tsup.config.ts",
+    "docs:generate": "npx typedoc --options config/typedoc.json",
     "docs:start": "http-server ./docs",
     "format": "biome format --write",
     "lint": "biome lint",

@@ -1,14 +1,14 @@
 {
   "entryPointStrategy": "expand",
-  "entryPoints": ["src"],
-  "out": "docs",
-  "tsconfig": "tsconfig.json",
+  "entryPoints": ["../src"],
+  "out": "../docs",
+  "tsconfig": "../tsconfig.json",
   "includeVersion": true,
   "excludeNotDocumented": false,
   "excludePrivate": false,
   "excludeProtected": false,
   "excludeInternal": false,
   "excludeExternals": false,
-  "readme": "README.md",
+  "readme": "../README.md",
   "theme": "default"
 }

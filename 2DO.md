@@ -1,9 +1,10 @@
 ## In progress
 
-- ( ) Tabulka 2025 -> po přidání nového Q v Progress -> check jestli jsou správně data -> pokud ne upravit makro
 - ( ) move configs to /configs
 
 ## Bugs
+
+- ( ) incomes air/prod v jednom sloupci
 
 ## Must have
 
@@ -43,6 +44,7 @@
 
 ## Done
 
+- (x) Tabulka 2025 -> po přidání nového Q v Progress -> check jestli jsou správně data -> pokud ne upravit makro
 - (x) generated doc
 - (x) Pri gitu biome import sort někdy prehaze import a neni to commitnuté
 - (x) zod -> tip for other with working with LLM
