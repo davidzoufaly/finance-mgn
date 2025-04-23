@@ -33,7 +33,7 @@ export const mainFlow = async ({
     throw new Error('❌  Google Sheets ID is not configured. Set it in .env file');
   }
 
-  if (actions && actions !== 'none') {
+  if (actions) {
     try {
       let airTransactions: TransactionObject[] | undefined;
       let fioTransactions: TransactionObjOptStr[] | undefined;
@@ -105,8 +105,9 @@ export const mainFlow = async ({
           sheetId,
         },
       ]);
-
       console.log('🍻  Every action completed');
+
+      !cleanup && process.exit(0);
     } catch (error) {
       // reset email and googlesheets on fail
       console.error(error);
@@ -122,38 +123,19 @@ export const mainFlow = async ({
     }
   }
 
-  // TODO: Refactor this part
-  if (cleanup === 'all') {
-    try {
-      console.log(`🪣   Initializing cleanup: ${cleanup}`);
-      await markLastSeenEmailAsUnseen();
-      await cleanupGoogleSheets(sheetId);
-      return;
-    } catch (error) {
-      console.error(error);
-      process.exit(1);
-    }
-  }
-
-  if (cleanup === 'mail') {
-    try {
-      console.log(`🪣   Initializing cleanup: ${cleanup}`);
-      await markLastSeenEmailAsUnseen();
-      return;
-    } catch (error) {
-      console.error(error);
-      process.exit(1);
-    }
-  }
-
-  if (cleanup === 'sheets') {
+  try {
     console.log(`🪣   Initializing cleanup: ${cleanup}`);
-    try {
-      await cleanupGoogleSheets(sheetId);
-      return;
-    } catch (error) {
-      console.error(error);
-      process.exit(1);
+    if (cleanup !== 'sheets') {
+      await markLastSeenEmailAsUnseen();
     }
+
+    if (cleanup !== 'mail') {
+      await cleanupGoogleSheets(sheetId);
+    }
+
+    process.exit(0);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
   }
 };

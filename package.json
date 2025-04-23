@@ -6,7 +6,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "yarn typecheck && tsup",
+    "build": "yarn lint:fix && yarn typecheck && tsup",
     "build-dirty": "tsup",
     "format": "biome format --write",
     "lint": "biome lint",
@@ -33,7 +33,8 @@
     "typescript": "^5.8.2",
     "vitest": "^3.0.9",
     "yargs": "^17.7.2",
-    "yargs-unparser": "^2.0.0"
+    "yargs-unparser": "^2.0.0",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

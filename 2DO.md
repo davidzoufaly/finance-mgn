@@ -1,19 +1,18 @@
 ## In progress
 
-- ( ) cleanups in mainFlow.mjs
+- ( ) zod? -> tip for other with working with LLM
+- ( ) function comments
+- ( ) generated doc
 
 ## Bugs
 
 - ( ) Tabulka 2025 -> po přidání nového Q v Progress -> check jestli jsou správně data -> pokud ne upravit makro
+- ( ) Pri gitu biome import sort někdy prehaze import a neni to commitnuté
 
 ## Must have
 
-- zod? -> tip for other with working with LLM
-
 ## Nice to have
 
-- ( ) function comments
-- ( ) generated doc
 - ( ) move configs to /configs
 
 ---
@@ -26,7 +25,8 @@
 
 - ( ) changelog and versioning
 - ( ) make repo public
-- ( ) polish readme
+- ( ) polish readme (add new scripts,..)
+- ( ) contribution guide as separate md
 - ( ) protected branch
 - ( ) hosted docs -> github pages
 
@@ -48,6 +48,7 @@
 
 ## Done
 
+- (x) cleanups in mainFlow.mjs
 - (x) integration tests support --actions none instead of only --actions=none
 - (x) Run agregation tests based on ID
 - (x) 🏁 All [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] tests completed

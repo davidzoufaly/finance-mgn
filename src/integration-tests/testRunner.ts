@@ -180,7 +180,7 @@ const runTests = async (testCases: TestCase[], argv: IntegrationTestsArgv): Prom
 /**
  * Parses command-line arguments and runs the integration tests.
  */
-const testCaseArgv: IntegrationTestsArgv = yargs(hideBin(process.argv))
+const testCaseArgv = yargs(hideBin(process.argv))
   .options({
     ...appArguments,
     id: {
@@ -191,6 +191,6 @@ const testCaseArgv: IntegrationTestsArgv = yargs(hideBin(process.argv))
       coerce: (ids) => ids.map((id: string | number) => Number(id)),
     },
   })
-  .parseSync();
+  .parseSync() as IntegrationTestsArgv;
 
 runTests(integrationTestCases, testCaseArgv);

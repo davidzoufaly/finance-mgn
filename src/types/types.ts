@@ -19,8 +19,8 @@ type ValueOf<T> = T[keyof T][];
 export type TransactionValue = ValueOf<TransactionObject>;
 
 export type AppArguments = {
-  withLabeling: boolean;
-  environment: string;
-  actions: string;
-  cleanup: string;
+  withLabeling: boolean | undefined;
+  environment: 'development' | 'production';
+  actions: 'fio' | 'mail' | 'all' | undefined;
+  cleanup: 'mail' | 'sheets' | 'all' | undefined;
 };

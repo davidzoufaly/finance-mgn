@@ -128,11 +128,11 @@ The application and integration tests support the following flags:
 | Flag           | Shortcut | Values                  | Default     |
 | -------------- | -------- | ----------------------- | ----------- |
 | --environment  | -e       | development, production | development |
-| --withLabeling | -w       | boolean                 | false       |
-| --actions      | -a       | all, mail, fio, none    | all         |
-| --cleanup      | -c       | all, mail, sheets, none | none        |
+| --withLabeling | -w       | boolean                 | undefined   |
+| --actions      | -a       | all, mail, fio          | undefined   |
+| --cleanup      | -c       | all, mail, sheets       | undefined   |
 
-- If flags are omitted and `.env` values are not properly configured, the app will throw an error.
+Note: If flags are omitted and `.env` values are not properly configured, the app will throw an error. In code these flags are called 'app arguments'.
 
 ### Commands
 

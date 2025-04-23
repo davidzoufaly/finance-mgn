@@ -7,8 +7,9 @@ export const appArguments = {
   environment: {
     alias: 'e',
     type: 'string' as const,
-    description: 'Set the environment (development | production)',
+    description: 'Set the environment',
     default: 'development',
+    choices: ['development', 'production'],
   },
   withLabeling: {
     alias: 'l',
@@ -19,17 +20,17 @@ export const appArguments = {
   actions: {
     alias: 'a',
     type: 'string' as const,
-    description: 'Specify action ETL should trigger (all | fio | mail | none)',
+    description: 'Specify action ETL should trigger',
     default: undefined,
+    choices: ['all', 'fio', 'mail'],
   },
   cleanup: {
     alias: 'c',
     type: 'string' as const,
-    description: 'Reset mailbox after action (all | mail | sheets | none)',
+    description: 'Reset mailbox after action',
+    choices: ['all', 'mail', 'sheets'],
     default: undefined,
   },
 };
 
-export const argv: Partial<Arguments<AppArguments>> = yargs(hideBin(process.argv))
-  .options(appArguments)
-  .parseSync();
+export const argv = yargs(hideBin(process.argv)).options(appArguments).parseSync() as Arguments<AppArguments>;
