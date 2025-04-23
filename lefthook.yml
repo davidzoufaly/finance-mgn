@@ -7,6 +7,11 @@ commit-msg:
 
 pre-commit:
   parallel: false
+  commands:
+    biome:
+      run: |
+        biome check --apply {staged_files}
+        git add {staged_files}
   jobs:
     - run: yarn typecheck
       glob: "*.{ts,tsx}"

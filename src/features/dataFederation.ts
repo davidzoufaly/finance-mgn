@@ -1,18 +1,36 @@
 import type { Transaction, TransactionObjOptStr, TransactionObject } from '@types';
 import { compareDesc, format, parse } from 'date-fns';
 
+/**
+ * Configuration object for data federation.
+ */
 type Config = {
+  /** Specifies the action to be performed (e.g., 'mail', 'fio'). */
   actions: string;
+  /** List of whitelisted bank accounts to exclude from processing. */
   whitelistedAccounts: string[];
+  /** List of keywords to identify investment-related transactions. */
   whitelistedInvestmentKeywords: string[];
 };
 
+/**
+ * Federated data categorized into expenses, incomes, and investments.
+ */
 type DataFederation = {
+  /** Array of expense transactions. */
   expenses: Transaction[];
+  /** Array of income transactions. */
   incomes: Transaction[];
+  /** Array of investment transactions. */
   investments: Transaction[];
 };
 
+/**
+ * Normalizes a value by converting it to a string.
+ *
+ * @param item - The value to normalize (string or number).
+ * @returns The normalized value as a string.
+ */
 const normalizeValue = (item: string | number): string => {
   if (typeof item === 'number') {
     return item.toString();
@@ -20,9 +38,15 @@ const normalizeValue = (item: string | number): string => {
   return item;
 };
 
+/**
+ * Normalizes the date format of transactions.
+ *
+ * @param data - Array of transactions with optional string properties.
+ * @returns A new array of transactions with normalized date formats.
+ */
 const normalizeDates = (data: TransactionObjOptStr[]) =>
   data.map((item) => {
-    // e.g. 2025-03-31+0200
+    // Regex to match timezone offsets (e.g., +0200)
     const regex = new RegExp(/([+-]\d{2})(\d{2})$/);
 
     if (regex.test(item.date)) {
@@ -37,6 +61,15 @@ const normalizeDates = (data: TransactionObjOptStr[]) =>
     return { ...item, date: formattedDate };
   });
 
+/**
+ * Federates and processes data from multiple sources.
+ *
+ * @param config - Configuration object for data federation.
+ * @param fioData - Array of transactions from the first data source.
+ * @param airData - Array of transactions from the second data source.
+ * @returns Federated data categorized into expenses, incomes, and investments.
+ * @throws An error if required data is missing or invalid.
+ */
 export const dataFederation = (
   config: Config,
   fioData: TransactionObjOptStr[] = [],
@@ -55,7 +88,7 @@ export const dataFederation = (
   console.log('🧹  Federating, sorting and cleaning the data...');
 
   const data = [...fioData, ...airData]
-    // remove transfers between whitelisted accounts
+    // Remove transfers between whitelisted accounts
     .filter(({ bankAccount, label }) => {
       const isBankAccountSame = whitelistedAccounts.includes(bankAccount);
       const isBankAccountIncludedInLabel = whitelistedAccounts.some((i) =>
@@ -64,16 +97,16 @@ export const dataFederation = (
       return !isBankAccountSame && !isBankAccountIncludedInLabel;
     });
 
-  // unify date format
+  // Unify date format
   const unifiedDates = normalizeDates(data);
   const sortedDataDateDesc = unifiedDates.sort((a, b) => compareDesc(a.date, b.date));
 
-  // find positive values = incomes
+  // Find positive values = incomes
   const incomes = sortedDataDateDesc
     .filter((item) => item.value > 0)
     .map((item) => Object.values(item).map((item) => normalizeValue(item)));
 
-  // make absolute value of expenses
+  // Make absolute value of expenses
   const expensesIncludingInvestments = sortedDataDateDesc
     .filter((item) => item.value < 0)
     .map((item) => ({
