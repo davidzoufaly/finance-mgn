@@ -2,23 +2,32 @@ import { fioToken } from '@constants';
 import type { TransactionObjOptStr } from '@types';
 import { endOfMonth, format, startOfMonth, subMonths } from 'date-fns';
 
+/**
+ * Represents a column value that is a string.
+ */
 type ColumnValueString = {
   value: string;
   name: string;
   id: number;
 } | null;
 
+/**
+ * Represents a column value that is a number.
+ */
 type ColumnValueNumber = {
   value: number;
   name: string;
   id: number;
 } | null;
 
+/**
+ * Represents a single transaction from the FIO API.
+ */
 type FioTransaction = {
-  column0: ColumnValueString;
-  column1: ColumnValueNumber;
-  column2: ColumnValueString;
-  column3: ColumnValueString;
+  column0: ColumnValueString; // Date of the transaction
+  column1: ColumnValueNumber; // Amount of the transaction
+  column2: ColumnValueString; // Bank account number
+  column3: ColumnValueString; // Bank code
   column4: ColumnValueString;
   column5: ColumnValueString;
   column6: ColumnValueString;
@@ -28,15 +37,18 @@ type FioTransaction = {
   column10: ColumnValueString;
   column12: ColumnValueString;
   column14: ColumnValueString;
-  column16: ColumnValueString;
+  column16: ColumnValueString; // Recipient message
   column17: ColumnValueString;
   column18: ColumnValueString;
   column22: ColumnValueString;
-  column25: ColumnValueString;
+  column25: ColumnValueString; // Comment
   column26: ColumnValueString;
   column27: ColumnValueString;
 };
 
+/**
+ * Represents the account statement returned by the FIO API.
+ */
 type AccountStatement = {
   accountStatement: {
     info: {
@@ -61,7 +73,11 @@ type AccountStatement = {
   };
 };
 
-// returns last month in yyyy-MM-dd/yyyy-MM-dd format
+/**
+ * Returns the date range for the last month in the format `yyyy-MM-dd/yyyy-MM-dd`.
+ *
+ * @returns The date range for the last month.
+ */
 const getLastMonthRange = (): string => {
   const lastMonth = subMonths(new Date(), 1);
 
@@ -72,7 +88,16 @@ const getLastMonthRange = (): string => {
   return formattedRange;
 };
 
-export const fetchFioTransactions = async (endpoint?: string | undefined) => {
+/**
+ * Fetches transactions from the FIO API for the last month or a custom endpoint.
+ *
+ * @param endpoint - Optional custom endpoint for fetching transactions.
+ * @returns A promise that resolves to an array of transactions in the `TransactionObjOptStr` format.
+ * @throws An error if the FIO token is not configured or if the API request fails.
+ */
+export const fetchFioTransactions = async (
+  endpoint?: string | undefined,
+): Promise<TransactionObjOptStr[]> => {
   if (!fioToken) {
     throw new Error('❌  FIO token is not configured. Set it in .env');
   }
@@ -85,7 +110,7 @@ export const fetchFioTransactions = async (endpoint?: string | undefined) => {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`❌  HTTP error! Status: ${response.status} (API throtling, wait 30 seconds)`);
+      throw new Error(`❌  HTTP error! Status: ${response.status} (API throttling, wait 30 seconds)`);
     }
 
     const data: AccountStatement = (await response.json()) as AccountStatement;
@@ -100,9 +125,9 @@ export const fetchFioTransactions = async (endpoint?: string | undefined) => {
       const recipientMessage = item?.column16?.value ?? '';
 
       const isIncome = typeof amount === 'number' && amount > 0;
-      // if contains bank account number -> return with bank id
+      // If contains bank account number -> return with bank ID
       const bankAccount = bankAccountNumber ? `${bankAccountNumber}/${bankCode}` : '';
-      // add "komentář" and for incomes also add "zpráva pro příjemce"
+      // Add "comment" and for incomes also add "recipient message"
       const label = isIncome ? `${comment} ${recipientMessage}` : comment;
 
       return {

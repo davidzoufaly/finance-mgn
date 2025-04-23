@@ -19,8 +19,11 @@ type ValueOf<T> = T[keyof T][];
 export type TransactionValue = ValueOf<TransactionObject>;
 
 export type AppArguments = {
-  withLabeling: boolean | undefined;
   environment: 'development' | 'production';
-  actions: 'fio' | 'mail' | 'all' | undefined;
-  cleanup: 'mail' | 'sheets' | 'all' | undefined;
+  withLabeling?: boolean | undefined;
+  actions?: 'fio' | 'mail' | 'all' | undefined;
+  cleanup?: 'mail' | 'sheets' | 'all' | undefined;
 };
+
+export type IntegrationTestsArguments = AppArguments & { id: number[] };
+export type TestCase = AppArguments & { id: number };

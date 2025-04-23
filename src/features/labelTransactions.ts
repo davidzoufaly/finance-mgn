@@ -4,15 +4,22 @@ import type { Transaction } from '@types';
 import OpenAI from 'openai';
 import { z } from 'zod';
 
+// Define the Zod schema for validating LLM output
 const TransactionSchema = z.object({
-  transactions: z.array(z.array(z.string())),
-  tokens: z.number(),
+  transactions: z.array(z.array(z.string())), // Array of transactions, each represented as an array of strings
+  tokens: z.number(), // Number of tokens consumed by the LLM
 });
 
 type TransactionData = z.infer<typeof TransactionSchema>;
 
-// Helper function
-const sumValuesAtIndex = (array: Transaction[], index: number) =>
+/**
+ * Sums the values at a specific index in an array of transactions.
+ *
+ * @param array - The array of transactions.
+ * @param index - The index of the value to sum.
+ * @returns The sum of the values at the specified index.
+ */
+const sumValuesAtIndex = (array: Transaction[], index: number): number =>
   array.reduce((acc, item) => acc + Number.parseFloat(item[index]), 0.0);
 
 /**
@@ -20,7 +27,7 @@ const sumValuesAtIndex = (array: Transaction[], index: number) =>
  *
  * @param llmOutput - The raw JSON string output from the LLM.
  * @param promptFilename - The name of the prompt file for error context.
- * @returns The validated and parsed TransactionData object.
+ * @returns The validated and parsed `TransactionData` object.
  * @throws An error if the output is invalid or misformatted.
  */
 const getValidatedLLMResult = (llmOutput: string, promptFilename: string): TransactionData => {
@@ -64,7 +71,7 @@ const integrityChecks = (
   newTransactions: Transaction[],
   labeledTransactions: Transaction[],
   promptFilename: string,
-) => {
+): void => {
   const allTransactionsPreLabeled = [...newTransactions, ...existingTransactions];
 
   // Integrity check for number of rows
@@ -80,7 +87,7 @@ const integrityChecks = (
 
   if (summaryOfTransactionsPostLabeled !== summaryOfTransactionsPreLabeled) {
     throw new Error(
-      `❌  Some transactions values were modified by LLM process ${promptFilename}: pre-LLM ${summaryOfTransactionsPreLabeled} vs. post-LLM ${summaryOfTransactionsPostLabeled}`,
+      `❌  Some transaction values were modified by LLM process for ${promptFilename}: pre-LLM ${summaryOfTransactionsPreLabeled} vs. post-LLM ${summaryOfTransactionsPostLabeled}`,
     );
   }
 
@@ -93,21 +100,23 @@ const integrityChecks = (
  * @param existingTransactions - The existing transactions.
  * @param newTransactions - The new transactions.
  * @param promptFilename - The name of the prompt file.
- * @returns The labeled transactions.
+ * @returns A promise that resolves to the labeled transactions.
  * @throws An error if the labeling process fails.
  */
 export const labelTransactions = async (
   existingTransactions: Transaction[],
   newTransactions: Transaction[],
   promptFilename: string,
-) => {
+): Promise<Transaction[]> => {
   const openaiModel = getOpenAIModel();
 
-  if (!openaiToken || !openaiModel)
+  if (!openaiToken || !openaiModel) {
     throw new Error('❌ OpenAI token OR model is not configured. Set it in .env file');
+  }
 
   const transactions = [...newTransactions, ...existingTransactions];
 
+  // Read prompt logic from files
   const genericPromptLogic = fs.readFileSync('./src/static/prompts/generic-prompt.txt', 'utf8');
   const specificPromptLogic = fs.readFileSync(`./src/static/prompts/${promptFilename}.txt`, 'utf8');
 
@@ -115,6 +124,7 @@ export const labelTransactions = async (
     apiKey: openaiToken,
   });
 
+  // Construct the prompt for the LLM
   const prompt = `${genericPromptLogic}\n${specificPromptLogic}\n${transactions
     .map((item) => item.join(' | '))
     .join('\n')}`;
@@ -131,7 +141,7 @@ export const labelTransactions = async (
   const llmOutput = output.choices[0].message.content || '';
   const resultObject = getValidatedLLMResult(llmOutput, promptFilename);
 
-  // Throws error if fails
+  // Perform integrity checks
   integrityChecks(existingTransactions, newTransactions, resultObject.transactions, promptFilename);
 
   console.log(

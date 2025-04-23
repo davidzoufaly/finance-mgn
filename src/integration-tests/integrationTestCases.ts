@@ -1,4 +1,10 @@
-export const integrationTestCases = [
+import type { TestCase } from '@types';
+
+/**
+ * Array of integration test cases for the application.
+ * Each test case specifies a unique configuration for testing various scenarios.
+ */
+export const integrationTestCases: TestCase[] = [
   {
     id: 1,
     environment: 'development',
@@ -25,7 +31,6 @@ export const integrationTestCases = [
     environment: 'development',
     withLabeling: true,
     actions: 'all',
-    cleanup: 'none',
   },
   {
     id: 5,
@@ -53,7 +58,6 @@ export const integrationTestCases = [
     environment: 'development',
     withLabeling: true,
     actions: 'fio',
-    cleanup: 'none',
   },
   {
     id: 9,
@@ -81,7 +85,6 @@ export const integrationTestCases = [
     environment: 'development',
     withLabeling: true,
     actions: 'mail',
-    cleanup: 'none',
   },
   {
     id: 13,
@@ -109,7 +112,6 @@ export const integrationTestCases = [
     environment: 'development',
     withLabeling: false,
     actions: 'all',
-    cleanup: 'none',
   },
   {
     id: 17,
@@ -137,7 +139,6 @@ export const integrationTestCases = [
     environment: 'development',
     withLabeling: false,
     actions: 'fio',
-    cleanup: 'none',
   },
   {
     id: 21,
@@ -165,27 +166,23 @@ export const integrationTestCases = [
     environment: 'development',
     withLabeling: false,
     actions: 'mail',
-    cleanup: 'none',
   },
   {
     id: 25,
     environment: 'development',
     withLabeling: false,
-    actions: 'none',
     cleanup: 'all',
   },
   {
     id: 26,
     environment: 'development',
     withLabeling: false,
-    actions: 'none',
     cleanup: 'mail',
   },
   {
     id: 27,
     environment: 'development',
     withLabeling: false,
-    actions: 'none',
     cleanup: 'sheets',
   },
 ];

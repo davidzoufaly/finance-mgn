@@ -1,23 +1,19 @@
 import { spawn } from 'child_process';
 import { appArguments } from '@constants';
 import { integrationTestCases } from '@integrationTests';
-import type { AppArguments } from '@types';
+import type { IntegrationTestsArguments, TestCase } from '@types';
 import type { Arguments } from 'yargs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-type IntegrationTestsArguments = AppArguments & { id: number[] };
-
-type TestCase = {
-  id: number;
-  environment: string;
-  withLabeling: boolean;
-  actions: string;
-  cleanup: string;
-};
-
+/**
+ * Represents the parsed command-line arguments for integration tests.
+ */
 type IntegrationTestsArgv = Partial<Arguments<IntegrationTestsArguments>>;
 
+/**
+ * A predefined test case used for resetting the environment.
+ */
 const RESET_CASE = integrationTestCases.find((item) => item.id === 25) as TestCase;
 
 /**
@@ -38,7 +34,6 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const getTestsSubset = (testCases: TestCase[], conditions?: IntegrationTestsArgv): TestCase[] => {
   if (!conditions) return testCases;
 
-  // Extracted as a separate variable to avoid TypeScript errors when directly using conditions.id
   const ids = conditions.id;
   if (ids && ids.length > 0) {
     return testCases.filter((item) => ids.some((id) => id === item.id)) as TestCase[];
@@ -67,13 +62,13 @@ const runTest = async (testCase: TestCase): Promise<boolean> => {
 
     const argv = [
       '--withLabeling',
-      testCase.withLabeling.toString(),
+      testCase.withLabeling?.toString() ?? '',
       '--environment',
       testCase.environment,
       '--actions',
-      testCase.actions,
+      testCase.actions ?? '',
       '--cleanup',
-      testCase.cleanup,
+      testCase.cleanup ?? '',
     ];
 
     const child = spawn('yarn', ['start', ...argv], { stdio: ['inherit', 'pipe', 'pipe'] });

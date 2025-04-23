@@ -5,24 +5,33 @@ import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import type { PDFDocumentProxy, TextItem, TextMarkedContent } from 'pdfjs-dist/types/src/display/api';
 
 /**
- * Type guard to check if an item is a TextItem
- * @param item - The item to check
- * @returns {item is TextItem} - True if the item is a TextItem
+ * Type guard to check if an item is a TextItem.
+ *
+ * @param item - The item to check.
+ * @returns True if the item is a TextItem.
  */
 const isTextItem = (item: unknown): item is TextItem => {
   return typeof item === 'object' && item !== null && 'str' in item;
 };
 
 /**
- * Type guard to check if content.items is an array of TextItem
- * @param items - The items to check
- * @returns {items is TextItem[]} - True if all items are TextItem[]
+ * Type guard to check if content.items is an array of TextItem.
+ *
+ * @param items - The items to check.
+ * @returns True if all items are TextItem[].
  */
 const isTextItemArray = (items: unknown[]): items is TextItem[] => {
   return items.every(isTextItem);
 };
 
-const findTransactions = (documentItems: (TextItem | TextMarkedContent)[]) => {
+/**
+ * Extracts transactions from the document items by identifying the relevant range.
+ *
+ * @param documentItems - The array of document items to process.
+ * @returns A filtered array of document items containing transactions.
+ * @throws An error if the document items are not of the expected type.
+ */
+const findTransactions = (documentItems: (TextItem | TextMarkedContent)[]): TextItem[] => {
   if (!isTextItemArray(documentItems)) {
     throw new Error('❌ Invalid content.items: Expected TextItem[]');
   }
@@ -38,10 +47,15 @@ const findTransactions = (documentItems: (TextItem | TextMarkedContent)[]) => {
   return documentItems.slice(preUselessWord + 1, postUselessWord);
 };
 
-const processTransactions = (transactions: string[][]) => {
+/**
+ * Processes raw transaction rows into structured transaction objects.
+ *
+ * @param transactions - The array of raw transaction rows.
+ * @returns An array of structured transaction objects.
+ */
+const processTransactions = (transactions: string[][]): TransactionObject[] => {
   return transactions.map((row) => {
     // Identify the value (last item)
-    // Remove spaces to parse it to float properly
     const value = row[row.length - 1].replace(/\s/g, '');
 
     // Identify the second date (first valid date after the first empty or non-date entry)
@@ -62,7 +76,13 @@ const processTransactions = (transactions: string[][]) => {
   });
 };
 
-const splitByZeroZero = (documentItems: TextItem[]) => {
+/**
+ * Splits document items into rows based on the "0,00" fee value.
+ *
+ * @param documentItems - The array of document items to process.
+ * @returns An array of rows, each containing transaction data.
+ */
+const splitByZeroZero = (documentItems: TextItem[]): string[][] => {
   const rows: TextItem[][] = [];
   let currentRow: TextItem[] = [];
 
@@ -81,13 +101,20 @@ const splitByZeroZero = (documentItems: TextItem[]) => {
     rows.push(currentRow);
   }
 
-  // Remove unsued items (last two -> blank space and transaction fee)
+  // Remove unused items (last two -> blank space and transaction fee)
   const textLines = rows.map((itemArray) => itemArray.map((item) => item.str).slice(0, itemArray.length - 2));
 
   return textLines;
 };
 
-const processPage = async (pageNum: number, doc: PDFDocumentProxy) => {
+/**
+ * Processes a single page of the PDF document to extract transactions.
+ *
+ * @param pageNum - The page number to process.
+ * @param doc - The PDF document proxy object.
+ * @returns A promise that resolves to an array of processed transactions.
+ */
+const processPage = async (pageNum: number, doc: PDFDocumentProxy): Promise<TransactionObject[]> => {
   const page = await doc.getPage(pageNum);
   const content = await page.getTextContent();
   const rawTransactions = findTransactions(content.items);
@@ -98,10 +125,14 @@ const processPage = async (pageNum: number, doc: PDFDocumentProxy) => {
   return processedTransactions;
 };
 
-export const parseAirTransactions = async () => {
+/**
+ * Parses AIR bank transactions from a PDF attachment.
+ *
+ * @returns A promise that resolves to an array of parsed transactions.
+ * @throws An error if the PDF cannot be processed or if the attachment is missing.
+ */
+export const parseAirTransactions = async (): Promise<TransactionObject[]> => {
   try {
-    // Will be using promises to load document, pages and misc data instead of
-    // callback.
     const loadingTask = getDocument({
       url: attachmentFilePath,
       password: airAttachmentPassword,
@@ -113,8 +144,7 @@ export const parseAirTransactions = async () => {
       const numPages = doc.numPages;
       const finalTrans: TransactionObject[] = [];
 
-      // Loading of the first page will wait on metadata and subsequent loadings
-      // will wait on the previous pages.
+      // Process each page of the document
       for (let i = 1; i <= numPages; i++) {
         const data = await processPage(i, doc);
         for (const item of data) {
@@ -124,13 +154,14 @@ export const parseAirTransactions = async () => {
 
       console.log(`💪  ${finalTrans.length} AIR bank transactions parsed`);
 
+      // Delete the attachment after processing
       fs.unlinkSync(attachmentFilePath);
       console.log('🗑️   Attachment successfully deleted');
 
       return finalTrans;
     });
   } catch (error) {
-    // This throws error if .pdf doesn't exist even when index.mjs is starting the execution, which is expected so ingoring that one
+    // Ignore MissingPDFException as it is expected in some cases
     if (error.name !== 'MissingPDFException') {
       throw new Error(`❌  Error while parsing AIR bank transactions: ${error.message}`, { cause: error });
     }

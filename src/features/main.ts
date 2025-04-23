@@ -18,13 +18,29 @@ import {
 import type { AppArguments, Transaction, TransactionObjOptStr, TransactionObject } from '@types';
 import type { Arguments } from 'yargs';
 
+/**
+ * Main flow of the application.
+ * This function orchestrates the entire process, including:
+ * - Fetching transactions from email attachments and APIs.
+ * - Cleaning and grouping transactions.
+ * - Labeling transactions using an LLM (if enabled).
+ * - Writing transactions to Google Sheets.
+ * - Performing cleanup operations.
+ *
+ * @param args - The parsed command-line arguments.
+ * @param args.withLabeling - Whether to use LLM for labeling transactions.
+ * @param args.environment - The environment to run the application in (e.g., "development", "production").
+ * @param args.actions - The actions to perform (e.g., "mail", "fio", or both).
+ * @param args.cleanup - The cleanup mode (e.g., "sheets", "mail", or both).
+ * @throws Error If any required configuration is missing or an operation fails.
+ */
 export const mainFlow = async ({
   withLabeling,
   environment,
   actions,
   cleanup,
 }: Partial<Arguments<AppArguments>>) => {
-  // need to set environment from args
+  // Set the environment from args
   process.env.NODE_ENV = environment || 'development';
 
   const sheetId = getSheetId();
@@ -39,19 +55,19 @@ export const mainFlow = async ({
       let fioTransactions: TransactionObjOptStr[] | undefined;
 
       if (actions !== 'fio') {
-        // get AIR transactions PDF from Email
+        // Fetch AIR transactions PDF from email
         await fetchEmailAttachment(keywordForAttachmentCheck);
 
-        // get AIR transactions from PDF
+        // Parse AIR transactions from PDF
         airTransactions = await parseAirTransactions();
       }
 
       if (actions !== 'mail') {
-        // get transactions from FIO API
+        // Fetch transactions from FIO API
         fioTransactions = await fetchFioTransactions();
       }
 
-      // cleaning & grouping
+      // Clean and group transactions
       const { incomes, expenses, investments } = dataFederation(
         {
           actions,
@@ -62,9 +78,8 @@ export const mainFlow = async ({
         airTransactions,
       );
 
-      // fetch existing transactions from Google Sheets
+      // Fetch existing transactions from Google Sheets
       const existingExpenses = await getExistingDataFromSheet('expenses', sheetId);
-
       const existingIncomes = await getExistingDataFromSheet('incomes', sheetId);
       const existingInvestments = await getExistingDataFromSheet('investments', sheetId);
 
@@ -74,7 +89,7 @@ export const mainFlow = async ({
       let finalIncomes: Transaction[];
 
       if (withLabeling) {
-        // use LLM to add label transactions with categories identifiers
+        // Use LLM to label transactions with category identifiers
         const [labeledExpenses, labeledIncomes] = await Promise.all([
           labelTransactions(existingExpenses, expenses, 'expenses'),
           labelTransactions(existingIncomes, incomes, 'incomes'),
@@ -87,7 +102,7 @@ export const mainFlow = async ({
         finalIncomes = [...incomes, ...existingIncomes];
       }
 
-      // write data to all sheets
+      // Write data to all sheets
       await writeSheetBulk([
         {
           transactions: finalIncomes,
@@ -107,9 +122,10 @@ export const mainFlow = async ({
       ]);
       console.log('🍻  Every action completed');
 
+      // Exit if no cleanup is required
       !cleanup && process.exit(0);
     } catch (error) {
-      // reset email and googlesheets on fail
+      // Reset email and Google Sheets on failure
       console.error(error);
       try {
         console.log('🪣   Something has failed, fallbacking to cleanup');
