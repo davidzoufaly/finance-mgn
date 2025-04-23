@@ -25,5 +25,5 @@ export type AppArguments = {
   cleanup?: 'mail' | 'sheets' | 'all' | undefined;
 };
 
-export type IntegrationTestsArguments = AppArguments & { id: number[] };
+export type IntegrationTestsArguments = AppArguments & { id?: number[] };
 export type TestCase = AppArguments & { id: number };

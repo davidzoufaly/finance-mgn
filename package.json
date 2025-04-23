@@ -17,9 +17,8 @@
     "start:light-check": "yarn start --actions none --cleanup all",
     "start:prod": "yarn start --environment production --withLabeling true --actions all",
     "cleanup:all": "yarn start --environment development --actions none --cleanup all",
+    "test": "vitest --config ./config/vite.config.ts -w=true",
     "test:integration": "node ./dist/tests/index.js",
-    "test": "vitest && node test:integration",
-    "test:unit": "vitest -w=true",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -48,6 +47,7 @@
     "http-server": "^14.1.1",
     "lefthook": "^1.11.6",
     "tsup": "^8.4.0",
-    "typedoc": "^0.28.3"
+    "typedoc": "^0.28.3",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

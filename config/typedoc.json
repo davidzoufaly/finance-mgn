@@ -1,6 +1,7 @@
 {
   "entryPointStrategy": "expand",
   "entryPoints": ["../src"],
+  "exclude": ["../src/*/**.test.ts"],
   "out": "../docs",
   "tsconfig": "../tsconfig.json",
   "includeVersion": true,

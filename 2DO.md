@@ -1,10 +1,8 @@
 ## In progress
 
-- ( ) move configs to /configs
+- ( ) unit tests
 
 ## Bugs
-
-- ( ) incomes air/prod v jednom sloupci
 
 ## Must have
 
@@ -12,8 +10,6 @@
 
 ---
 
-- ( ) unit tests
-- ( ) exclude unit tests from docs
 - ( ) changelog and versioning
 - ( ) polish readme (add new scripts,..)
 - ( ) contribution guide as separate md
@@ -44,6 +40,9 @@
 
 ## Done
 
+- (x) exclude unit tests from docs
+- (x) incomes air/prod v jednom sloupci
+- (x) move configs to /configs
 - (x) Tabulka 2025 -> po přidání nového Q v Progress -> check jestli jsou správně data -> pokud ne upravit makro
 - (x) generated doc
 - (x) Pri gitu biome import sort někdy prehaze import a neni to commitnuté
