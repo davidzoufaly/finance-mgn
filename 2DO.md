@@ -1,7 +1,5 @@
 ## In progress
 
-- ( ) unit tests
-
 ## Bugs
 
 ## Must have
@@ -10,14 +8,6 @@
 
 ---
 
-- ( ) changelog and versioning
-- ( ) polish readme (add new scripts,..)
-- ( ) contribution guide as separate md
-
----
-
-- ( ) make repo public
-- ( ) protected branch
 - ( ) ci/cd unit tests
 - ( ) ci/cd integration tests
 
@@ -29,10 +19,12 @@
 
 ---
 
+- ( ) protected branch
 - ( ) limit počet transakcí co se posílá do LLM např. jen poslední + 5 předtím -> LLM kontext + tokens savings
 - ( ) fetch vícero měsíců (pokud zapomenu) přes argument v main funkci
 - ( ) fetch jednoho měsíce v minulosti
 - ( ) fetch i vícero měsíců do jiného sheetu pro ad-hoc analýzu
+- ( ) unit tests
 
 ---
 
@@ -40,6 +32,9 @@
 
 ## Done
 
+- (x) make repo public
+- (x) changelog and versioning
+- (x) polish readme (add new scripts,..)
 - (x) exclude unit tests from docs
 - (x) incomes air/prod v jednom sloupci
 - (x) move configs to /configs

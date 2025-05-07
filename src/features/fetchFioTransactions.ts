@@ -1,5 +1,5 @@
 import { fioToken } from '@constants';
-import type { TransactionObjOptStr } from '@types';
+import type { TransactionObject } from '@types';
 import { endOfMonth, format, startOfMonth, subMonths } from 'date-fns';
 
 /**
@@ -95,9 +95,7 @@ export const getLastMonthRange = (): string => {
  * @returns A promise that resolves to an array of transactions in the `TransactionObjOptStr` format.
  * @throws An error if the FIO token is not configured or if the API request fails.
  */
-export const fetchFioTransactions = async (
-  endpoint?: string | undefined,
-): Promise<TransactionObjOptStr[]> => {
+export const fetchFioTransactions = async (endpoint?: string | undefined): Promise<TransactionObject[]> => {
   if (!fioToken) {
     throw new Error('❌  FIO token is not configured. Set it in .env');
   }
@@ -116,7 +114,7 @@ export const fetchFioTransactions = async (
     const data: AccountStatement = (await response.json()) as AccountStatement;
     const trans = data.accountStatement.transactionList.transaction;
 
-    const transactions: TransactionObjOptStr[] = trans.map((item) => {
+    const transactions: TransactionObject[] = trans.map((item) => {
       const amount = item?.column1?.value ?? 0;
       const date = item?.column0?.value ?? '';
       const bankAccountNumber = item?.column2?.value ?? '';
@@ -124,7 +122,7 @@ export const fetchFioTransactions = async (
       const comment = item?.column25?.value ?? '';
       const recipientMessage = item?.column16?.value ?? '';
 
-      const isIncome = typeof amount === 'number' && amount > 0;
+      const isIncome = amount > 0;
       // If contains bank account number -> return with bank ID
       const bankAccount = bankAccountNumber ? `${bankAccountNumber}/${bankCode}` : '';
       // Add "comment" and for incomes also add "recipient message"

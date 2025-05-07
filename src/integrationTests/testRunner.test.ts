@@ -1,5 +1,5 @@
+import { getTestsSubset, integrationTestCases } from '@integrationTests';
 import { expect, test } from 'vitest';
-import { integrationTestCases, getTestsSubset } from '@integrationTests';
 
 test('get test(s) without LLM only', () => {
   const subset = getTestsSubset(integrationTestCases, { withLabeling: false, environment: 'development' });
@@ -65,6 +65,5 @@ test('get test(s) without LLM, all actions and sheets cleanup', () => {
 
 test('get all tests when no condition provided', () => {
   const subset = getTestsSubset(integrationTestCases, { environment: 'development' });
-  console.log('subset', subset);
   expect(subset.length).toBe(27);
 });

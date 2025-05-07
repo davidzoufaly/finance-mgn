@@ -15,7 +15,7 @@ import {
   parseAirTransactions,
   writeSheetBulk,
 } from '@features';
-import type { AppArguments, Transaction, TransactionObjOptStr, TransactionObject } from '@types';
+import type { AppArguments, Transaction, TransactionObject } from '@types';
 import type { Arguments } from 'yargs';
 
 /**
@@ -52,7 +52,7 @@ export const mainFlow = async ({
   if (actions) {
     try {
       let airTransactions: TransactionObject[] | undefined;
-      let fioTransactions: TransactionObjOptStr[] | undefined;
+      let fioTransactions: TransactionObject[] | undefined;
 
       if (actions !== 'fio') {
         // Fetch AIR transactions PDF from email

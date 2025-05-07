@@ -176,6 +176,34 @@ Start commands support flags for configuring the application.
   yarn test:unit
   ```
 
+- To build applucation, run:
+
+  ```shell
+  yarn build
+  ```
+
+- To start generate documentation, run:
+
+  ```shell
+  yarn docs:generate
+  ```
+
+- To start documentation server, run:
+
+  Note:
+
+  ```shell
+  yarn docs:start
+  ```
+
+  - To create new version, run:
+
+  Note:
+
+  ```shell
+  yarn release
+  ```
+
 ## Contribution Guide
 
 ### Git Hooks
@@ -188,12 +216,14 @@ Start commands support flags for configuring the application.
 - Repository code is formatted by [Biome](https://biomejs.dev/) and [.editorconfig](./.editorconfig) in `pre-commit` hook.
 - Quality check is done by [Biome](https://biomejs.dev/) in `pre-commit` hook.
 
-TODO: Bundling, how to run integration tests, unit tests
+### Imports
 
-### imports
+Imports are using aliases "@", they works across the project and they are set [tsconfig](./tsconfig.json)
 
-imports are using @ for
+### Typedoc
 
-### typedoc
+All objects (methods, contants, type, classes) has to be exported even when they are used within single module, otherwise typedoc won't include it. There are two commands related to documentation, one is for generating documentation and second one for starting the server.
 
-all objects (methods, contants, type, classes) has to be exported even when they are used within single module, otherwise typedoc won't include it
+### Versioning
+
+Versioning is done via single yarn script, it bumbs version in [package.json](./package.json), create version in [CHANGELOG.md](./CHANGELOG.md)

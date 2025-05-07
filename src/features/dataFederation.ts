@@ -1,4 +1,4 @@
-import type { Transaction, TransactionObjOptStr, TransactionObject } from '@types';
+import type { Transaction, TransactionObject } from '@types';
 import { compareDesc, format, parse } from 'date-fns';
 
 /**
@@ -44,19 +44,21 @@ export const normalizeValue = (item: string | number): string => {
  * @param data - Array of transactions with optional string properties.
  * @returns A new array of transactions with normalized date formats.
  */
-export const normalizeDates = (data: TransactionObjOptStr[]) =>
+export const normalizeDates = (data: TransactionObject[]) =>
   data.map((item) => {
     // Regex to match timezone offsets (e.g., +0200)
     const regex = new RegExp(/([+-]\d{2})(\d{2})$/);
 
     if (regex.test(item.date)) {
       const fixedOffsetDate = item.date.replace(regex, '');
+      console.log('Fixed offset date:', fixedOffsetDate);
       const date = new Date(fixedOffsetDate);
       const formattedDate = format(date, 'MM/dd/yyyy');
       return { ...item, date: formattedDate };
     }
 
     const date = parse(item.date, 'dd.MM.yyyy', new Date());
+    console.log('Parsed date:', date);
     const formattedDate = format(date, 'MM/dd/yyyy');
     return { ...item, date: formattedDate };
   });
@@ -72,7 +74,7 @@ export const normalizeDates = (data: TransactionObjOptStr[]) =>
  */
 export const dataFederation = (
   config: Config,
-  fioData: TransactionObjOptStr[] = [],
+  fioData: TransactionObject[] = [],
   airData: TransactionObject[] = [],
 ): DataFederation => {
   const { actions, whitelistedAccounts, whitelistedInvestmentKeywords } = config;

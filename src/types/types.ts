@@ -8,7 +8,7 @@ export type TransactionObject = {
 };
 
 export type ChangeSomeKeys<T, K extends keyof T> = {
-  [P in keyof T]: P extends K ? number : T[P];
+  [P in keyof T]: P extends K ? string : T[P];
 };
 
 export type TransactionObjOptStr = ChangeSomeKeys<TransactionObject, 'value'>;

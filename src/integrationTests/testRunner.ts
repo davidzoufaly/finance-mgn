@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import { appArguments } from '@constants';
-import { integrationTestCases } from '@integrationTests';
 import type { IntegrationTestsArguments, TestCase } from '@types';
+import { integrationTestCases } from 'src/integrationTests';
 import type { Arguments } from 'yargs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
