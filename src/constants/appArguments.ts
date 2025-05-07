@@ -56,7 +56,7 @@ export const appArguments = {
     type: 'string' as const,
     description: 'Specify action ETL should trigger',
     default: undefined,
-    choices: ['all', 'fio', 'mail'],
+    choices: ['all', 'fio', 'mail', ''],
   },
 
   /**
@@ -73,7 +73,7 @@ export const appArguments = {
     alias: 'c',
     type: 'string' as const,
     description: 'Reset mailbox after action',
-    choices: ['all', 'mail', 'sheets'],
+    choices: ['all', 'mail', 'sheets', ''],
     default: undefined,
   },
 };

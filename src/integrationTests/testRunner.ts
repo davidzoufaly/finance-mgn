@@ -1,10 +1,7 @@
 import { spawn } from 'child_process';
-import { appArguments } from '@constants';
+import { integrationTestCases } from '@integrationTests';
 import type { IntegrationTestsArguments, TestCase } from '@types';
-import { integrationTestCases } from 'src/integrationTests';
 import type { Arguments } from 'yargs';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 
 /**
  * Represents the parsed command-line arguments for integration tests.
@@ -171,21 +168,3 @@ export const runTests = async (testCases: TestCase[], argv: IntegrationTestsArgv
     console.log(`🏁  ${testsIds.length} test(s) completed successfully, ID: ${testsIds.join()}`);
   }
 };
-
-/**
- * Parses command-line arguments and runs the integration tests.
- */
-export const testCaseArgv = yargs(hideBin(process.argv))
-  .options({
-    ...appArguments,
-    id: {
-      alias: 'i',
-      type: 'array' as const,
-      description: 'Provide test case IDs to run',
-      default: [],
-      coerce: (ids) => ids.map((id: string | number) => Number(id)),
-    },
-  })
-  .parseSync() as IntegrationTestsArgv;
-
-runTests(integrationTestCases, testCaseArgv);
