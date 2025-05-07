@@ -26,6 +26,5 @@ jobs:
 
       - name: Run Integration Tests
         run: |
-          echo "Running integration tests for suite: ${{ github.event.inputs.test_suite }}"
-          echo "Environment: ${{ github.event.inputs.environment }}"
-          npm run test:integration -- --suite=${{ github.event.inputs.test_suite }} --env=${{ github.event.inputs.environment }}
+          echo "Running integration tests with these parameters: ${{ github.event.inputs.test_suite }}"
+          npm run test:integration ${{ github.event.inputs.test_suite }}
