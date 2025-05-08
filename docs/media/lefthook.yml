@@ -1,0 +1,22 @@
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+
+commit-msg:
+  jobs:
+    - run: yarn commitlint --edit "$1" --config ./config/commitlint.config.mjs
+
+pre-commit:
+  parallel: false
+  commands:
+    lint:
+      glob: "*.{js,mjs,cjs,ts,tsx,json,md,yaml}"
+      run: yarn lint:fix
+
+    biome:
+      run: |
+        biome check --apply {staged_files}
+        git add {staged_files}
+
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: yarn typecheck

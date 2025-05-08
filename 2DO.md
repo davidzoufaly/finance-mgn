@@ -8,12 +8,10 @@
 
 ---
 
-- ( ) ci/cd integration tests
-- ( ) secrets repo
+- ( ) hosted docs -> github pages
 
 ---
 
-- ( ) hosted docs -> github pages
 - ( ) CRON prod execution -> github action
 - ( ) email notification -> success / failure of upload
 
