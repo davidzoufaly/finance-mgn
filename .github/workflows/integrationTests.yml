@@ -24,7 +24,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Build the project
+        run: yarn build
+
       - name: Run Integration Tests
-        run: |
-          echo "Running integration tests with these parameters: ${{ github.event.inputs.test_suite }}"
-          npm run test:integration ${{ github.event.inputs.test_suite }}
+        run: "yarn test:integration ${{ github.event.inputs.test_suite }}"
