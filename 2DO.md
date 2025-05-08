@@ -8,8 +8,6 @@
 
 ---
 
-- ( ) hosted docs -> github pages
-
 ---
 
 - ( ) CRON prod execution -> github action
@@ -30,6 +28,7 @@
 
 ## Done
 
+- (x) hosted docs -> github pages
 - (x) ci/cd unit tests
 - (x) make repo public
 - (x) changelog and versioning

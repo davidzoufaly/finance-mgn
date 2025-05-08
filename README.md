@@ -228,7 +228,7 @@ Imports are using aliases "@", they works across the project and they are set [t
 
 ### Typedoc
 
-All objects (methods, contants, type, classes) has to be exported even when they are used within single module, otherwise typedoc won't include it. There are two commands related to documentation, one is for generating documentation and second one for starting the server.
+All objects (methods, contants, type, classes) has to be exported even when they are used within single module, otherwise typedoc won't include it. There are two commands related to documentation, one is for generating documentation and second one for starting the server. Documentation is also hosted on GitHub Pages [here](https://davidzoufaly.github.io/finance-mgn/). It serves them directly from main branch.
 
 ### Versioning
 
