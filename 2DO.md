@@ -8,8 +8,8 @@
 
 ---
 
-- ( ) ci/cd unit tests
 - ( ) ci/cd integration tests
+- ( ) secrets repo
 
 ---
 
@@ -32,6 +32,7 @@
 
 ## Done
 
+- (x) ci/cd unit tests
 - (x) make repo public
 - (x) changelog and versioning
 - (x) polish readme (add new scripts,..)

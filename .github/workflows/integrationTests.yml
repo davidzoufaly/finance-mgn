@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       test_suite:
-        description: "Specify the test suite to run"
+        description: "Specify the flags for the tets. Supported flags can be found in the README file."
         required: false
         default: ""
 

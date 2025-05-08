@@ -132,6 +132,12 @@ The application and integration tests support the following flags:
 | --actions      | -a       | all, mail, fio          | undefined   |
 | --cleanup      | -c       | all, mail, sheets       | undefined   |
 
+Integration tets supports one additional flag to target specific test cases identifiers which should be used standalone, without combination of flags mentioned above.
+
+| Flag | Shortcut | Type  | Values  | Default |
+| ---- | -------- | ----- | ------- | ------- |
+| --id | -i       | array | 1,..,27 | []      |
+
 Note: If flags are omitted and `.env` values are not properly configured, the app will throw an error. In code these flags are called 'app arguments'.
 
 ### Commands
