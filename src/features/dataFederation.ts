@@ -51,14 +51,12 @@ export const normalizeDates = (data: TransactionObject[]) =>
 
     if (regex.test(item.date)) {
       const fixedOffsetDate = item.date.replace(regex, '');
-      console.log('Fixed offset date:', fixedOffsetDate);
       const date = new Date(fixedOffsetDate);
       const formattedDate = format(date, 'MM/dd/yyyy');
       return { ...item, date: formattedDate };
     }
 
     const date = parse(item.date, 'dd.MM.yyyy', new Date());
-    console.log('Parsed date:', date);
     const formattedDate = format(date, 'MM/dd/yyyy');
     return { ...item, date: formattedDate };
   });

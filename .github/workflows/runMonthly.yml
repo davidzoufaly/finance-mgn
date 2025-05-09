@@ -1,0 +1,61 @@
+name: Run Monthly Job
+
+on:
+  schedule:
+    - cron: "0 0 2 * *" # Runs at midnight on the 2nd day of each month
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  run-monthly-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Create .env file
+        run: |
+          echo "FIO_TOKEN=${{ secrets.FIO_TOKEN }}" >> .env
+          echo "GOOGLE_SHEET_ID_PROD=${{ secrets.GOOGLE_SHEET_ID_PROD }}" >> .env
+          echo "OPENAI_TOKEN=${{ secrets.OPENAI_TOKEN }}" >> .env
+          echo "OPENAI_MODEL_PROD=${{ secrets.OPENAI_MODEL_PROD }}" >> .env
+          echo "OPENAI_MODEL_DEV=${{ secrets.OPENAI_MODEL_DEV }}" >> .env
+          echo "EMAIL_TARGET=${{ secrets.EMAIL_TARGET }}" >> .env
+          echo "WHITELISTED_ACCOUNTS=${{ secrets.WHITELISTED_ACCOUNTS }}" >> .env
+          echo "WHITELISTED_INVESTMENT_KEYWORDS=${{ secrets.WHITELISTED_INVESTMENT_KEYWORDS }}" >> .env
+          echo "GOOGLE_SHEET_ID_DEV=${{ secrets.GOOGLE_SHEET_ID_DEV }}" >> .env
+          echo "EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}" >> .env
+          echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
+          echo "EMAIL_HOST=${{ secrets.EMAIL_HOST }}" >> .env
+          echo "AIR_ATTACHMENT_PASSWORD=${{ secrets.AIR_ATTACHMENT_PASSWORD }}" >> .env
+
+      - name: Create service-account.json file
+        run: |
+          echo '{
+            "type": "service_account",
+            "project_id": ${{ secrets.GOOGLE_PROJECT_ID }},
+            "private_key_id": "${{ secrets.GOOGLE_PRIVATE_KEY_ID }}",
+            "private_key": "${{ secrets.GOOGLE_PRIVATE_KEY }}",
+            "client_email": "${{ secrets.GOOGLE_CLIENT_EMAIL }}",
+            "client_id": "${{ secrets.GOOGLE_CLIENT_ID }}",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dzo-finance-management-tech-us%40serious-amulet-449806-v7.iam.gserviceaccount.com",
+            "universe_domain": "googleapis.com"
+          }' > service-account.json
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build project
+        run: yarn build
+
+      - name: Run production task
+        env:
+          NODE_ENV: production
+        run: yarn start:dev
