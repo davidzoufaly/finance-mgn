@@ -4,6 +4,7 @@ import {
   attachmentFilePath,
   emailHost,
   emailPassword,
+  emailPort,
   emailTarget,
   emailUsername,
 } from '@constants';
@@ -18,7 +19,7 @@ const { connect, getParts } = imapSimple;
  * @throws An error if any of the required email credentials are missing.
  */
 export const validateEmailCredentials = () => {
-  if (!emailUsername || !emailHost || !emailPassword || !emailTarget) {
+  if (!emailUsername || !emailHost || !emailPassword || !emailTarget || !emailPort) {
     throw new Error(
       '❌  Mandatory email credentials are not set (username, password, host, target email). Set them in .env file',
     );
@@ -37,7 +38,7 @@ export const connectToImapServer = async (): Promise<ImapSimple> => {
       user: emailUsername || '',
       password: emailPassword || '',
       host: emailHost,
-      port: 993,
+      port: Number(emailPort),
       tls: true,
       authTimeout: 30000,
     },

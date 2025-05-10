@@ -93,7 +93,7 @@ Note: As step 4 and 5 are optimal one of them needs to be set -> app cannot work
    - Make sure you picked "monthly" sending.
    - First email should arrive first day of the next month at 7am CET.
    - By default email attachment is password protected by phone number tight to air bank account
-   - Add `EMAIL_USERNAME`, `EMAIL_PASSWORD`, `EMAIL_HOST`, `AIR_ATTACHMENT_PASSWORD` in [./.env](.env)
+   - Add `EMAIL_USERNAME`, `EMAIL_PASSWORD`, `EMAIL_HOST`, `EMAIL_PORT`, `AIR_ATTACHMENT_PASSWORD` in [./.env](.env)
 
    Note: It is not possible to use gmail as it does not support basic authentication. For example you can use email by Seznam.cz.
 

@@ -1,9 +1,14 @@
-name: Run Monthly Job
+name: run-monthly-etl
 
 on:
   schedule:
     - cron: "0 0 2 * *" # Runs at midnight on the 2nd day of each month
   workflow_dispatch: # Allows manual triggering of the workflow
+    inputs:
+      flags:
+        description: "Application flags"
+        required: false
+        default: ""
 
 jobs:
   run-monthly-task:
@@ -26,6 +31,7 @@ jobs:
           OPENAI_MODEL_PROD=${{ secrets.OPENAI_MODEL_PROD }}
           OPENAI_MODEL_DEV=${{ secrets.OPENAI_MODEL_DEV }} 
           EMAIL_TARGET=${{ secrets.EMAIL_TARGET }}
+          EMAIL_PORT=${{ secrets.EMAIL_PORT }}
           WHITELISTED_ACCOUNTS=${{ secrets.WHITELISTED_ACCOUNTS }}
           WHITELISTED_INVESTMENT_KEYWORDS=${{ secrets.WHITELISTED_INVESTMENT_KEYWORDS }}
           GOOGLE_SHEET_ID_DEV=${{ secrets.GOOGLE_SHEET_ID_DEV }}
@@ -50,13 +56,49 @@ jobs:
             "universe_domain": "googleapis.com"
           }' > service-account.json
 
+      - name: Create Attachment folder
+        run: mkdir ./src/attachments
+
+      - name: Create Expenses prompt file
+        run: |
+          cat <<EOF > ./src/static/prompts/expenses.txt
+          {{secrets.EXPENSES_PROMPT}}
+          EOF
+
+      - name: Create Incomes prompt file
+        run: |
+          cat <<EOF > ./src/static/prompts/incomes.txt
+          {{secrets.INCOMES_PROMPT}}
+          EOF
+
       - name: Install dependencies
         run: yarn install
 
       - name: Build project
         run: yarn build
 
-      - name: Run production task
-        env:
-          NODE_ENV: production
-        run: yarn start:dev
+      - name: Run task
+        run: |
+          if [ "${{ github.event.inputs.flags }}" == "" ]; then
+            yarn start:prod
+          else
+            yarn start ${{ github.event.inputs.flags }}
+          fi
+
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v5
+        if: success() # Only run this step if the workflow succeeds
+        with:
+          server_address: ${{ secrets.EMAIL_HOST }}
+          server_port: ${{ secrets.EMAIL_PORT }}
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          to: ${{ secrets.EMAIL_SUCCESS_NOTIFICATION }}
+          subject: "Workflow run-monthly-etl completed successfully"
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            The workflow **run-monthly-etl** has completed successfully. 
+            - Repository: ${{ github.repository }}
+            - Workflow: ${{ github.workflow }}
+            - Run ID: ${{ github.run_id }}
+            - Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

@@ -2,6 +2,8 @@
 
 ## Bugs
 
+- unit tests vypisujou integration tests
+
 ## Must have
 
 ## Nice to have

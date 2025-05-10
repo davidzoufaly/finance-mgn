@@ -42,8 +42,10 @@ export const mainFlow = async ({
 }: Partial<Arguments<AppArguments>>) => {
   // Set the environment from args
   process.env.NODE_ENV = environment || 'development';
+  console.log(`🦖  Environment: ${process.env.NODE_ENV}`);
 
   const sheetId = getSheetId();
+  console.log(`💥  Google Sheets ID: ${sheetId}`);
 
   if (!sheetId) {
     throw new Error('❌  Google Sheets ID is not configured. Set it in .env file');

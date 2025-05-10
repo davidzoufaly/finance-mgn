@@ -24,6 +24,12 @@ export const emailPassword = process.env.EMAIL_PASSWORD;
 export const emailHost = process.env.EMAIL_HOST;
 
 /**
+ * Email port for IMAP server.
+ * @default process.env.EMAIL_PORT
+ */
+export const emailPort = process.env.EMAIL_PORT;
+
+/**
  * Target email address to fetch attachments from.
  * @default process.env.EMAIL_TARGET
  */
