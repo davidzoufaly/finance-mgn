@@ -19,19 +19,20 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "FIO_TOKEN=${{ secrets.FIO_TOKEN }}" >> .env
-          echo "GOOGLE_SHEET_ID_PROD=${{ secrets.GOOGLE_SHEET_ID_PROD }}" >> .env
-          echo "OPENAI_TOKEN=${{ secrets.OPENAI_TOKEN }}" >> .env
-          echo "OPENAI_MODEL_PROD=${{ secrets.OPENAI_MODEL_PROD }}" >> .env
-          echo "OPENAI_MODEL_DEV=${{ secrets.OPENAI_MODEL_DEV }}" >> .env
-          echo "EMAIL_TARGET=${{ secrets.EMAIL_TARGET }}" >> .env
-          echo "WHITELISTED_ACCOUNTS=${{ secrets.WHITELISTED_ACCOUNTS }}" >> .env
-          echo "WHITELISTED_INVESTMENT_KEYWORDS=${{ secrets.WHITELISTED_INVESTMENT_KEYWORDS }}" >> .env
-          echo "GOOGLE_SHEET_ID_DEV=${{ secrets.GOOGLE_SHEET_ID_DEV }}" >> .env
-          echo "EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}" >> .env
-          echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
-          echo "EMAIL_HOST=${{ secrets.EMAIL_HOST }}" >> .env
-          echo "AIR_ATTACHMENT_PASSWORD=${{ secrets.AIR_ATTACHMENT_PASSWORD }}" >> .env
+          echo '
+          FIO_TOKEN=${{ secrets.FIO_TOKEN }}
+          GOOGLE_SHEET_ID_PROD=${{ secrets.GOOGLE_SHEET_ID_PROD }}
+          OPENAI_TOKEN=${{ secrets.OPENAI_TOKEN }}
+          OPENAI_MODEL_PROD=${{ secrets.OPENAI_MODEL_PROD }}
+          OPENAI_MODEL_DEV=${{ secrets.OPENAI_MODEL_DEV }} 
+          EMAIL_TARGET=${{ secrets.EMAIL_TARGET }}
+          WHITELISTED_ACCOUNTS=${{ secrets.WHITELISTED_ACCOUNTS }}
+          WHITELISTED_INVESTMENT_KEYWORDS=${{ secrets.WHITELISTED_INVESTMENT_KEYWORDS }}
+          GOOGLE_SHEET_ID_DEV=${{ secrets.GOOGLE_SHEET_ID_DEV }}
+          EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}
+          EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_HOST=${{ secrets.EMAIL_HOST }}
+          AIR_ATTACHMENT_PASSWORD=${{ secrets.AIR_ATTACHMENT_PASSWORD }}' >> .env
 
       - name: Create service-account.json file
         run: |
