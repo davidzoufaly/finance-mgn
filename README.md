@@ -97,7 +97,7 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
    - Ensure you selected "monthly" sending.
    - The first email should arrive on the first day of the following month at 7 AM CET.
    - By default, the email attachment is password-protected using the phone number tied to the AIR Bank account.
-   - Add `EMAIL_USERNAME`, `EMAIL_PASSWORD`, `EMAIL_HOST`, `EMAIL_PORT`, and `AIR_ATTACHMENT_PASSWORD` in [./.env](.env).
+   - Add `EMAIL_USERNAME`, `EMAIL_PASSWORD`, `EMAIL_IMAP_SERVER`, `EMAIL_IMAP_PORT`, and `AIR_ATTACHMENT_PASSWORD` in [./.env](.env).
 
    Note: Gmail is not supported due to the lack of basic authentication. You can use email providers such as Seznam.cz.
 
