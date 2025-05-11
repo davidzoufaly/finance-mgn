@@ -89,8 +89,8 @@ jobs:
         uses: dawidd6/action-send-mail@v5
         if: success() # Only run this step if the workflow succeeds
         with:
-          server_address: ${{ secrets.EMAIL_HOST }}
-          server_port: ${{ secrets.EMAIL_PORT }}
+          server_address: ${{ secrets.EMAIL_SMTP_SERVER }}
+          server_port: ${{ secrets.EMAIL_SMTP_PORT }}
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           to: ${{ secrets.EMAIL_SUCCESS_NOTIFICATION }}
