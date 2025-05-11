@@ -93,11 +93,10 @@ jobs:
           server_port: ${{ secrets.EMAIL_SMTP_PORT }}
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          to: ${{ secrets.EMAIL_SUCCESS_NOTIFICATION }}
-          subject: "Workflow run-monthly-etl completed successfully"
+          to: ${{ secrets.EMAIL_USERNAME_CI_NOTIFICATION }}
+          subject: "Money well spend 💰"
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
-            The workflow **run-monthly-etl** has completed successfully. 
             - Repository: ${{ github.repository }}
             - Workflow: ${{ github.workflow }}
             - Run ID: ${{ github.run_id }}

@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { integrationTestCases } from '@integrationTests';
+import { getTestsSubset, integrationTestCases } from '@integrationTests';
 import type { IntegrationTestsArguments, TestCase } from '@types';
 import type { Arguments } from 'yargs';
 
@@ -20,32 +20,6 @@ export const RESET_CASE = integrationTestCases.find((item) => item.id === 25) as
  * @returns A promise that resolves after the specified time.
  */
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-/**
- * Filters test cases based on provided conditions.
- *
- * @param testCases - Array of test case objects to filter.
- * @param conditions - Conditions to filter the test cases.
- * @returns Filtered array of test cases that match the conditions.
- */
-export const getTestsSubset = (testCases: TestCase[], conditions?: IntegrationTestsArgv): TestCase[] => {
-  if (!conditions) return testCases;
-
-  const ids = conditions.id;
-  if (ids && ids.length > 0) {
-    return testCases.filter((item) => ids.some((id) => id === item.id)) as TestCase[];
-  }
-
-  return testCases.filter((testCase) => {
-    const matchesEnvironment = conditions.environment === testCase.environment;
-    const matchesWithLabeling =
-      conditions.withLabeling === undefined || conditions.withLabeling === testCase.withLabeling;
-    const matchesActions = conditions.actions === undefined || conditions.actions === testCase.actions;
-    const matchesCleanup = conditions.cleanup === undefined || conditions.cleanup === testCase.cleanup;
-
-    return matchesEnvironment && matchesWithLabeling && matchesActions && matchesCleanup;
-  });
-};
 
 /**
  * Runs a single test case.

@@ -22,7 +22,7 @@
     "test:watch": "vitest --watch --config ./config/vite.config.ts -w=true",
     "test:integration": "node ./dist/tests/index.js",
     "typecheck": "tsc --noEmit",
-    "release": "standard-version"
+    "version": "standard-version"
   },
   "dependencies": {
     "child_process": "^1.0.2",

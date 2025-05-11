@@ -1,5 +1,6 @@
-import { getTestsSubset, integrationTestCases } from '@integrationTests';
 import { expect, test } from 'vitest';
+import { getTestsSubset } from './getTestsSubset';
+import { integrationTestCases } from './integrationTestCases';
 
 test('get test(s) without LLM only', () => {
   const subset = getTestsSubset(integrationTestCases, { withLabeling: false, environment: 'development' });
