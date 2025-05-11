@@ -15,8 +15,13 @@ It aggregates transaction data from various sources (FIO bank and AIR bank).
   - [Run](#run)
     - [Supported Flags](#supported-flags)
     - [Commands](#commands)
+  - [Automation Trigger](#automation-trigger)
   - [Contribution Guide](#contribution-guide)
     - [Git Hooks](#git-hooks)
+    - [Imports](#imports)
+    - [Typedoc](#typedoc)
+    - [Versioning](#versioning)
+    - [TODO](#todo)
 
 ## Overview
 
