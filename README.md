@@ -1,8 +1,8 @@
 # Finance Management Tool (ETL)
 
-A lightweight finance management tool that fetches and processes transaction data, leverages OpenAI to
+A lightweight finance management tool that fetches and processes transaction data for last month, leverages OpenAI to
 categorize transactions, and integrates with Google Sheets to store, update, and retrieve financial data.
-Additionally, it aggregates transaction data from various sources. It's built to fetch and process transaction for last month.
+It aggregates transaction data from various sources (FIO bank and AIR bank).
 
 ## Table of Contents
 
