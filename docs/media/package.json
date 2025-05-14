@@ -1,6 +1,6 @@
 {
   "name": "finance-mgn",
-  "version": "1.1.0",
+  "version": "1.4.1",
   "description": "Finance Management Tool (ETL)",
   "main": "./dist/app/index.js",
   "type": "module",
@@ -15,13 +15,14 @@
     "lint:fix": "biome check --write",
     "start": "node dist/app/index.js",
     "start:light-check": "yarn start --actions none --cleanup all",
+    "start:dev": "yarn start --withLabeling true --actions all",
     "start:prod": "yarn start --environment production --withLabeling true --actions all",
-    "cleanup:all": "yarn start --environment development --actions none --cleanup all",
+    "cleanup:all": "yarn start --actions none --cleanup all",
     "test": "vitest --config ./config/vite.config.ts",
     "test:watch": "vitest --watch --config ./config/vite.config.ts -w=true",
     "test:integration": "node ./dist/tests/index.js",
     "typecheck": "tsc --noEmit",
-    "release": "standard-version"
+    "version": "standard-version"
   },
   "dependencies": {
     "child_process": "^1.0.2",

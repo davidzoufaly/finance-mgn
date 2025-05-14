@@ -14,7 +14,7 @@ pre-commit:
 
     biome:
       run: |
-        biome check --apply {staged_files}
+        biome check --write {staged_files}
         git add {staged_files}
 
     typecheck:
