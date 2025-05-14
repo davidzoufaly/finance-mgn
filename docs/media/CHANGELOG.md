@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/davidzoufaly/finance-mgn/compare/v1.3.0...v1.4.1) (2025-05-11)
+
+## [1.3.0](https://github.com/davidzoufaly/finance-mgn/compare/v1.1.0...v1.3.0) (2025-05-11)
+
+
+### Features
+
+* docs in git ([e77a8bd](https://github.com/davidzoufaly/finance-mgn/commit/e77a8bdec4e829d25dc78187b3eb5fff9ffb7a35))
+* new github actions ([18edaaa](https://github.com/davidzoufaly/finance-mgn/commit/18edaaab94d4d6acf4fa1016c6213b314e912cc3))
+
 ## 1.1.0 (2025-05-06)
 
 
