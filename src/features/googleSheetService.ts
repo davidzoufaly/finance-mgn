@@ -102,7 +102,9 @@ export const getExistingDataFromSheet = async (
 
     const filteredValues: Transaction[] | undefined = data?.values?.filter((item) => item.length > 1);
 
-    console.log(`🖨️  ${filteredValues?.length} transactions for ${sheetName} from Google Spreadsheet fetched`);
+    console.log(
+      `😱  ${filteredValues?.length} transactions for ${sheetName} from Google Spreadsheet fetched`,
+    );
 
     return filteredValues ?? [];
   } catch (error) {
@@ -135,7 +137,7 @@ export const writeSheet = async (
   await clearSheetData(sheetName, sheetId);
 
   try {
-    console.log(`🖋   Writing ${sheetName} transactions data to Google Spreadsheet...`);
+    console.log(`⚡️  Writing ${sheetName} transactions data to Google Spreadsheet...`);
 
     const requestBody = {
       majorDimension: 'ROWS',

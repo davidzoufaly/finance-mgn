@@ -130,7 +130,7 @@ export const mainFlow = async ({
       // Reset email and Google Sheets on failure
       console.error(error);
       try {
-        console.log('🪣   Something has failed, fallbacking to cleanup');
+        console.log('🧽  Something has failed, fallbacking to cleanup');
         await markLastSeenEmailAsUnseen();
         await cleanupGoogleSheets(sheetId);
       } catch (error) {
@@ -142,7 +142,7 @@ export const mainFlow = async ({
   }
 
   try {
-    console.log(`🪣   Initializing cleanup: ${cleanup}`);
+    console.log(`🧽  Initializing cleanup: ${cleanup}`);
     if (cleanup !== 'sheets') {
       await markLastSeenEmailAsUnseen();
     }
