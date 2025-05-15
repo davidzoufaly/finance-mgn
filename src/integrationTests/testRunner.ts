@@ -77,7 +77,7 @@ export const runReset = async (resetCase: TestCase): Promise<void> => {
   console.log(`🔄  Resetting environment (Test Case ${resetCase.id})...\n`);
   try {
     await runTest(resetCase);
-    console.log('🕹️  Environment reset successfully\n');
+    console.log('🥁  Environment reset successfully\n');
   } catch (error) {
     console.error(`❌  Environment reset failed for Test Case ${resetCase.id}: ${error.message}`);
   }
