@@ -17,7 +17,7 @@ It aggregates transaction data from various sources (FIO bank and AIR bank).
     - [Commands](#commands)
   - [Automation Trigger](#automation-trigger)
   - [Contribution Guide](#contribution-guide)
-    - [Git Hooks](#git-hooks)
+    - [Clean Code](#clean-code)
     - [Imports](#imports)
     - [Typedoc](#typedoc)
     - [Versioning](#versioning)
@@ -178,13 +178,13 @@ Start commands support flags for configuring the application.
   yarn test:integration --id 12 25 5
   ```
 
-- To run unit tests (by default in watch mode), run:
+- To run unit tests run:
 
   ```shell
   yarn test:unit
   ```
 
-  Note: Unit tests are also triggered on merge to main via Github Action.
+  Note: Unit tests are also triggered on merge to main via Github Action and can be run in watch mode using `yarn test:watch`
 
 - To build the application, run:
 
@@ -216,18 +216,18 @@ To use the monthly automation GitHub Action for the entire ETL process after for
 
 ## Contribution Guide
 
-### Git Hooks
+### Clean Code
 
 - Git hooks are configured by [Lefthook](https://github.com/evilmartians/lefthook) in
   [lefthook.yaml](./lefthook.yml).
 - After updating or adding hooks, run `yarn lefthook install`.
 - The repository uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), enforced by `commitlint` in the `commit-msg` hook.
 - Code formatting is handled by [Biome](https://biomejs.dev/) and [.editorconfig](./.editorconfig) via the `pre-commit` hook.
-- Code quality checks are also performed using Biome in the `pre-commit` hook.
+- Code quality checks are also performed using [Biome](https://biomejs.dev/) in the `pre-commit` hook.
 
 ### Imports
 
-Imports use the "@" alias configured in [tsconfig](./tsconfig.json) and work project-wide. Vitest may execute files outside the test scope, so in `.test.ts` files, prefer relative imports instead of using the index.
+Imports use the "@" alias configured in [tsconfig](./tsconfig.json) and work project-wide. Vitest may execute files outside the test scope, so in `.test.ts` files, prefer relative imports instead of using the index via aliases or directly.
 
 ### Typedoc
 

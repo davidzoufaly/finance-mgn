@@ -156,7 +156,7 @@ export const parseAirTransactions = async (): Promise<TransactionObject[]> => {
 
       // Delete the attachment after processing
       fs.unlinkSync(attachmentFilePath);
-      console.log('🗑️  Attachment successfully deleted');
+      console.log('🗑️   Attachment successfully deleted');
 
       return finalTrans;
     });
