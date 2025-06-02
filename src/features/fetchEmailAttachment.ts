@@ -2,10 +2,10 @@ import fs from 'node:fs';
 import {
   attachmentFileName,
   attachmentFilePath,
-  emailHost,
+  emailImapServer,
   emailPassword,
-  emailPort,
-  emailTarget,
+  emailImapPort,
+  emailTransactionsTarget,
   emailUsername,
 } from '@constants';
 import type { ImapSimple, ImapSimpleOptions } from 'imap-simple';
@@ -19,9 +19,9 @@ const { connect, getParts } = imapSimple;
  * @throws An error if any of the required email credentials are missing.
  */
 export const validateEmailCredentials = () => {
-  if (!emailUsername || !emailHost || !emailPassword || !emailTarget || !emailPort) {
+  if (!emailUsername || !emailImapServer || !emailPassword || !emailTransactionsTarget || !emailImapPort) {
     throw new Error(
-      '❌  Mandatory email credentials are not set (username, password, host, target email). Set them in .env file',
+      '❌  Mandatory email credentials are not set (username, password, imap server, transactions target email address and imap port). Set them in .env file or environment secrets.',
     );
   }
 };
@@ -37,8 +37,8 @@ export const connectToImapServer = async (): Promise<ImapSimple> => {
     imap: {
       user: emailUsername || '',
       password: emailPassword || '',
-      host: emailHost,
-      port: Number(emailPort),
+      host: emailImapServer,
+      port: Number(emailImapPort),
       tls: true,
       authTimeout: 30000,
     },
@@ -106,7 +106,7 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) =>
     connection = await connectToImapServer();
     await openInbox(connection);
 
-    const searchCriteria = ['UNSEEN', ['FROM', emailTarget]];
+    const searchCriteria = ['UNSEEN', ['FROM', emailTransactionsTarget]];
     const messages = await fetchEmails(connection, searchCriteria);
     console.log(`📥  Fetched ${messages.length} emails`);
 
@@ -167,7 +167,7 @@ export const markLastSeenEmailAsUnseen = async () => {
     connection = await connectToImapServer();
     await openInbox(connection);
 
-    const searchCriteria = ['SEEN', ['FROM', emailTarget]];
+    const searchCriteria = ['SEEN', ['FROM', emailTransactionsTarget]];
     const messages = await fetchEmails(connection, searchCriteria);
     console.log(`📥  Fetched ${messages.length} seen emails`);
 

@@ -2,7 +2,7 @@ name: run-monthly-etl
 
 on:
   schedule:
-    - cron: "0 0 2 * *" # Runs at midnight on the 2nd day of each month
+    - cron: "0 0 3 * *" # Runs at midnight on the 3rd day of each month
   workflow_dispatch: # Allows manual triggering of the workflow
     inputs:
       flags:
@@ -29,9 +29,9 @@ jobs:
           GOOGLE_SHEET_ID_PROD=${{ secrets.GOOGLE_SHEET_ID_PROD }}
           OPENAI_TOKEN=${{ secrets.OPENAI_TOKEN }}
           OPENAI_MODEL_PROD=${{ secrets.OPENAI_MODEL_PROD }}
-          OPENAI_MODEL_DEV=${{ secrets.OPENAI_MODEL_DEV }} 
+          OPENAI_MODEL_DEV=${{ secrets.OPENAI_MODEL_DEV }}
           EMAIL_TARGET=${{ secrets.EMAIL_TARGET }}
-          EMAIL_PORT=${{ secrets.EMAIL_PORT }}
+          EMAIL_IMAP_PORT=${{ secrets.EMAIL_IMAP_PORT }}
           WHITELISTED_ACCOUNTS=${{ secrets.WHITELISTED_ACCOUNTS }}
           WHITELISTED_INVESTMENT_KEYWORDS=${{ secrets.WHITELISTED_INVESTMENT_KEYWORDS }}
           GOOGLE_SHEET_ID_DEV=${{ secrets.GOOGLE_SHEET_ID_DEV }}
