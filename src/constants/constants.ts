@@ -21,19 +21,19 @@ export const emailPassword = process.env.EMAIL_PASSWORD;
  * Email host for IMAP server.
  * @default process.env.EMAIL_IMAP_SERVER
  */
-export const emailHost = process.env.EMAIL_IMAP_SERVER;
+export const emailImapServer = process.env.EMAIL_IMAP_SERVER;
 
 /**
  * Email port for IMAP server.
  * @default process.env.EMAIL_IMAP_PORT
  */
-export const emailPort = process.env.EMAIL_IMAP_PORT;
+export const emailImapPort = process.env.EMAIL_IMAP_PORT;
 
 /**
  * Target email address to fetch attachments from.
  * @default process.env.EMAIL_TRANSACTIONS_TARGET
  */
-export const emailTarget = process.env.EMAIL_TRANSACTIONS_TARGET;
+export const emailTransactionsTarget = process.env.EMAIL_TRANSACTIONS_TARGET;
 
 /**
  * Password for decrypting AIR bank PDF attachments.
