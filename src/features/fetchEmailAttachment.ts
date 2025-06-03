@@ -126,7 +126,7 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) =>
           continue;
         }
 
-        console.log(`💪  Downloading attachment: ${filename}`);
+        console.log(`😎  Downloading attachment: ${filename}`);
         const partData = await connection.getPartData(message, part);
         const attachment = {
           filename,
