@@ -2,7 +2,7 @@ name: run-monthly-etl
 
 on:
   schedule:
-    - cron: "0 0 3 * *" # Runs at midnight on the 3rd day of each month
+    - cron: "0 12 1 * *" # Runs at noon on the 1st day of each month
   workflow_dispatch: # Allows manual triggering of the workflow
     inputs:
       flags:
