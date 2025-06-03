@@ -94,7 +94,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           to: ${{ secrets.EMAIL_USERNAME_CI_NOTIFICATION }}
-          subject: "Money well spend 💰"
+          subject: "Money well spent 💰"
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
             - Repository: ${{ github.repository }}

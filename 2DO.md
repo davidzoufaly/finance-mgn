@@ -11,5 +11,6 @@
 - [ ] Add possibility to process multiple months.
 - [ ] Add possibility to fetch month(s) to different Google Sheet for ad-hoc analysis.
 - [ ] Better unit tests coverage
+- [ ] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
 
 ## Refactor
