@@ -95,9 +95,10 @@ export const disconnectFromImapServer = (connection: ImapSimple) => {
  * Fetches email attachments from the IMAP server that match a specific keyword.
  *
  * @param keywordForAttachmentCheck - The keyword to check in attachment filenames.
+ * @param isSeen - Whether to fetch seen or unseen emails. Defaults to false (unseen).
  * @throws An error if fetching attachments fails.
  */
-export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) => {
+export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, isSeen = false) => {
   validateEmailCredentials();
 
   let connection: ImapSimple | undefined;
@@ -106,7 +107,7 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) =>
     connection = await connectToImapServer();
     await openInbox(connection);
 
-    const searchCriteria = ['UNSEEN', ['FROM', emailTransactionsTarget]];
+    const searchCriteria = [isSeen ? 'SEEN' : 'UNSEEN', ['FROM', emailTransactionsTarget]];
     const messages = await fetchEmails(connection, searchCriteria);
     console.log(`📥  Fetched ${messages.length} emails`);
 
@@ -122,7 +123,8 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) =>
         console.log(`📎  Found attachment: ${filename}`);
 
         if (!filename.includes(keywordForAttachmentCheck)) {
-          console.log(`⏩  Skipping attachment: ${filename} (does not match last month date range)`);
+          console.log(keywordForAttachmentCheck);
+          console.log(`⏩  Skipping attachment: ${filename} (does not match specified month date range)`);
           continue;
         }
 

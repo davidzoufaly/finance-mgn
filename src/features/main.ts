@@ -1,11 +1,12 @@
 import {
+  defaultKeywordForAttachmentCheck,
   getSheetId,
-  keywordForAttachmentCheck,
   whitelistedAccounts,
   whitelistedInvestmentKeywords,
 } from '@constants';
 import {
   cleanupGoogleSheets,
+  createEmailBody,
   dataFederation,
   fetchEmailAttachment,
   fetchFioTransactions,
@@ -16,6 +17,7 @@ import {
   writeSheetBulk,
 } from '@features';
 import type { AppArguments, Transaction, TransactionObject } from '@types';
+import { sortByDateDesc } from '@utils';
 import type { Arguments } from 'yargs';
 
 /**
@@ -32,6 +34,7 @@ import type { Arguments } from 'yargs';
  * @param args.environment - The environment to run the application in (e.g., "development", "production").
  * @param args.actions - The actions to perform (e.g., "mail", "fio", or both).
  * @param args.cleanup - The cleanup mode (e.g., "sheets", "mail", or both).
+ * @param args.month - The month to process transactions for, in the format "MM-yyyy". Defaults to the last month if not provided.
  * @throws Error If any required configuration is missing or an operation fails.
  */
 export const mainFlow = async ({
@@ -39,6 +42,7 @@ export const mainFlow = async ({
   environment,
   actions,
   cleanup,
+  month,
 }: Partial<Arguments<AppArguments>>) => {
   // Set the environment from args
   process.env.NODE_ENV = environment || 'development';
@@ -58,7 +62,9 @@ export const mainFlow = async ({
 
       if (actions !== 'fio') {
         // Fetch AIR transactions PDF from email
-        await fetchEmailAttachment(keywordForAttachmentCheck);
+        month
+          ? await fetchEmailAttachment(month, true)
+          : await fetchEmailAttachment(defaultKeywordForAttachmentCheck);
 
         // Parse AIR transactions from PDF
         airTransactions = await parseAirTransactions();
@@ -66,7 +72,7 @@ export const mainFlow = async ({
 
       if (actions !== 'mail') {
         // Fetch transactions from FIO API
-        fioTransactions = await fetchFioTransactions();
+        fioTransactions = await fetchFioTransactions(undefined, month);
       }
 
       // Clean and group transactions
@@ -85,7 +91,7 @@ export const mainFlow = async ({
       const existingIncomes = await getExistingDataFromSheet('incomes', sheetId);
       const existingInvestments = await getExistingDataFromSheet('investments', sheetId);
 
-      const finalInvestments = [...investments, ...existingInvestments];
+      const finalInvestments = sortByDateDesc([...investments, ...existingInvestments]);
 
       let finalExpenses: Transaction[];
       let finalIncomes: Transaction[];
@@ -100,8 +106,8 @@ export const mainFlow = async ({
         finalExpenses = labeledExpenses;
         finalIncomes = labeledIncomes;
       } else {
-        finalExpenses = [...expenses, ...existingExpenses];
-        finalIncomes = [...incomes, ...existingIncomes];
+        finalExpenses = sortByDateDesc([...expenses, ...existingExpenses]);
+        finalIncomes = sortByDateDesc([...incomes, ...existingIncomes]);
       }
 
       // Write data to all sheets
@@ -122,6 +128,9 @@ export const mainFlow = async ({
           sheetId,
         },
       ]);
+
+      createEmailBody(finalExpenses, finalIncomes, finalInvestments, sheetId);
+
       console.log('🍻  Every action completed');
 
       // Exit if no cleanup is required
@@ -131,7 +140,8 @@ export const mainFlow = async ({
       console.error(error);
       try {
         console.log('🧽  Something has failed, fallbacking to cleanup');
-        await markLastSeenEmailAsUnseen();
+        // When working with last month (default) reset mailbox by marking the last seen email as unseen
+        !month && (await markLastSeenEmailAsUnseen());
         await cleanupGoogleSheets(sheetId);
       } catch (error) {
         console.error(error);
@@ -144,7 +154,8 @@ export const mainFlow = async ({
   try {
     console.log(`🧽  Initializing cleanup: ${cleanup}`);
     if (cleanup !== 'sheets') {
-      await markLastSeenEmailAsUnseen();
+      // When working with last month (default) reset mailbox by marking the last seen email as unseen
+      !month && (await markLastSeenEmailAsUnseen());
     }
 
     if (cleanup !== 'mail') {

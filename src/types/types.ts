@@ -23,6 +23,7 @@ export type AppArguments = {
   withLabeling?: boolean | undefined;
   actions?: 'fio' | 'mail' | 'all' | undefined;
   cleanup?: 'mail' | 'sheets' | 'all' | undefined;
+  month?: string | undefined;
 };
 
 export type IntegrationTestsArguments = AppArguments & { id?: number[] };
