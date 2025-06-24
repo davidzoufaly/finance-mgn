@@ -138,9 +138,11 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
         console.log(`💾  Saving attachment: ${filename} as ${attachmentFileName}`);
         fs.writeFileSync(attachmentFilePath, attachment.data);
 
-        // Mark email as seen
-        console.log('👀  Marking email as seen');
-        await connection.addFlags(message.attributes.uid, ['\\Seen']);
+        if (!isSeen) {
+          // Mark email as seen
+          console.log('👀  Marking email as seen');
+          await connection.addFlags(message.attributes.uid, ['\\Seen']);
+        }
       } else {
         console.log('🚫  No attachment found in email');
       }
