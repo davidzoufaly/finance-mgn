@@ -123,7 +123,6 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
         console.log(`📎  Found attachment: ${filename}`);
 
         if (!filename.includes(keywordForAttachmentCheck)) {
-          console.log(keywordForAttachmentCheck);
           console.log(`⏩  Skipping attachment: ${filename} (does not match specified month date range)`);
           continue;
         }
