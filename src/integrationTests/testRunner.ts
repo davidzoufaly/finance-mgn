@@ -40,6 +40,8 @@ export const runTest = async (testCase: TestCase): Promise<boolean> => {
       testCase.actions ?? '',
       '--cleanup',
       testCase.cleanup ?? '',
+      '--month',
+      testCase.month ?? '',
     ];
 
     const child = spawn('yarn', ['start', ...argv], { stdio: ['inherit', 'pipe', 'pipe'] });

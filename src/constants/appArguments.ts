@@ -76,6 +76,23 @@ export const appArguments = {
     choices: ['all', 'mail', 'sheets', ''],
     default: undefined,
   },
+
+  /**
+   * Specifies the month for which the transactions should be processed.
+   *
+   * @remarks
+   * Command line alias: -m
+   * Command line type: string
+   *
+   * @type string
+   * @default undefined
+   */
+  month: {
+    alias: 'm',
+    type: 'string' as const,
+    description: 'Specify month for transactions processing (format: MM-yyyy)',
+    default: undefined,
+  },
 };
 
 /**

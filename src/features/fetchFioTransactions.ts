@@ -74,37 +74,50 @@ export type AccountStatement = {
 };
 
 /**
- * Returns the date range for the last month in the format `yyyy-MM-dd/yyyy-MM-dd`.
+ * Returns the date range for a given month in the format `yyyy-MM-dd/yyyy-MM-dd`.
+ * If no month is provided, defaults to the last month.
  *
- * @returns The date range for the last month.
+ * @param month - Optional month in the format 'MM/yyyy'.
+ * @returns The date range for the specified or last month.
  */
-export const getLastMonthRange = (): string => {
-  const lastMonth = subMonths(new Date(), 1);
+export const getMonthRange = (month?: string): string => {
+  let targetDate: Date;
 
-  const lastMonthStart = startOfMonth(lastMonth);
-  const lastMonthEnd = endOfMonth(lastMonth);
+  if (month) {
+    // Parse month in MM/yyyy format
+    const [mm, yyyy] = month.split('-');
+    targetDate = new Date(Number(yyyy), Number(mm) - 1, 1);
+  } else {
+    targetDate = subMonths(new Date(), 1);
+  }
 
-  const formattedRange = `${format(lastMonthStart, 'yyyy-MM-dd')}/${format(lastMonthEnd, 'yyyy-MM-dd')}`;
-  return formattedRange;
+  const monthStart = startOfMonth(targetDate);
+  const monthEnd = endOfMonth(targetDate);
+
+  return `${format(monthStart, 'yyyy-MM-dd')}/${format(monthEnd, 'yyyy-MM-dd')}`;
 };
 
 /**
  * Fetches transactions from the FIO API for the last month or a custom endpoint.
  *
  * @param endpoint - Optional custom endpoint for fetching transactions.
+ * @param month - Optional month in the format 'MM-yyyy' to fetch transactions for a specific month.
  * @returns A promise that resolves to an array of transactions in the `TransactionObjOptStr` format.
  * @throws An error if the FIO token is not configured or if the API request fails.
  */
-export const fetchFioTransactions = async (endpoint?: string | undefined): Promise<TransactionObject[]> => {
+export const fetchFioTransactions = async (
+  endpoint?: string | undefined,
+  month?: string,
+): Promise<TransactionObject[]> => {
   if (!fioToken) {
     throw new Error('❌  FIO token is not configured. Set it in .env');
   }
 
-  const lastMonth = getLastMonthRange();
-  const url = endpoint ?? `https://fioapi.fio.cz/v1/rest/periods/${fioToken}/${lastMonth}/transactions.json`;
+  const monthRange = getMonthRange(month);
+  const url = endpoint ?? `https://fioapi.fio.cz/v1/rest/periods/${fioToken}/${monthRange}/transactions.json`;
 
   try {
-    console.log(`💰  Fetching transactions for ${lastMonth} from FIO banka...`);
+    console.log(`💰  Fetching transactions for ${monthRange} from FIO banka...`);
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -138,7 +151,7 @@ export const fetchFioTransactions = async (endpoint?: string | undefined): Promi
       };
     });
 
-    console.log(`🤝  ${transactions.length} transactions fetched from FIO banka for ${lastMonth}...`);
+    console.log(`🤝  ${transactions.length} transactions fetched from FIO banka for ${monthRange}...`);
 
     return transactions;
   } catch (error) {

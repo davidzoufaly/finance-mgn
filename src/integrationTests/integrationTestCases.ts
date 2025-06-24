@@ -185,4 +185,25 @@ export const integrationTestCases: TestCase[] = [
     withLabeling: false,
     cleanup: 'sheets',
   },
+  {
+    id: 28,
+    environment: 'development',
+    withLabeling: false,
+    actions: 'all',
+    month: '04-2025',
+  },
+  {
+    id: 29,
+    environment: 'development',
+    withLabeling: false,
+    actions: 'mail',
+    month: '04-2025',
+  },
+  {
+    id: 30,
+    environment: 'development',
+    withLabeling: false,
+    actions: 'fio',
+    month: '04-2025',
+  },
 ];

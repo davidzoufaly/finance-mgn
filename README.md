@@ -1,6 +1,6 @@
 # Finance Management Tool (ETL)
 
-A lightweight finance management tool that fetches and processes transaction data for last month, leverages OpenAI to
+A lightweight finance management tool that fetches and processes transaction data for specific month (by default last full month), leverages OpenAI to
 categorize transactions, and integrates with Google Sheets to store, update, and retrieve financial data.
 It aggregates transaction data from various sources (FIO bank and AIR bank).
 
@@ -27,13 +27,13 @@ It aggregates transaction data from various sources (FIO bank and AIR bank).
 
 ### Key Features
 
-- **External Data Fetching:** Retrieves attachments and transactions from external services (e.g., Air and
-  FIO).
+- **External Data Fetching:** Retrieves attachments and transactions from external services (Air bank and
+  FIO bank).
 - **Data Federation:** Aggregates data from multiple sources.
-- **Transaction Labeling:** Uses OpenAI to generate categories.
-- **Data Integrity:** Validates data after labeling.
+- **Transaction Labeling:** Uses OpenAI to assign proper categories.
+- **Data Integrity:** Validates data after labeling - number of transactions and transactions values.
 - **Google Sheets Integration:** Reads from, cleans, and writes to Google Sheets.
-- **Automation:** The entire ETL process is automated using GitHub Actions.
+- **Automation:** The entire ETL process is automated using GitHub Actions and email notification is sent after successfull run.
 
 ### Key Technical Aspects
 
@@ -127,12 +127,13 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
 
 The application and integration tests support the following flags:
 
-| Flag           | Shortcut | Values                  | Default     |
-| -------------- | -------- | ----------------------- | ----------- |
-| --environment  | -e       | development, production | development |
-| --withLabeling | -w       | boolean                 | undefined   |
-| --actions      | -a       | all, mail, fio          | undefined   |
-| --cleanup      | -c       | all, mail, sheets       | undefined   |
+| Flag           | Shortcut | Type    | Values                  | Default     |
+| -------------- | -------- | ------- | ----------------------- | ----------- |
+| --environment  | -e       | string  | development, production | development |
+| --withLabeling | -w       | boolean | true, false             | undefined   |
+| --actions      | -a       | string  | all, mail, fio          | undefined   |
+| --cleanup      | -c       | string  | all, mail, sheets       | undefined   |
+| --month        | -m       | string  | MM-yyyy                 | undefined   |
 
 Integration tests support one additional flag to target specific test case identifiers. It should be used standalone, without other flags.
 

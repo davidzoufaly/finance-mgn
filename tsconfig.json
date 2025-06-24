@@ -26,7 +26,8 @@
       "@constants": ["./src/constants"],
       "@types": ["./src/types"],
       "@features": ["./src/features"],
-      "@integrationTests": ["src/integrationTests"]
+      "@integrationTests": ["src/integrationTests"],
+      "@utils": ["./src/utils"]
     }
   },
   "exclude": ["node_modules"],
