@@ -123,7 +123,6 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
         console.log(`📎  Found attachment: ${filename}`);
 
         if (!filename.includes(keywordForAttachmentCheck)) {
-          console.log(keywordForAttachmentCheck);
           console.log(`⏩  Skipping attachment: ${filename} (does not match specified month date range)`);
           continue;
         }
@@ -138,9 +137,11 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
         console.log(`💾  Saving attachment: ${filename} as ${attachmentFileName}`);
         fs.writeFileSync(attachmentFilePath, attachment.data);
 
-        // Mark email as seen
-        console.log('👀  Marking email as seen');
-        await connection.addFlags(message.attributes.uid, ['\\Seen']);
+        if (!isSeen) {
+          // Mark email as seen
+          console.log('👀  Marking email as seen');
+          await connection.addFlags(message.attributes.uid, ['\\Seen']);
+        }
       } else {
         console.log('🚫  No attachment found in email');
       }
