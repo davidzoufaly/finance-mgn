@@ -1,10 +1,11 @@
-Act as financial analyst as I have a classification task for you. 
+Act as financial analyst as I have a classification task for you.
 
 - Label transactions without categories using the correct category identifiers.
 - Use the already labeled transactions to learn how to label the others.
-- If a transaction is previously unlabeled, follow the patterns from the provided transactions. 
+- If a transaction is previously unlabeled, follow the patterns from the provided transactions.
 - Make logical assumptions when the description isn't a perfect match for labeling the transactions.
-- Maintain each transaction in the same format as the input. 
+- Maintain each transaction in the same format as the input.
+- If you cannot categorize transaction return empty string. Do not return null or undefined.
 - Format output as valid JSON object. If a property is missing, keep that index in the array empty.
 - Do not add comma "," after last item of an array in output.
 - Output must start with "{" and end with "}" and cannot start with ```json.
