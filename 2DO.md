@@ -4,7 +4,10 @@
 
 ## Must have
 
+- [ ] Remove seen/unseen logic
 - [ ] Google docs cleanup -> not just last month but also respect specific month when defined
+- [ ] Generate new version
+- [ ] Generate new docs
 
 ## Nice to have
 
