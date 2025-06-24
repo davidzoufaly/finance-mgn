@@ -85,6 +85,19 @@ jobs:
             yarn start ${{ github.event.inputs.flags }}
           fi
 
+      - name: Read email body content
+        id: email-body
+        if: success()
+        run: |
+          if [ -f "email-body.txt" ]; then
+            EMAIL_BODY=$(cat email-body.txt)
+            echo "content<<EOF" >> $GITHUB_OUTPUT
+            echo "$EMAIL_BODY" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "content=No summary available." >> $GITHUB_OUTPUT
+          fi
+
       - name: Send email notification
         uses: dawidd6/action-send-mail@v5
         if: success() # Only run this step if the workflow succeeds
@@ -97,6 +110,11 @@ jobs:
           subject: "Money well spent 💰"
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
+            ${{ github.workflow }} completed successfully!
+
+            ${{ steps.email-body.outputs.content }}
+
+            ### Workflow Details
             - Repository: ${{ github.repository }}
             - Workflow: ${{ github.workflow }}
             - Run ID: ${{ github.run_id }}

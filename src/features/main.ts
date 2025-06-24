@@ -6,6 +6,7 @@ import {
 } from '@constants';
 import {
   cleanupGoogleSheets,
+  createEmailBody,
   dataFederation,
   fetchEmailAttachment,
   fetchFioTransactions,
@@ -127,6 +128,9 @@ export const mainFlow = async ({
           sheetId,
         },
       ]);
+
+      createEmailBody(finalExpenses, finalIncomes, finalInvestments, sheetId);
+
       console.log('🍻  Every action completed');
 
       // Exit if no cleanup is required
