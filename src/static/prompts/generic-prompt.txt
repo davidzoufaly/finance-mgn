@@ -7,9 +7,9 @@ Act as financial analyst as I have a classification task for you.
 - Maintain each transaction in the same format as the input.
 - If you cannot categorize transaction return empty string. Do not return null or undefined.
 - All indexes within array has to be type of string, which is text or empty surrounded by double quotes: "".
-- Format output as valid JSON object. If a property is missing, keep that index in the array empty.
-- Do not add comma "," after last item of an array in output.
 - Output must start with "{" and end with "}" and cannot start with ```json.
+- Output must be a valid JSON object.
+- Do not add comma "," after last item of an array in output.
 - Do not include any extra text in your output.
 - Categories follow a hierarchical structure, consisting of an identifier and a description.
 - Always return all transactions.
