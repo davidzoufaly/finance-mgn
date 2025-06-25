@@ -6,6 +6,7 @@ Act as financial analyst as I have a classification task for you.
 - Make logical assumptions when the description isn't a perfect match for labeling the transactions.
 - Maintain each transaction in the same format as the input.
 - If you cannot categorize transaction return empty string. Do not return null or undefined.
+- All indexes within array has to be type of string, which is text or empty surrounded by double quotes: "".
 - Format output as valid JSON object. If a property is missing, keep that index in the array empty.
 - Do not add comma "," after last item of an array in output.
 - Output must start with "{" and end with "}" and cannot start with ```json.
@@ -23,9 +24,9 @@ Desired output structure:
 {
     "transactions": [
         [<<transaction_category_identifier_as_string>>, <<transaction_value_as_string>>, <<transaction_date_as_string>>, <<bank_account_as_string>>, <<transaction_description_as_string>>]
-    ], 
+    ],
     "tokens": <<number_of_tokens_consumed>>
-} 
+}
 
 At the boottom there is full dataset of transactions, when there is always one transaction per line in this format:
 <<transaction_category_identifier_as_string_optional>> | <<transaction_value_as_string>> | <<transaction_date_as_string>> | <<bank_account_as_string_optional>> | <<transaction_description_as_string_optional>>
