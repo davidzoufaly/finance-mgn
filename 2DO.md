@@ -1,11 +1,11 @@
 ## In progress
 
+- [ ] Generate June
+
 ## Bugs
 
 ## Must have
 
-- [ ] Retry LLM part 3 times
-- [ ] Generate June
 - [ ] Remove seen/unseen logic
 - [ ] Google docs cleanup method -> not just last month but also respect specific month when defined
 - [ ] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
@@ -24,6 +24,7 @@
 
 ## Done
 
+- [x] Retry LLM part 3 times
 - [x] Limit number of trasnactions that are sent to LLM. Now all transactions from the whole year are sent. It could be limited for last 150 transactions
 - [x] update expenses prompt
 - [x] labelovat 04, 05 manuálně v tabulce

@@ -49,3 +49,5 @@ Instructions:
 At the bottom of the prompt, the full dataset will be provided. Each line represents a transaction and uses this format:
 
 <category_id_optional> | <value> | <date> | <bank_account_optional> | <description_optional>
+
+Categories start:

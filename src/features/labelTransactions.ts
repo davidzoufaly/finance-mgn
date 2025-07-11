@@ -157,3 +157,56 @@ export const labelTransactions = async (
 
   return transactions;
 };
+
+/**
+ * Labels transactions using an LLM with retry logic.
+ *
+ * @param existingTransactions - The existing transactions.
+ * @param newTransactions - The new transactions.
+ * @param promptFilename - The name of the prompt file.
+ * @param maxRetries - Maximum retry attempts (default: 2, for a total of 3 attempts).
+ * @returns A promise that resolves to the labeled transactions.
+ * @throws An error if the labeling process fails after all retries.
+ */
+export const labelTransactionsWithRetry = async (
+  existingTransactions: Transaction[],
+  newTransactions: Transaction[],
+  promptFilename: string,
+  maxTries = 3,
+): Promise<Transaction[]> => {
+  let attempts = 0;
+  let lastError: Error | null = null;
+
+  while (attempts <= maxTries) {
+    attempts++;
+
+    try {
+      // Log retry attempt if not the first attempt
+      if (attempts > 1) {
+        console.log(`🔄  Retry attempt ${attempts - 1} for labeling ${promptFilename} transactions...`);
+      }
+
+      // Call the original labelTransactions function
+      return await labelTransactions(existingTransactions, newTransactions, promptFilename);
+    } catch (error) {
+      lastError = error;
+
+      // If we've reached the max retries, give up
+      if (attempts > maxTries) {
+        console.error(`❌  Failed to label transactions after ${maxTries} attempts: ${error.message}`);
+        break;
+      }
+
+      // Log the error but continue with retry
+      console.warn(`⚠️  Attempt ${attempts}/${maxTries} failed: ${error.message}`);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
+
+  // If all attempts failed, throw the last error
+  throw (
+    lastError ||
+    new Error(`❌  Failed to label transactions after ${maxTries} attempts`, { cause: lastError })
+  );
+};
