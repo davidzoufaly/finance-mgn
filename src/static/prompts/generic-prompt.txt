@@ -1,34 +1,53 @@
-Act as financial analyst as I have a classification task for you.
+Act as a financial analyst. Your task is to classify new transactions based on existing labeled transactions.
 
-- Label transactions without categories using the correct category identifiers.
-- Use the already labeled transactions to learn how to label the others.
-- If a transaction is previously unlabeled, follow the patterns from the provided transactions.
-- Make logical assumptions when the description isn't a perfect match for labeling the transactions.
-- Maintain each transaction in the same format as the input.
-- If you cannot categorize transaction return empty string. Do not return null or undefined.
-- All indexes within array has to be type of string, which is text or empty surrounded by double quotes: "".
-- Output must start with "{" and end with "}" and cannot start with ```json.
-- Output must be a valid JSON object.
-- Do not add comma "," after last item of an array in output.
-- Do not include any extra text in your output.
-- Categories follow a hierarchical structure, consisting of an identifier and a description.
-- Always return all transactions.
-- Number of transactions from input must match number of transactions from output.
-- Return also number of tokens consumed needed for inputs and summarize them with tokens needed for output.
-- Use only categories identifiers for output.
-- Text in double angle brackets in output structure serves as a placeholder for dynamic values, replace it with actual values without brackets.
-- Text in double angle brackets in dataset structure serves as a placeholder for dynamic values.
+Instructions:
 
-Desired output structure:
+1. Learn from the dataset provided under the line starting with "Existing transactions:"
+   - Each transaction is an array.
+   - The first element of each array is a category identifier.
+
+2. Label all transactions listed after the line "New transactions:"
+   - Use category scheme with description to determine the most appropriate category.
+   - Use patterns from existing transactions to determine the most appropriate category.
+   - Make logical assumptions even if descriptions don't exactly match.
+   - If a transaction is unlabeled, deduce the correct category identifier using learned patterns.
+
+3. For transactions you cannot classify with confidence:
+   - Still include them in the output.
+   - Leave the category identifier as an empty string: ""
+
+4. Output format requirements:
+   - Maintain each transaction in the same format as the input.
+   - All values must be strings and enclosed in double quotes: ""
+   - The first value must be the predicted category identifier (or "" if unknown).
+   - The number of transactions in the output must exactly match the number of new transactions provided.
+   - The output must be a valid JSON object starting with "{" and ending with "}".
+   - Do NOT add existing transactions to the output.
+   - Do NOT add a trailing comma after the last array element.
+   - Do NOT return any additional explanatory text or metadata.
+   - Do NOT wrap the JSON output in ```json or any code block.
+
+5. Return the JSON object in this structure:
 
 {
-    "transactions": [
-        [<<transaction_category_identifier_as_string>>, <<transaction_value_as_string>>, <<transaction_date_as_string>>, <<bank_account_as_string>>, <<transaction_description_as_string>>]
-    ],
-    "tokens": <<number_of_tokens_consumed>>
+  "transactions": [
+    ["<category_id>", "<value>", "<date>", "<bank_account>", "<description>"]
+  ],
+  "tokens": <number_of_tokens_consumed>
 }
 
-At the boottom there is full dataset of transactions, when there is always one transaction per line in this format:
-<<transaction_category_identifier_as_string_optional>> | <<transaction_value_as_string>> | <<transaction_date_as_string>> | <<bank_account_as_string_optional>> | <<transaction_description_as_string_optional>>
+6. Notes:
+   - Replace angle bracket placeholders with actual values.
+   - Only return valid category identifiers (as defined in the hierarchy).
+   - Do not return "null", "undefined", or leave any fields outside the category identifier empty.
+   - The "tokens" value should be the sum of tokens consumed by:
+     a) Parsing and analyzing the input
+     b) Generating the output
+   - Use only the category identifiers, not their descriptions, for labeling.
+   - The category structure follows a hierarchy and includes nested subcategories (provided in the prompt).
+
+At the bottom of the prompt, the full dataset will be provided. Each line represents a transaction and uses this format:
+
+<category_id_optional> | <value> | <date> | <bank_account_optional> | <description_optional>
 
 Categories start:

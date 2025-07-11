@@ -61,29 +61,25 @@ export const getValidatedLLMResult = (llmOutput: string, promptFilename: string)
 /**
  * Performs integrity checks on transactions before and after LLM processing.
  *
- * @param existingTransactions - The existing transactions.
  * @param newTransactions - The new transactions.
  * @param labeledTransactions - The transactions returned by the LLM.
  * @param promptFilename - The name of the prompt file for error context.
  * @throws An error if integrity checks fail.
  */
 export const integrityChecks = (
-  existingTransactions: Transaction[],
   newTransactions: Transaction[],
   labeledTransactions: Transaction[],
   promptFilename: string,
 ): void => {
-  const allTransactionsPreLabeled = [...newTransactions, ...existingTransactions];
-
   // Integrity check for number of rows
-  if (allTransactionsPreLabeled.length !== labeledTransactions.length) {
+  if (newTransactions.length !== labeledTransactions.length) {
     throw new Error(
-      `❌  Some transactions were lost by LLM process for ${promptFilename}: pre-LLM ${allTransactionsPreLabeled.length} vs. post-LLM ${labeledTransactions.length}`,
+      `❌  Some transactions were lost by LLM process for ${promptFilename}: pre-LLM ${newTransactions.length} vs. post-LLM ${labeledTransactions.length}`,
     );
   }
 
   // Integrity check for persisted values
-  const summaryOfTransactionsPreLabeled = sumValuesAtIndex(allTransactionsPreLabeled, 1);
+  const summaryOfTransactionsPreLabeled = sumValuesAtIndex(newTransactions, 1);
   const summaryOfTransactionsPostLabeled = sumValuesAtIndex(labeledTransactions, 1);
 
   if (summaryOfTransactionsPostLabeled !== summaryOfTransactionsPreLabeled) {
@@ -115,8 +111,6 @@ export const labelTransactions = async (
     throw new Error('❌ OpenAI token OR model is not configured. Set it in .env file');
   }
 
-  const transactions = sortByDateDesc([...newTransactions, ...existingTransactions]);
-
   // Read prompt logic from files
   const genericPromptLogic = fs.readFileSync('./src/static/prompts/generic-prompt.txt', 'utf8');
   const specificPromptLogic = fs.readFileSync(`./src/static/prompts/${promptFilename}.txt`, 'utf8');
@@ -125,10 +119,21 @@ export const labelTransactions = async (
     apiKey: openaiToken,
   });
 
-  // Construct the prompt for the LLM
-  const prompt = `${genericPromptLogic}\n${specificPromptLogic}\n${transactions
+  // To not overwhelm the LLM, we limit the number of existing transactions to the newest 150
+  const newest150existingTransactions = existingTransactions
+    .slice(0, 150)
     .map((item) => item.join(' | '))
-    .join('\n')}`;
+    .join('\n');
+
+  // Construct the prompt for the LLM
+  const prompt = `
+    ${genericPromptLogic}\n
+    ${specificPromptLogic}\n
+    Existing transactions:\n
+    ${newest150existingTransactions}\n
+    New transactions:\n
+    ${newTransactions.map((item) => item.join(' | ')).join('\n')}
+  `;
 
   console.log(`🧠  Prompting LLM to add transaction categories for ${promptFilename}...`);
 
@@ -143,11 +148,65 @@ export const labelTransactions = async (
   const resultObject = getValidatedLLMResult(llmOutput, promptFilename);
 
   // Perform integrity checks
-  integrityChecks(existingTransactions, newTransactions, resultObject.transactions, promptFilename);
+  integrityChecks(newTransactions, resultObject.transactions, promptFilename);
 
   console.log(
     `🚀  Transaction categories added for ${promptFilename}, consuming ${resultObject.tokens} OpenAI tokens`,
   );
+  const transactions = sortByDateDesc([...resultObject.transactions, ...existingTransactions]);
 
-  return resultObject.transactions;
+  return transactions;
+};
+
+/**
+ * Labels transactions using an LLM with retry logic.
+ *
+ * @param existingTransactions - The existing transactions.
+ * @param newTransactions - The new transactions.
+ * @param promptFilename - The name of the prompt file.
+ * @param maxRetries - Maximum retry attempts (default: 2, for a total of 3 attempts).
+ * @returns A promise that resolves to the labeled transactions.
+ * @throws An error if the labeling process fails after all retries.
+ */
+export const labelTransactionsWithRetry = async (
+  existingTransactions: Transaction[],
+  newTransactions: Transaction[],
+  promptFilename: string,
+  maxTries = 3,
+): Promise<Transaction[]> => {
+  let attempts = 0;
+  let lastError: Error | null = null;
+
+  while (attempts <= maxTries) {
+    attempts++;
+
+    try {
+      // Log retry attempt if not the first attempt
+      if (attempts > 1) {
+        console.log(`🔄  Retry attempt ${attempts - 1} for labeling ${promptFilename} transactions...`);
+      }
+
+      // Call the original labelTransactions function
+      return await labelTransactions(existingTransactions, newTransactions, promptFilename);
+    } catch (error) {
+      lastError = error;
+
+      // If we've reached the max retries, give up
+      if (attempts > maxTries) {
+        console.error(`❌  Failed to label transactions after ${maxTries} attempts: ${error.message}`);
+        break;
+      }
+
+      // Log the error but continue with retry
+      console.warn(`⚠️  Attempt ${attempts}/${maxTries} failed: ${error.message}`);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
+
+  // If all attempts failed, throw the last error
+  throw (
+    lastError ||
+    new Error(`❌  Failed to label transactions after ${maxTries} attempts`, { cause: lastError })
+  );
 };

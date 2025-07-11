@@ -11,7 +11,7 @@ import {
   fetchEmailAttachment,
   fetchFioTransactions,
   getExistingDataFromSheet,
-  labelTransactions,
+  labelTransactionsWithRetry,
   markLastSeenEmailAsUnseen,
   parseAirTransactions,
   writeSheetBulk,
@@ -99,8 +99,8 @@ export const mainFlow = async ({
       if (withLabeling) {
         // Use LLM to label transactions with category identifiers
         const [labeledExpenses, labeledIncomes] = await Promise.all([
-          labelTransactions(existingExpenses, expenses, 'expenses'),
-          labelTransactions(existingIncomes, incomes, 'incomes'),
+          labelTransactionsWithRetry(existingExpenses, expenses, 'expenses'),
+          labelTransactionsWithRetry(existingIncomes, incomes, 'incomes'),
         ]);
 
         finalExpenses = labeledExpenses;

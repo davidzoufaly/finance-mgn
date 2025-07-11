@@ -225,6 +225,7 @@ To use the monthly automation GitHub Action for the entire ETL process after for
 - The repository uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), enforced by `commitlint` in the `commit-msg` hook.
 - Code formatting is handled by [Biome](https://biomejs.dev/) and [.editorconfig](./.editorconfig) via the `pre-commit` hook.
 - Code quality checks are also performed using [Biome](https://biomejs.dev/) in the `pre-commit` hook.
+- Type check is performed using TSC in the `pre-commit` hook.
 
 ### Imports
 
