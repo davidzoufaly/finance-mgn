@@ -1,5 +1,31 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import type { Transaction } from '@types';
+
+const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[]) => {
+  const incomesTotal = incomes.reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0);
+  const expensesTotal = expenses.reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0);
+
+  const netIncome = incomesTotal - expensesTotal;
+  const savingsRate = incomesTotal > 0 ? ((netIncome / incomesTotal) * 100).toFixed(1) : '0.0';
+  const expenseRatio = incomesTotal > 0 ? ((expensesTotal / incomesTotal) * 100).toFixed(1) : '0.0';
+
+  return {
+    incomesTotal: incomesTotal.toFixed(2),
+    expensesTotal: expensesTotal.toFixed(2),
+    netIncome: netIncome.toFixed(2),
+    savingsRate,
+    expenseRatio,
+    isPositive: netIncome > 0,
+    status: netIncome > 0 ? 'Surplus' : netIncome < 0 ? 'Deficit' : 'Break Even',
+  };
+};
+
+const replaceTemplateVariables = (template: string, variables: Record<string, string>): string => {
+  return Object.entries(variables).reduce((result, [key, value]) => {
+    return result.replace(new RegExp(`{{${key}}}`, 'g'), value);
+  }, template);
+};
 
 export const createEmailBody = (
   finalExpenses: Transaction[],
@@ -7,33 +33,43 @@ export const createEmailBody = (
   finalInvestments: Transaction[],
   sheetId: string,
 ) => {
-  // Add this after writing to Google Sheets is complete
-  const expensesTotal = finalExpenses
-    .reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0)
-    .toFixed(2);
-  const incomesTotal = finalIncomes
-    .reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0)
-    .toFixed(2);
+  // Compare incomes vs expenses
+  const comparison = compareIncomesVsExpenses(finalIncomes, finalExpenses);
+
+  // Calculate investments total
   const investmentsTotal = finalInvestments
     .reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0)
     .toFixed(2);
 
-  // Create a nicely formatted summary text for email
-  const summaryContent = `## Monthly Financial Report
+  const templatePath = path.join(process.cwd(), 'src', 'static', 'email-template.html');
+  const htmlTemplate = fs.readFileSync(templatePath, 'utf8');
 
-### Transaction Summary
+  const templateVariables = {
+    CURRENT_DATE: new Date().toLocaleDateString(),
+    CURRENT_TIME: new Date().toLocaleTimeString(),
+    EXPENSES_COUNT: finalExpenses.length.toString(),
+    EXPENSES_TOTAL: comparison.expensesTotal,
+    INCOMES_COUNT: finalIncomes.length.toString(),
+    INCOMES_TOTAL: comparison.incomesTotal,
+    INVESTMENTS_COUNT: finalInvestments.length.toString(),
+    INVESTMENTS_TOTAL: investmentsTotal,
+    NET_INCOME: comparison.netIncome,
+    NET_INCOME_CLASS: comparison.isPositive ? 'positive' : 'negative',
+    STATUS: comparison.status,
+    SAVINGS_RATE: comparison.savingsRate,
+    EXPENSE_RATIO: comparison.expenseRatio,
+    STATUS_BACKGROUND: comparison.isPositive ? '#d4edda' : '#f8d7da',
+    STATUS_EMOJI: comparison.isPositive ? '✅' : '⚠️',
+    STATUS_MESSAGE: comparison.isPositive
+      ? 'You had a positive month!'
+      : 'You spent more than you earned this month',
+    SHEET_ID: sheetId,
+  };
 
-**Expenses**: ${finalExpenses.length} transactions totaling ${expensesTotal}
-**Incomes**: ${finalIncomes.length} transactions totaling ${incomesTotal}
-**Investments**: ${finalInvestments.length} transactions totaling ${investmentsTotal}
+  const htmlContent = replaceTemplateVariables(htmlTemplate, templateVariables);
 
-### Google Sheet
-[View Complete Financial Data](https://docs.google.com/spreadsheets/d/${sheetId}/edit)
-
-### Processing Date
-${new Date().toLocaleDateString()}
-`;
-
-  fs.writeFileSync('email-body.txt', summaryContent);
-  console.log('📧 Email body saved to email-body.txt');
+  fs.writeFileSync('email-body.txt', htmlContent);
+  console.log('📧 Email body saved to email-body.txt (HTML format with template)');
 };
+
+export { compareIncomesVsExpenses };
