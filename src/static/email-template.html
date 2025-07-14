@@ -1,112 +1,109 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-      }
-      .section {
-        background: #f8f9fa;
-        padding: 15px;
-        margin: 15px 0;
-        border-radius: 8px;
-        border-left: 4px solid #667eea;
-      }
-      .metric {
-        display: inline-block;
-        margin: 10px 15px 10px 0;
-        padding: 10px 15px;
-        background: white;
-        border-radius: 6px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .positive {
-        color: #28a745;
-      }
-      .negative {
-        color: #dc3545;
-      }
-      .neutral {
-        color: #6c757d;
-      }
-      .status-indicator {
-        font-size: 1.2em;
-        margin-right: 8px;
-      }
-      a.link-button {
-        display: inline-block;
-        padding: 12px 24px;
-        background: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        margin: 10px 0;
-      }
-      footer.footer {
-        text-align: center;
-        color: #6c757d;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #e9ecef;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="header">
-      <h1>💰 Monthly Financial Report</h1>
-      <p>{{LAST_MONTH}}</p>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .section {
+      background: #f8f9fa;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    .metric {
+      display: inline-block;
+      margin: 10px 15px 10px 0;
+      padding: 10px 15px;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .positive {
+      color: #28a745;
+    }
+    .negative {
+      color: #dc3545;
+    }
+    .neutral {
+      color: #6c757d;
+    }
+    .status-indicator {
+      font-size: 1.2em;
+      margin-right: 8px;
+    }
+    a.link-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 10px 0;
+    }
+    footer.footer {
+      text-align: center;
+      color: #6c757d;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>💰 Monthly Financial Report</h1>
+    <p>{{LAST_MONTH}}</p>
+  </div>
+
+  <div class="section">
+    <h2>📊 Transaction Summary</h2>
+    <div class="metric">
+      <strong>Expenses:</strong> {{EXPENSES_COUNT}} transactions<br />
+      <strong>Total:</strong> {{EXPENSES_TOTAL}}
     </div>
-
-    <div class="section">
-      <h2>📊 Transaction Summary</h2>
-      <div class="metric">
-        <strong>Expenses:</strong> {{EXPENSES_COUNT}} transactions<br />
-        <strong>Total:</strong> {{EXPENSES_TOTAL}}
-      </div>
-      <div class="metric">
-        <strong>Incomes:</strong> {{INCOMES_COUNT}} transactions<br />
-        <strong>Total:</strong> {{INCOMES_TOTAL}}
-      </div>
-      <div class="metric">
-        <strong>Investments:</strong> {{INVESTMENTS_COUNT}} transactions<br />
-        <strong>Total:</strong> {{INVESTMENTS_TOTAL}}
-      </div>
+    <div class="metric">
+      <strong>Incomes:</strong> {{INCOMES_COUNT}} transactions<br />
+      <strong>Total:</strong> {{INCOMES_TOTAL}}
     </div>
-
-    <div class="section">
-      <h2>📈 Financial Analysis</h2>
-      <div class="metric">
-        <strong>Net Income:</strong>
-        <span class="{{NET_INCOME_CLASS}}"> {{NET_INCOME}} ({{STATUS}}) </span>
-      </div>
-      <div class="metric"><strong>Savings Rate:</strong> {{SAVINGS_RATE}}%</div>
-      <div class="metric"><strong>Expense Ratio:</strong> {{EXPENSE_RATIO}}%</div>
-
-      <div style="margin-top: 15px; padding: 15px; background: {{STATUS_BACKGROUND}}; border-radius: 6px;">
-        <span class="status-indicator">{{STATUS_EMOJI}}</span>
-        <strong>{{STATUS_MESSAGE}}</strong>
-      </div>
+    <div class="metric">
+      <strong>Investments:</strong> {{INVESTMENTS_COUNT}} transactions<br />
+      <strong>Total:</strong> {{INVESTMENTS_TOTAL}}
     </div>
+  </div>
 
-    <div class="section">
-      <h2>📋 Google Sheet</h2>
-      <a href="https://docs.google.com/spreadsheets/d/{{SHEET_ID}}/edit" class="link-button">
-        View Complete Financial Data
-      </a>
+  <div class="section">
+    <h2>📈 Financial Analysis</h2>
+    <div class="metric">
+      <strong>Net Income:</strong>
+      <span class="{{NET_INCOME_CLASS}}"> {{NET_INCOME}} ({{STATUS}}) </span>
     </div>
+    <div class="metric"><strong>Savings Rate:</strong> {{SAVINGS_RATE}}%</div>
+    <div class="metric"><strong>Expense Ratio:</strong> {{EXPENSE_RATIO}}%</div>
 
-    <footer class="footer">
-      <p>Generated on {{CURRENT_DATE}} at {{CURRENT_TIME}}</p>
-    </footer>
-  </body>
-</html>
+    <div style="margin-top: 15px; padding: 15px; background: {{STATUS_BACKGROUND}}; border-radius: 6px;">
+      <span class="status-indicator">{{STATUS_EMOJI}}</span>
+      <strong>{{STATUS_MESSAGE}}</strong>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📋 Google Sheet</h2>
+    <a href="https://docs.google.com/spreadsheets/d/{{SHEET_ID}}/edit" class="link-button">
+      View Complete Financial Data
+    </a>
+  </div>
+
+  <footer class="footer">
+    <p>Generated on {{CURRENT_DATE}} at {{CURRENT_TIME}}</p>
+  </footer>
+</body>
