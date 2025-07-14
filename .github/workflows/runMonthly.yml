@@ -109,13 +109,15 @@ jobs:
           to: ${{ secrets.EMAIL_USERNAME_CI_NOTIFICATION }}
           subject: "Money well spent 💰"
           from: ${{ secrets.EMAIL_USERNAME }}
-          body: |
-            ${{ github.workflow }} completed successfully!
-
+          html_body: |
             ${{ steps.email-body.outputs.content }}
 
-            ### Workflow Details
-            - Repository: ${{ github.repository }}
-            - Workflow: ${{ github.workflow }}
-            - Run ID: ${{ github.run_id }}
-            - Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+                <h3>✅ Workflow Details</h3>
+                <ul>
+                    <li><strong>Repository:</strong> ${{ github.repository }}</li>
+                    <li><strong>Workflow:</strong> ${{ github.workflow }}</li>
+                    <li><strong>Run ID:</strong> ${{ github.run_id }}</li>
+                    <li><strong>Run URL:</strong> <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Workflow</a></li>
+                </ul>
+            </div>
