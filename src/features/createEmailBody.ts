@@ -33,6 +33,7 @@ export const createEmailBody = (
   finalInvestments: Transaction[],
   sheetId: string,
 ) => {
+
   const comparison = compareIncomesVsExpenses(finalIncomes, finalExpenses);
 
   const investmentsTotal = finalInvestments
