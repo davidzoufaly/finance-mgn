@@ -33,10 +33,9 @@ export const createEmailBody = (
   finalInvestments: Transaction[],
   sheetId: string,
 ) => {
-  // Compare incomes vs expenses
+
   const comparison = compareIncomesVsExpenses(finalIncomes, finalExpenses);
 
-  // Calculate investments total
   const investmentsTotal = finalInvestments
     .reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0)
     .toFixed(2);
