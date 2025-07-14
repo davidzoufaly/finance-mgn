@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { Transaction } from '@types';
 import { getLastMonth } from '@constants';
+import type { Transaction } from '@types';
 
 const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[]) => {
   const incomesTotal = incomes.reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0);
@@ -45,6 +45,7 @@ export const createEmailBody = (
 
   const templateVariables = {
     LAST_MONTH: getLastMonth(),
+    CURRENT_DATE: new Date().toLocaleDateString(),
     CURRENT_TIME: new Date().toLocaleTimeString(),
     EXPENSES_COUNT: finalExpenses.length.toString(),
     EXPENSES_TOTAL: comparison.expensesTotal,
@@ -70,3 +71,5 @@ export const createEmailBody = (
   fs.writeFileSync('email-body.txt', htmlContent);
   console.log('📧  Email body saved to email-body.txt (HTML format with template)');
 };
+
+export { compareIncomesVsExpenses };

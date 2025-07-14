@@ -1,5 +1,6 @@
 ## In progress
 
+- [ ] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
 - [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
 
 ## Bugs
@@ -8,7 +9,6 @@
 
 - [ ] Remove seen/unseen logic
 - [ ] Google docs cleanup method -> not just last month but also respect specific month when defined
-- [ ] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
 - [ ] Generate new version
 - [ ] Fix unit tests
 
