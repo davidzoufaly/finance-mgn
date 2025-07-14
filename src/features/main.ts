@@ -129,7 +129,7 @@ export const mainFlow = async ({
         },
       ]);
 
-      createEmailBody(finalExpenses, finalIncomes, finalInvestments, sheetId);
+      createEmailBody(expenses, incomes, investments, sheetId);
 
       console.log('🍻  Every action completed');
 

@@ -110,14 +110,29 @@ jobs:
           subject: "Money well spent 💰"
           from: ${{ secrets.EMAIL_USERNAME }}
           html_body: |
-            ${{ steps.email-body.outputs.content }}
+            <!DOCTYPE html>
+             <html>
 
-            <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
-                <h3>✅ Workflow Details</h3>
-                <ul>
-                    <li><strong>Repository:</strong> ${{ github.repository }}</li>
-                    <li><strong>Workflow:</strong> ${{ github.workflow }}</li>
-                    <li><strong>Run ID:</strong> ${{ github.run_id }}</li>
-                    <li><strong>Run URL:</strong> <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Workflow</a></li>
-                </ul>
-            </div>
+             ${{ steps.email-body.outputs.content }}
+
+             <div class="section">
+                 <h2>📋 Google Sheet</h2>
+                 <a href="https://docs.google.com/spreadsheets/d/${{ secrets.GOOGLE_SHEET_ID_PROD }}/edit" class="link-button">
+                     View Complete Financial Data
+                 </a>
+             <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+                 <h3>✅ Workflow Details</h3>
+                 <ul>
+                     <li><strong>Repository:</strong> ${{ github.repository }}</li>
+                     <li><strong>Workflow:</strong> ${{ github.workflow }}</li>
+                     <li><strong>Run ID:</strong> ${{ github.run_id }}</li>
+                     <li><strong>Run URL:</strong> <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Workflow</a></li>
+                 </ul>
+             </div>
+
+             <footer class="footer">
+                 <p>Generated on ${{ github.event.created_at }}</p>
+             </footer>
+             
+             </body>
+             </html>
