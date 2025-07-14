@@ -1,6 +1,6 @@
 ## In progress
 
-- [ ] Generate June
+- [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
 
 ## Bugs
 
@@ -14,16 +14,20 @@
 
 ## Nice to have
 
+- [ ] delete email-body.txt after run
+- [ ] Automated version and changelog generation
+
+---
+
 - [ ] Add possibility to process multiple months.
 - [ ] Add possibility to fetch month(s) to different Google Sheet for ad-hoc analysis.
 - [ ] Better unit tests coverage
-- [ ] Automated version and changelog generation
-- [ ] delete email-body.txt after run
 
 ## Refactor
 
 ## Done
 
+- [x] Generate June
 - [x] Retry LLM part 3 times
 - [x] Limit number of trasnactions that are sent to LLM. Now all transactions from the whole year are sent. It could be limited for last 150 transactions
 - [x] update expenses prompt
