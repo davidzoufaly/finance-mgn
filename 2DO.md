@@ -6,8 +6,6 @@
 
 - [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
 - [ ] sheet add savings rate expense ratio last month net income last month
-- [ ] sheet add total expenses monthly level
-- [ ] sheet add total incomes monthly level
 - [ ] Remove seen/unseen logic
 - [ ] Google docs cleanup method -> not just last month but also respect specific month when defined
 - [ ] Generate new version
@@ -24,6 +22,8 @@
 
 ## Done
 
+- [x] sheet add total expenses monthly level
+- [x] sheet add total incomes monthly level
 - [x] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
 - [x] email methods tsdoc
 - [x] Generate June
