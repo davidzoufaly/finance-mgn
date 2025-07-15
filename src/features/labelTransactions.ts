@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { getOpenAIModel, openaiToken } from '@constants';
 import type { Transaction } from '@types';
-import { sortByDateDesc } from '@utils';
+import { sortByDateDesc, sumValuesAtIndex } from '@utils';
 import OpenAI from 'openai';
 import { z } from 'zod';
 
@@ -12,16 +12,6 @@ export const TransactionSchema = z.object({
 });
 
 export type TransactionData = z.infer<typeof TransactionSchema>;
-
-/**
- * Sums the values at a specific index in an array of transactions.
- *
- * @param array - The array of transactions.
- * @param index - The index of the value to sum.
- * @returns The sum of the values at the specified index.
- */
-export const sumValuesAtIndex = (array: Transaction[], index: number): number =>
-  array.reduce((acc, item) => acc + Number.parseFloat(item[index]), 0.0);
 
 /**
  * Validates and parses the LLM output using Zod.

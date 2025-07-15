@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { getLastMonth } from '@constants';
-import { sumValuesAtIndex } from '@features';
+import { sumValuesAtIndex } from '@utils';
 import type { Transaction } from '@types';
 import { formatCzechCurrency } from '@utils';
 
@@ -21,7 +21,7 @@ import { formatCzechCurrency } from '@utils';
  * - `status`: String describing financial status ('Surplus', 'Deficit', or 'Break Even')
  *
  */
-const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[]) => {
+export const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[]) => {
   const incomesTotal = sumValuesAtIndex(incomes, 1);
   const expensesTotal = sumValuesAtIndex(expenses, 1);
 
@@ -48,7 +48,7 @@ const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[
  *
  * @returns The template string with all placeholders replaced by their corresponding values
  */
-const replaceTemplateVariables = (template: string, variables: Record<string, string>): string => {
+export const replaceTemplateVariables = (template: string, variables: Record<string, string>): string => {
   return Object.entries(variables).reduce((result, [key, value]) => {
     return result.replace(new RegExp(`{{${key}}}`, 'g'), value);
   }, template);
@@ -84,10 +84,7 @@ export const createEmailBody = (
 ) => {
   const comparison = compareIncomesVsExpenses(finalIncomes, finalExpenses);
 
-  const investmentsTotal = finalInvestments.reduce(
-    (sum, transaction) => sum + Number.parseFloat(transaction[2]),
-    0,
-  );
+  const investmentsTotal = sumValuesAtIndex(finalInvestments, 1);
 
   const templatePath = path.join(process.cwd(), 'src', 'static', 'email-template.html');
   const htmlTemplate = fs.readFileSync(templatePath, 'utf8');
@@ -119,5 +116,3 @@ export const createEmailBody = (
   fs.writeFileSync('email-body.txt', htmlContent);
   console.log('📧  Email body saved to email-body.txt (HTML format with template)');
 };
-
-export { compareIncomesVsExpenses };

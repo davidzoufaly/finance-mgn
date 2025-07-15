@@ -1,6 +1,9 @@
 ## In progress
 
 - [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
+- [ ] sheet add savings rate expense ratio last month net income last month
+- [ ] sheet add total expenses monthly level
+- [ ] sheet add total incomes monthly level
 
 ## Bugs
 
@@ -13,7 +16,6 @@
 
 ## Nice to have
 
-- [ ] delete email-body.txt after run
 - [ ] Automated version and changelog generation
 
 ---
