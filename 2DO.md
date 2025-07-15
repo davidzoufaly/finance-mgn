@@ -1,8 +1,6 @@
 ## In progress
 
-- [ ] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
 - [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
-- [ ] email methods tsdoc
 
 ## Bugs
 
@@ -28,6 +26,8 @@
 
 ## Done
 
+- [x] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
+- [x] email methods tsdoc
 - [x] Generate June
 - [x] Retry LLM part 3 times
 - [x] Limit number of trasnactions that are sent to LLM. Now all transactions from the whole year are sent. It could be limited for last 150 transactions
