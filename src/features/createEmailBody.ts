@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { getLastMonth } from '@constants';
-import { sumValuesAtIndex } from '@utils';
 import type { Transaction } from '@types';
+import { sumValuesAtIndex } from '@utils';
 import { formatCzechCurrency } from '@utils';
 
 /**

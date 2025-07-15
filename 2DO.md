@@ -1,14 +1,13 @@
 ## In progress
 
-- [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
-- [ ] sheet add savings rate expense ratio last month net income last month
-- [ ] sheet add total expenses monthly level
-- [ ] sheet add total incomes monthly level
-
 ## Bugs
 
 ## Must have
 
+- [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
+- [ ] sheet add savings rate expense ratio last month net income last month
+- [ ] sheet add total expenses monthly level
+- [ ] sheet add total incomes monthly level
 - [ ] Remove seen/unseen logic
 - [ ] Google docs cleanup method -> not just last month but also respect specific month when defined
 - [ ] Generate new version
@@ -17,9 +16,6 @@
 ## Nice to have
 
 - [ ] Automated version and changelog generation
-
----
-
 - [ ] Add possibility to process multiple months.
 - [ ] Add possibility to fetch month(s) to different Google Sheet for ad-hoc analysis.
 - [ ] Better unit tests coverage
