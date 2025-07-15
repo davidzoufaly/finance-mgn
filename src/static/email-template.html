@@ -103,7 +103,19 @@
     </a>
   </div>
 
-  <footer class="footer">
-    <p>Generated on {{CURRENT_DATE}} at {{CURRENT_TIME}}</p>
-  </footer>
+  <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+    <h3>✅ Workflow Details</h3>
+    <ul>
+        <li><strong>Repository:</strong> ${{ github.repository }}</li>
+        <li><strong>Workflow:</strong> ${{ github.workflow }}</li>
+        <li><strong>Run ID:</strong> ${{ github.run_id }}</li>
+        <li><strong>Run URL:</strong> <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">View Workflow</a></li>
+    </ul>
+</div>
+
+<footer class="footer">
+    <p>Generated on ${{ github.run_started_at }}</p>
+</footer>
+
 </body>
+</html>

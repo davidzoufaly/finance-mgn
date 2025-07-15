@@ -2,6 +2,7 @@
 
 - [ ] Enhance email notification -> add there number of transactions for last month, overall values & link to google sheet
 - [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
+- [ ] email methods tsdoc
 
 ## Bugs
 
