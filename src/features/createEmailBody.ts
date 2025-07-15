@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { getLastMonth } from '@constants';
-import type { Transaction } from '@types';
 import { sumValuesAtIndex } from '@features';
+import type { Transaction } from '@types';
+import { formatCzechCurrency } from '@utils';
 
 /**
  * Compares total incomes versus total expenses and calculates financial metrics.
@@ -11,9 +12,9 @@ import { sumValuesAtIndex } from '@features';
  * @param expenses - Array of expense transactions where each transaction contains financial data
  *
  * @returns An object containing calculated financial metrics including:
- * - `incomesTotal`: Total income amount formatted to 2 decimal places
- * - `expensesTotal`: Total expense amount formatted to 2 decimal places
- * - `netIncome`: Net income (incomes - expenses) formatted to 2 decimal places
+ * - `incomesTotal`: Total income amount formatted as Czech currency
+ * - `expensesTotal`: Total expense amount formatted as Czech currency
+ * - `netIncome`: Net income (incomes - expenses) formatted as Czech currency
  * - `savingsRate`: Percentage of income saved, formatted to 1 decimal place
  * - `expenseRatio`: Percentage of income spent, formatted to 1 decimal place
  * - `isPositive`: Boolean indicating if net income is positive
@@ -29,9 +30,9 @@ const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[
   const expenseRatio = incomesTotal > 0 ? ((expensesTotal / incomesTotal) * 100).toFixed(1) : '0.0';
 
   return {
-    incomesTotal: incomesTotal.toFixed(2),
-    expensesTotal: expensesTotal.toFixed(2),
-    netIncome: netIncome.toFixed(2),
+    incomesTotal: formatCzechCurrency(incomesTotal),
+    expensesTotal: formatCzechCurrency(expensesTotal),
+    netIncome: formatCzechCurrency(netIncome),
     savingsRate,
     expenseRatio,
     isPositive: netIncome > 0,
@@ -46,7 +47,6 @@ const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[
  * @param variables - Object mapping placeholder names to replacement values
  *
  * @returns The template string with all placeholders replaced by their corresponding values
- *
  */
 const replaceTemplateVariables = (template: string, variables: Record<string, string>): string => {
   return Object.entries(variables).reduce((result, [key, value]) => {
@@ -84,9 +84,10 @@ export const createEmailBody = (
 ) => {
   const comparison = compareIncomesVsExpenses(finalIncomes, finalExpenses);
 
-  const investmentsTotal = finalInvestments
-    .reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0)
-    .toFixed(2);
+  const investmentsTotal = finalInvestments.reduce(
+    (sum, transaction) => sum + Number.parseFloat(transaction[2]),
+    0,
+  );
 
   const templatePath = path.join(process.cwd(), 'src', 'static', 'email-template.html');
   const htmlTemplate = fs.readFileSync(templatePath, 'utf8');
@@ -98,7 +99,7 @@ export const createEmailBody = (
     INCOMES_COUNT: finalIncomes.length.toString(),
     INCOMES_TOTAL: comparison.incomesTotal,
     INVESTMENTS_COUNT: finalInvestments.length.toString(),
-    INVESTMENTS_TOTAL: investmentsTotal,
+    INVESTMENTS_TOTAL: formatCzechCurrency(investmentsTotal),
     NET_INCOME: comparison.netIncome,
     NET_INCOME_CLASS: comparison.isPositive ? 'positive' : 'negative',
     STATUS: comparison.status,

@@ -77,12 +77,24 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Run task
+      - name: Run application
         run: |
           if [ "${{ github.event.inputs.flags }}" == "" ]; then
             yarn start:prod
           else
             yarn start ${{ github.event.inputs.flags }}
+          fi
+
+      - name: Replace GitHub placeholders in email body
+        if: success()
+        run: |
+          if [ -f "email-body.txt" ]; then
+            sed -i 's/{{GITHUB_REPOSITORY}}/${{ github.repository }}/g' email-body.txt
+            sed -i 's/{{GITHUB_WORKFLOW}}/${{ github.workflow }}/g' email-body.txt
+            sed -i 's/{{GITHUB_RUN_ID}}/${{ github.run_id }}/g' email-body.txt
+            sed -i 's|{{GITHUB_RUN_URL}}|${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|g' email-body.txt
+            sed -i 's/{{GITHUB_EVENT}}/${{ github.event_name }}/g' email-body.txt
+            sed -i 's/{{GITHUB_RUN_TIME}}/${{ github.run_started_at }}/g' email-body.txt
           fi
 
       - name: Read email body content
@@ -109,8 +121,4 @@ jobs:
           to: ${{ secrets.EMAIL_USERNAME_CI_NOTIFICATION }}
           subject: "Money well spent 💰"
           from: ${{ secrets.EMAIL_USERNAME }}
-          html_body: |
-            <!DOCTYPE html>
-             <html>
-
-             ${{ steps.email-body.outputs.content }}
+          html_body: ${{ steps.email-body.outputs.content }}
