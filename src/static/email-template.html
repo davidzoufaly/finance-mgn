@@ -22,7 +22,8 @@
         border-radius: 8px;
         border-left: 4px solid #667eea;
       }
-      .section h2 {
+      .section h2,
+      .section li {
         color: black;
       }
       .metric {
@@ -55,13 +56,6 @@
         text-decoration: none;
         border-radius: 6px;
         margin: 10px 0;
-      }
-      .workflow-section {
-        background: #f8f9fa;
-        padding: 20px;
-        margin: 30px 0;
-        border-radius: 8px;
-        border-left: 4px solid #28a745;
       }
       footer.footer {
         text-align: center;
@@ -116,8 +110,8 @@
       </a>
     </div>
 
-    <div class="workflow-section">
-      <h3>🏹 Workflow Details</h3>
+    <div class="section">
+      <h2>🏹 Workflow Details</h2>
       <ul>
         <li><strong>Repository:</strong> {{GITHUB_REPOSITORY}}</li>
         <li><strong>Workflow:</strong> {{GITHUB_WORKFLOW}}</li>
