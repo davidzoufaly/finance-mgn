@@ -2,10 +2,27 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { getLastMonth } from '@constants';
 import type { Transaction } from '@types';
+import { sumValuesAtIndex } from '@features';
 
+/**
+ * Compares total incomes versus total expenses and calculates financial metrics.
+ *
+ * @param incomes - Array of income transactions where each transaction contains financial data
+ * @param expenses - Array of expense transactions where each transaction contains financial data
+ *
+ * @returns An object containing calculated financial metrics including:
+ * - `incomesTotal`: Total income amount formatted to 2 decimal places
+ * - `expensesTotal`: Total expense amount formatted to 2 decimal places
+ * - `netIncome`: Net income (incomes - expenses) formatted to 2 decimal places
+ * - `savingsRate`: Percentage of income saved, formatted to 1 decimal place
+ * - `expenseRatio`: Percentage of income spent, formatted to 1 decimal place
+ * - `isPositive`: Boolean indicating if net income is positive
+ * - `status`: String describing financial status ('Surplus', 'Deficit', or 'Break Even')
+ *
+ */
 const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[]) => {
-  const incomesTotal = incomes.reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0);
-  const expensesTotal = expenses.reduce((sum, transaction) => sum + Number.parseFloat(transaction[2]), 0);
+  const incomesTotal = sumValuesAtIndex(incomes, 1);
+  const expensesTotal = sumValuesAtIndex(expenses, 1);
 
   const netIncome = incomesTotal - expensesTotal;
   const savingsRate = incomesTotal > 0 ? ((netIncome / incomesTotal) * 100).toFixed(1) : '0.0';
@@ -22,12 +39,43 @@ const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Transaction[
   };
 };
 
+/**
+ * Replaces template placeholders in a string with provided values.
+ *
+ * @param template - The template string containing placeholders in `{{VARIABLE}}` format
+ * @param variables - Object mapping placeholder names to replacement values
+ *
+ * @returns The template string with all placeholders replaced by their corresponding values
+ *
+ */
 const replaceTemplateVariables = (template: string, variables: Record<string, string>): string => {
   return Object.entries(variables).reduce((result, [key, value]) => {
     return result.replace(new RegExp(`{{${key}}}`, 'g'), value);
   }, template);
 };
 
+/**
+ * Creates an HTML email body with financial report data and saves it to a file.
+ *
+ * This function generates a comprehensive financial report email by:
+ * 1. Calculating financial metrics using income/expense comparison
+ * 2. Reading an HTML template file with placeholders
+ * 3. Replacing template placeholders with dynamic financial data
+ * 4. Saving the final HTML content to 'email-body.txt'
+ *
+ * @param finalExpenses - Array of processed expense transactions
+ * @param finalIncomes - Array of processed income transactions
+ * @param finalInvestments - Array of processed investment transactions
+ * @param sheetId - Google Sheets document ID for generating the view link
+ *
+ * @throws Will throw an error if the HTML template file cannot be read
+ * @throws Will throw an error if the output file cannot be written
+ *
+ * @remarks
+ * The function expects an HTML template file to exist at `src/static/email-template.html`.
+ * The template should contain placeholders like `{{EXPENSES_TOTAL}}`, `{{NET_INCOME}}`, etc.
+ *
+ */
 export const createEmailBody = (
   finalExpenses: Transaction[],
   finalIncomes: Transaction[],
@@ -45,8 +93,6 @@ export const createEmailBody = (
 
   const templateVariables = {
     LAST_MONTH: getLastMonth(),
-    CURRENT_DATE: new Date().toLocaleDateString(),
-    CURRENT_TIME: new Date().toLocaleTimeString(),
     EXPENSES_COUNT: finalExpenses.length.toString(),
     EXPENSES_TOTAL: comparison.expensesTotal,
     INCOMES_COUNT: finalIncomes.length.toString(),

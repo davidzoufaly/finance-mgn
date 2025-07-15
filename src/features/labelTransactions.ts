@@ -164,7 +164,7 @@ export const labelTransactions = async (
  * @param existingTransactions - The existing transactions.
  * @param newTransactions - The new transactions.
  * @param promptFilename - The name of the prompt file.
- * @param maxRetries - Maximum retry attempts (default: 2, for a total of 3 attempts).
+ * @param maxTries - Maximum retry attempts (default: 2, for a total of 3 attempts).
  * @returns A promise that resolves to the labeled transactions.
  * @throws An error if the labeling process fails after all retries.
  */
