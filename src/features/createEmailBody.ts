@@ -94,6 +94,7 @@ export const createEmailBody = (
 
   const templateVariables = {
     LAST_MONTH: getLastMonth(),
+    CURRENT_DATE_TIME: new Date().toLocaleString(),
     EXPENSES_COUNT: finalExpenses.length.toString(),
     EXPENSES_TOTAL: comparison.expensesTotal,
     INCOMES_COUNT: finalIncomes.length.toString(),
