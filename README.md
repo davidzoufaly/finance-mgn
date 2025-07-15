@@ -215,6 +215,8 @@ Start commands support flags for configuring the application.
 
 To use the monthly automation GitHub Action for the entire ETL process after forking the repository, set up additional secrets beyond those listed in [.env.template](.env.template): `EMAIL_SMTP_SERVER`, `EMAIL_SMTP_PORT`, and `EMAIL_USERNAME_CI_NOTIFICATION`. The action can be triggered manually via the GitHub UI with all supported flags.
 
+After the automation completes, an email notification is sent to the address specified by `EMAIL_USERNAME_CI_NOTIFICATION`. This email contains a detailed monthly financial summary, including the number and total value of expenses, incomes, and investments for the last month, as well as key metrics like net income, savings rate, and expense ratio. The email also includes a direct link to the relevant Google Sheet with all financial data, and workflow details such as repository, workflow name, run ID, and trigger time. The email is formatted in HTML for clarity and readability.
+
 ## Contribution Guide
 
 ### Clean Code
