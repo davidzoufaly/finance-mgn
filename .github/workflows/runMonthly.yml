@@ -89,12 +89,22 @@ jobs:
         if: success()
         run: |
           if [ -f "email-body.txt" ]; then
-            sed -i 's/{{GITHUB_REPOSITORY}}/${{ github.repository }}/g' email-body.txt
-            sed -i 's/{{GITHUB_WORKFLOW}}/${{ github.workflow }}/g' email-body.txt
-            sed -i 's/{{GITHUB_RUN_ID}}/${{ github.run_id }}/g' email-body.txt
-            sed -i 's|{{GITHUB_RUN_URL}}|${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|g' email-body.txt
-            sed -i 's/{{GITHUB_EVENT}}/${{ github.event_name }}/g' email-body.txt
-            sed -i 's/{{GITHUB_RUN_TIME}}/${{ github.run_started_at }}/g' email-body.txt
+            echo "📝 Replacing GitHub placeholders..."
+            echo "Repository: ${{ github.repository }}"
+            echo "Workflow: ${{ github.workflow }}"
+            echo "Run ID: ${{ github.run_id }}"
+            echo "Run Time: ${{ github.run_started_at }}"
+            
+            # Use more robust sed with proper escaping
+            sed -i "s|{{GITHUB_REPOSITORY}}|${{ github.repository }}|g" email-body.txt
+            sed -i "s|{{GITHUB_WORKFLOW}}|${{ github.workflow }}|g" email-body.txt
+            sed -i "s|{{GITHUB_RUN_ID}}|${{ github.run_id }}|g" email-body.txt
+            sed -i "s|{{GITHUB_RUN_URL}}|${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|g" email-body.txt
+            sed -i "s|{{GITHUB_RUN_TIME}}|${{ github.run_started_at }}|g" email-body.txt
+            
+            echo "✅ Placeholders replaced successfully"
+          else
+            echo "❌ email-body.txt not found"
           fi
 
       - name: Read email body content
