@@ -44,9 +44,22 @@
       .neutral {
         color: #6c757d;
       }
-      .status-indicator {
+      .status {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 6px;
+        /* expected linting error */
+        background: {{STATUS_BACKGROUND}};
+      }
+      .status strong {
+        color: black;
+      }
+      .status__indicator {
         font-size: 1.2em;
         margin-right: 8px;
+      }
+      a.link {
+        color: #007bff;
       }
       a.link-button {
         display: inline-block;
@@ -97,8 +110,8 @@
       <div class="metric"><strong>Savings Rate:</strong> {{SAVINGS_RATE}}%</div>
       <div class="metric"><strong>Expense Ratio:</strong> {{EXPENSE_RATIO}}%</div>
 
-      <div style="margin-top: 15px; padding: 15px; background: {{STATUS_BACKGROUND}}; border-radius: 6px;">
-        <span class="status-indicator">{{STATUS_EMOJI}}</span>
+      <div class="status">
+        <span class="status__indicator">{{STATUS_EMOJI}}</span>
         <strong>{{STATUS_MESSAGE}}</strong>
       </div>
     </div>
@@ -116,9 +129,7 @@
         <li><strong>Repository:</strong> {{GITHUB_REPOSITORY}}</li>
         <li><strong>Workflow:</strong> {{GITHUB_WORKFLOW}}</li>
         <li><strong>Run ID:</strong> {{GITHUB_RUN_ID}}</li>
-        <li>
-          <strong>Run URL:</strong> <a href="{{GITHUB_RUN_URL}}" style="color: #007bff">View Workflow</a>
-        </li>
+        <li><strong>Run URL:</strong> <a href="{{GITHUB_RUN_URL}}" class="link">View Workflow</a></li>
       </ul>
     </div>
 
