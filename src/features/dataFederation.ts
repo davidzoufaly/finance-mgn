@@ -97,6 +97,10 @@ export const dataFederation = (
       return !isBankAccountSame && !isBankAccountIncludedInLabel;
     });
 
+  console.log(
+    `😑  ${airData.length + fioData.length - data.length} transactions filtered out. Total transactions after filtering: ${data.length}`,
+  );
+
   // Unify date format
   const unifiedDates = normalizeDates(data);
   const sortedDataDateDesc = unifiedDates.sort((a, b) => compareDesc(a.date, b.date));
@@ -138,7 +142,9 @@ export const dataFederation = (
     { investments: [], expenses: [] },
   );
 
-  console.log('✨  Data prepared');
+  console.log(
+    `✨  Data prepared: ${incomes.length} incomes, ${expenses.length} expenses, ${investments.length} investments`,
+  );
 
   return {
     incomes,

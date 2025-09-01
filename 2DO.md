@@ -4,12 +4,17 @@
 
 ## Must have
 
-- [ ] sheet exp. p/r a inc. p/r YTD a YTD p/r
-- [ ] sheet add some trend line charta for expense ratio -> savings ration YTD average
-- [ ] Remove seen/unseen logic
+- [ ] sheet overview nejproblemovejsi kategorie absolutně + relativně, QTD, YTD
+- [ ] sheet nejlepší kategorie ? pod budget co není 0?
+- [ ] overview Růst / Plán YTD překlopit na uzavřené Q ne na poslední uzavřený měsíc
+- [ ] upravit výdaje na domácnost -> nový nájem
 - [ ] Google docs cleanup method -> not just last month but also respect specific month when defined
 - [ ] Generate new version
 - [ ] Fix unit tests
+
+## Refactor
+
+- [ ] Remove seen/unseen logic
 
 ## Nice to have
 
@@ -18,10 +23,15 @@
 - [ ] Add possibility to fetch month(s) to different Google Sheet for ad-hoc analysis.
 - [ ] Better unit tests coverage
 
-## Refactor
-
 ## Done
 
+- [x] nesedí výdaje v mailu a výdaje v expenses sheet (částka)
+- [x] zbavit se #DIV/0! pomocí =IFERROR()
+- [x] sheet investice plan, investice YTD, investice cil / ytd, cil ytd / investice ytd
+- [x] sheet add some trend line chart for expenses, incomes, expense ratio -> savings ration YTD average monthly granularity
+- [x] sheet add some trend line chart for expenses, incomes, expense ratio -> savings ration YTD average quarterly granularity
+- [x] sheet overview 2025 - růst -> přidat metriky cíl / růst ytd, cíl YTD / růst YTD
+- [x] sheet exp. p/r a inc. p/r YTD a YTD p/r
 - [x] sheet add net income last month
 - [x] sheet add expense ratio last month
 - [x] sheet add savings rate
