@@ -94,11 +94,10 @@ export const disconnectFromImapServer = (connection: ImapSimple) => {
 /**
  * Fetches email attachments from the IMAP server that match a specific keyword.
  *
- * @param keywordForAttachmentCheck - The keyword to check in attachment filenames.
- * @param isSeen - Whether to fetch seen or unseen emails. Defaults to false (unseen).
+ * @param keywordForAttachmentCheck - The keyword to check in attachment filenames e.g. last month
  * @throws An error if fetching attachments fails.
  */
-export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, isSeen = false) => {
+export const fetchEmailAttachment = async (keywordForAttachmentCheck: string) => {
   validateEmailCredentials();
 
   let connection: ImapSimple | undefined;
@@ -107,12 +106,11 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
     connection = await connectToImapServer();
     await openInbox(connection);
 
-    const searchCriteria = [isSeen ? 'SEEN' : 'UNSEEN', ['FROM', emailTransactionsTarget]];
+    const searchCriteria = [['FROM', emailTransactionsTarget]];
     const messages = await fetchEmails(connection, searchCriteria);
     console.log(`📥  Fetched ${messages.length} emails`);
 
     for (const message of messages) {
-      console.log('📧  Processing email...');
       const parts = getParts(message.attributes.struct ?? []);
       const part = parts.find(
         (part) => part.disposition && part.disposition.type.toUpperCase() === 'ATTACHMENT',
@@ -120,7 +118,6 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
 
       if (part) {
         const filename = part.disposition.params.filename;
-        console.log(`📎  Found attachment: ${filename}`);
 
         if (!filename.includes(keywordForAttachmentCheck)) {
           console.log(`⏩  Skipping attachment: ${filename} (does not match specified month date range)`);
@@ -136,12 +133,6 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
 
         console.log(`💾  Saving attachment: ${filename} as ${attachmentFileName}`);
         fs.writeFileSync(attachmentFilePath, attachment.data);
-
-        if (!isSeen) {
-          // Mark email as seen
-          console.log('👀  Marking email as seen');
-          await connection.addFlags(message.attributes.uid, ['\\Seen']);
-        }
       } else {
         console.log('🚫  No attachment found in email');
       }
@@ -150,40 +141,6 @@ export const fetchEmailAttachment = async (keywordForAttachmentCheck: string, is
     throw new Error(`❌  Error fetching attachments: ${error.message}`, {
       cause: error,
     });
-  } finally {
-    if (connection) {
-      disconnectFromImapServer(connection);
-    }
-  }
-};
-
-/**
- * Marks the last seen email as unseen.
- *
- * @throws An error if marking the email as unseen fails.
- */
-export const markLastSeenEmailAsUnseen = async () => {
-  validateEmailCredentials();
-
-  let connection: ImapSimple | undefined;
-  try {
-    connection = await connectToImapServer();
-    await openInbox(connection);
-
-    const searchCriteria = ['SEEN', ['FROM', emailTransactionsTarget]];
-    const messages = await fetchEmails(connection, searchCriteria);
-    console.log(`📥  Fetched ${messages.length} seen emails`);
-
-    if (messages.length > 0) {
-      const lastSeenMessage = messages[messages.length - 1];
-      console.log('🔄  Marking last seen email as unseen');
-      await connection.delFlags(lastSeenMessage.attributes.uid, ['\\Seen']);
-      console.log('🫣   Last seen email marked as unseen');
-    } else {
-      console.log('🚫  No seen emails found from target email');
-    }
-  } catch (error) {
-    throw new Error(`❌  Error marking last seen email as unseen: ${error.message}`, { cause: error });
   } finally {
     if (connection) {
       disconnectFromImapServer(connection);

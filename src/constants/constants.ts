@@ -129,4 +129,4 @@ export const getLastMonth = () => {
  * Defaults to the last month in the format `MM-yyyy`.
  * @default getLastMonth()
  */
-export const defaultKeywordForAttachmentCheck = getLastMonth();
+export const lastMonth = getLastMonth();

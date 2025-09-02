@@ -4,17 +4,11 @@
 
 ## Must have
 
-- [ ] sheet overview nejproblemovejsi kategorie absolutně + relativně, QTD, YTD
-- [ ] sheet nejlepší kategorie ? pod budget co není 0?
-- [ ] overview Růst / Plán YTD překlopit na uzavřené Q ne na poslední uzavřený měsíc
-- [ ] upravit výdaje na domácnost -> nový nájem
 - [ ] Google docs cleanup method -> not just last month but also respect specific month when defined
 - [ ] Generate new version
 - [ ] Fix unit tests
 
 ## Refactor
-
-- [ ] Remove seen/unseen logic
 
 ## Nice to have
 
@@ -25,6 +19,12 @@
 
 ## Done
 
+- [x] Remove seen/unseen logic
+- [x] upravit výdaje na domácnost -> nový nájem
+- [x] sheet nejlepší kategorie ? pod budget co není 0?
+- [x] sheet overview nejproblemovejsi kategorie absolutně + relativně, QTD, YTD
+- [x] sheet Overview Růst / Plán YTD překlopit na uzavřené Q ne na poslední uzavřený měsíc
+- [x] srpen kategorie check
 - [x] nesedí výdaje v mailu a výdaje v expenses sheet (částka)
 - [x] zbavit se #DIV/0! pomocí =IFERROR()
 - [x] sheet investice plan, investice YTD, investice cil / ytd, cil ytd / investice ytd
