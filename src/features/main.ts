@@ -1,9 +1,4 @@
-import {
-  defaultKeywordForAttachmentCheck,
-  getSheetId,
-  whitelistedAccounts,
-  whitelistedInvestmentKeywords,
-} from '@constants';
+import { getSheetId, lastMonth, whitelistedAccounts, whitelistedInvestmentKeywords } from '@constants';
 import {
   cleanupGoogleSheets,
   createEmailBody,
@@ -12,7 +7,6 @@ import {
   fetchFioTransactions,
   getExistingDataFromSheet,
   labelTransactionsWithRetry,
-  markLastSeenEmailAsUnseen,
   parseAirTransactions,
   writeSheetBulk,
 } from '@features';
@@ -62,9 +56,7 @@ export const mainFlow = async ({
 
       if (actions !== 'fio') {
         // Fetch AIR transactions PDF from email
-        month
-          ? await fetchEmailAttachment(month, true)
-          : await fetchEmailAttachment(defaultKeywordForAttachmentCheck);
+        month ? await fetchEmailAttachment(month) : await fetchEmailAttachment(lastMonth);
 
         // Parse AIR transactions from PDF
         airTransactions = await parseAirTransactions();
@@ -140,8 +132,6 @@ export const mainFlow = async ({
       console.error(error);
       try {
         console.log('🧽  Something has failed, fallbacking to cleanup');
-        // When working with last month (default) reset mailbox by marking the last seen email as unseen
-        !month && (await markLastSeenEmailAsUnseen());
         await cleanupGoogleSheets(sheetId);
       } catch (error) {
         console.error(error);
@@ -153,10 +143,6 @@ export const mainFlow = async ({
 
   try {
     console.log(`🧽  Initializing cleanup: ${cleanup}`);
-    if (cleanup !== 'sheets') {
-      // When working with last month (default) reset mailbox by marking the last seen email as unseen
-      !month && (await markLastSeenEmailAsUnseen());
-    }
 
     if (cleanup !== 'mail') {
       await cleanupGoogleSheets(sheetId);

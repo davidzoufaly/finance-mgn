@@ -29,10 +29,18 @@ export const compareIncomesVsExpenses = (incomes: Transaction[], expenses: Trans
   const savingsRate = incomesTotal > 0 ? ((netIncome / incomesTotal) * 100).toFixed(1) : '0.0';
   const expenseRatio = incomesTotal > 0 ? ((expensesTotal / incomesTotal) * 100).toFixed(1) : '0.0';
 
+  const formatedIncomes = formatCzechCurrency(incomesTotal);
+  const formatedExpenses = formatCzechCurrency(expensesTotal);
+  const formatedNetIncome = formatCzechCurrency(netIncome);
+
+  console.log(
+    `💰  Total incomes: ${formatedIncomes}, Total expenses: ${formatedExpenses}, Net income: ${formatedNetIncome}`,
+  );
+
   return {
-    incomesTotal: formatCzechCurrency(incomesTotal),
-    expensesTotal: formatCzechCurrency(expensesTotal),
-    netIncome: formatCzechCurrency(netIncome),
+    incomesTotal: formatedIncomes,
+    expensesTotal: formatedExpenses,
+    netIncome: formatedNetIncome,
     savingsRate,
     expenseRatio,
     isPositive: netIncome > 0,

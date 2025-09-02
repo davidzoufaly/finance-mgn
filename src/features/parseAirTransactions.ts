@@ -60,15 +60,17 @@ export const processTransactions = (transactions: string[][]): TransactionObject
 
     // Identify the second date (first valid date after the first empty or non-date entry)
     const dates = row.filter((item) => /^\d{2}\.\d{2}\.\d{4}$/.test(item)); // Extract valid dates
-    const secondDate = dates.length > 1 ? dates[1] : dates[0]; // Pick the second date, fallback to the first if needed
+    const accountingDate = dates[0];
 
     // Remove first date and value from the merged string
-    const filteredItems = row.filter((item) => item !== dates[0] && item !== secondDate && item !== value);
+    const filteredItems = row.filter(
+      (item) => item !== dates[0] && item !== accountingDate && item !== value,
+    );
 
     return {
       trailingSpace: ' ',
       value: Number.parseFloat(value),
-      date: secondDate,
+      date: accountingDate,
       source: 'air',
       bankAccount: '',
       label: filteredItems.join(' '),
