@@ -1,6 +1,6 @@
 import { fioToken } from '@constants';
 import type { TransactionObject } from '@types';
-import { endOfMonth, format, startOfMonth, subMonths } from 'date-fns';
+import { endOfMonth, format, startOfMonth } from 'date-fns';
 
 /**
  * Represents a column value that is a string.
@@ -77,19 +77,13 @@ export type AccountStatement = {
  * Returns the date range for a given month in the format `yyyy-MM-dd/yyyy-MM-dd`.
  * If no month is provided, defaults to the last month.
  *
- * @param month - Optional month in the format 'MM/yyyy'.
+ * @param month - Month in the format 'MM-yyyy'.
  * @returns The date range for the specified or last month.
  */
-export const getMonthRange = (month?: string): string => {
-  let targetDate: Date;
-
-  if (month) {
-    // Parse month in MM/yyyy format
-    const [mm, yyyy] = month.split('-');
-    targetDate = new Date(Number(yyyy), Number(mm) - 1, 1);
-  } else {
-    targetDate = subMonths(new Date(), 1);
-  }
+export const getMonthRange = (month: string): string => {
+  // Parse month in MM-yyyy format
+  const [mm, yyyy] = month.split('-');
+  const targetDate = new Date(Number(yyyy), Number(mm) - 1, 1);
 
   const monthStart = startOfMonth(targetDate);
   const monthEnd = endOfMonth(targetDate);
@@ -100,14 +94,14 @@ export const getMonthRange = (month?: string): string => {
 /**
  * Fetches transactions from the FIO API for the last month or a custom endpoint.
  *
+ * @param month - Month in the format 'MM-yyyy' to fetch transactions for a target month.
  * @param endpoint - Optional custom endpoint for fetching transactions.
- * @param month - Optional month in the format 'MM-yyyy' to fetch transactions for a specific month.
  * @returns A promise that resolves to an array of transactions in the `TransactionObjOptStr` format.
  * @throws An error if the FIO token is not configured or if the API request fails.
  */
 export const fetchFioTransactions = async (
+  month: string,
   endpoint?: string | undefined,
-  month?: string,
 ): Promise<TransactionObject[]> => {
   if (!fioToken) {
     throw new Error('❌  FIO token is not configured. Set it in .env');

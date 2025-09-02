@@ -98,7 +98,7 @@ export const dataFederation = (
     });
 
   console.log(
-    `😑  ${airData.length + fioData.length - data.length} transactions filtered out. Total transactions after filtering: ${data.length}`,
+    `😑  ${airData.length + fioData.length - data.length} transactions filtered out. Total number of transactions after filtering is ${data.length}`,
   );
 
   // Unify date format

@@ -54,9 +54,11 @@ export const mainFlow = async ({
       let airTransactions: TransactionObject[] | undefined;
       let fioTransactions: TransactionObject[] | undefined;
 
+      const targetMonth: string = month || lastMonth;
+
       if (actions !== 'fio') {
         // Fetch AIR transactions PDF from email
-        month ? await fetchEmailAttachment(month) : await fetchEmailAttachment(lastMonth);
+        await fetchEmailAttachment(targetMonth);
 
         // Parse AIR transactions from PDF
         airTransactions = await parseAirTransactions();
@@ -64,7 +66,7 @@ export const mainFlow = async ({
 
       if (actions !== 'mail') {
         // Fetch transactions from FIO API
-        fioTransactions = await fetchFioTransactions(undefined, month);
+        fioTransactions = await fetchFioTransactions(targetMonth);
       }
 
       // Clean and group transactions
