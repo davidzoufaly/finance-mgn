@@ -1,4 +1,4 @@
-name: run-monthly-etl
+name: Process transactions 1st of Month
 
 on:
   schedule:
