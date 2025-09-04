@@ -4,7 +4,7 @@ import { integrationTestCases } from './integrationTestCases';
 
 test('get test(s) without LLM only', () => {
   const subset = getTestsSubset(integrationTestCases, { withLabeling: false, environment: 'development' });
-  expect(subset.length).toBe(15);
+  expect(subset.length).toBe(18);
 });
 
 test('get test(s) without LLM and mail only action', () => {
@@ -13,7 +13,7 @@ test('get test(s) without LLM and mail only action', () => {
     actions: 'mail',
     environment: 'development',
   });
-  expect(subset.length).toBe(4);
+  expect(subset.length).toBe(5);
 });
 
 test('get test(s) without LLM and fio only action', () => {
@@ -22,7 +22,7 @@ test('get test(s) without LLM and fio only action', () => {
     actions: 'fio',
     environment: 'development',
   });
-  expect(subset.length).toBe(4);
+  expect(subset.length).toBe(5);
 });
 
 test('get test(s) without LLM and all actions', () => {
@@ -31,7 +31,7 @@ test('get test(s) without LLM and all actions', () => {
     actions: 'all',
     environment: 'development',
   });
-  expect(subset.length).toBe(4);
+  expect(subset.length).toBe(5);
 });
 
 test('get test(s) without LLM, all actions and full cleanup', () => {
@@ -66,5 +66,5 @@ test('get test(s) without LLM, all actions and sheets cleanup', () => {
 
 test('get all tests when no condition provided', () => {
   const subset = getTestsSubset(integrationTestCases, { environment: 'development' });
-  expect(subset.length).toBe(27);
+  expect(subset.length).toBe(30);
 });
