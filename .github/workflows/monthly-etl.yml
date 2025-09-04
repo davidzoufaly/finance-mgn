@@ -1,5 +1,6 @@
 name: Process transactions 1st of Month
-
+permissions:
+  contents: read
 on:
   schedule:
     - cron: "0 10 1 * *" # Runs at 10 am (UTC) on the 1st day of each month
