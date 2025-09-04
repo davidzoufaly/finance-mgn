@@ -1,6 +1,6 @@
 {
   "name": "finance-mgn",
-  "version": "1.4.1",
+  "version": "1.6.0",
   "description": "Finance Management Tool (ETL)",
   "main": "./dist/app/index.js",
   "type": "module",
@@ -21,8 +21,7 @@
     "test": "vitest --config ./config/vite.config.ts",
     "test:watch": "vitest --watch --config ./config/vite.config.ts -w=true",
     "test:integration": "node ./dist/tests/index.js",
-    "typecheck": "tsc --noEmit",
-    "version": "standard-version"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "child_process": "^1.0.2",
@@ -34,7 +33,6 @@
     "openai": "^4.85.4",
     "pdfjs-dist": "^4.10.38",
     "source-map-support": "^0.5.21",
-    "standard-version": "^9.5.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9",
     "yargs": "^17.7.2",
