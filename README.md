@@ -41,7 +41,7 @@ It aggregates transaction data from various sources (FIO bank and AIR bank).
 - **Error Handling:** All errors are propagated to the top level and properly caught and logged.
 - **Testing:** The app includes both integration tests and few unit tests.
 - **Logging:** Every action is logged to the console.
-- **Developer Experience:** DX is enhanced using Biome, EditorConfig, and environment variables (`.env`).
+- **Developer Experience:** Enhanced DX is achieved through various best practices. See [Contribution Guide](#contribution-guide) in this readme for more information.
 
 ## Configuration
 
