@@ -79,10 +79,14 @@ export const appArguments = {
 
   /**
    * Specifies the month for which the transactions should be processed.
+   * Only current month and two in the past are valid because of FIO API limitation.
    *
    * @remarks
    * Command line alias: -m
    * Command line type: string
+   * Command line format: MM-yyyy
+   *
+   * e.g. 01-2025
    *
    * @type string
    * @default undefined

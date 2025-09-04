@@ -4,11 +4,13 @@
 
 ## Must have
 
-- [ ] Google docs cleanup method -> not just last month but also respect specific month when defined
 - [ ] Generate new version
+- [ ] Enhance readme - in key technical aspects in DX refer to contribution guidde
 - [ ] Fix unit tests
+- [ ] Drill to expenses filtered by month and category from exp. p/r
 
 ## Refactor
+
 
 ## Nice to have
 
@@ -19,6 +21,8 @@
 
 ## Done
 
+- [x] Google docs cleanup method -> not just last month but also respect specific month when defined
+- [x] refactor cleanup google sheets to smaller function called 3times
 - [x] Remove seen/unseen logic
 - [x] upravit výdaje na domácnost -> nový nájem
 - [x] sheet nejlepší kategorie ? pod budget co není 0?

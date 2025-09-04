@@ -1,6 +1,6 @@
 import { fioToken } from '@constants';
 import type { TransactionObject } from '@types';
-import { endOfMonth, format, startOfMonth } from 'date-fns';
+import { endOfMonth, format, isBefore, startOfMonth, subMonths } from 'date-fns';
 
 /**
  * Represents a column value that is a string.
@@ -74,19 +74,36 @@ export type AccountStatement = {
 };
 
 /**
+ * Validates that the target month is not more than 3 months before the current month.
+ * This is due to FIO API limitation that prevents fetching data older than 3 months.
+ *
+ * @param date - Target date in the format Date format to validate.
+ * @throws An error if the target month is more than 3 months in the past.
+ */
+export const validateTargetMonth = (date: Date): void => {
+  // Calculate 3 months ago from current date
+  const currentDate = new Date();
+  const threeMonthsAgo = subMonths(currentDate, 3);
+
+  // Check if target month is before 3 months ago
+  if (isBefore(date, threeMonthsAgo)) {
+    const threeMonthsAgoFormatted = format(threeMonthsAgo, 'MM-yyyy');
+    throw new Error(
+      `❌ Target month is more than 3 months old. FIO API limitation prevents fetching data older than ${threeMonthsAgoFormatted}. Please use a more recent month.`,
+    );
+  }
+};
+
+/**
  * Returns the date range for a given month in the format `yyyy-MM-dd/yyyy-MM-dd`.
  * If no month is provided, defaults to the last month.
  *
  * @param month - Month in the format 'MM-yyyy'.
  * @returns The date range for the specified or last month.
  */
-export const getMonthRange = (month: string): string => {
-  // Parse month in MM-yyyy format
-  const [mm, yyyy] = month.split('-');
-  const targetDate = new Date(Number(yyyy), Number(mm) - 1, 1);
-
-  const monthStart = startOfMonth(targetDate);
-  const monthEnd = endOfMonth(targetDate);
+export const getMonthRange = (date: Date): string => {
+  const monthStart = startOfMonth(date);
+  const monthEnd = endOfMonth(date);
 
   return `${format(monthStart, 'yyyy-MM-dd')}/${format(monthEnd, 'yyyy-MM-dd')}`;
 };
@@ -94,20 +111,27 @@ export const getMonthRange = (month: string): string => {
 /**
  * Fetches transactions from the FIO API for the last month or a custom endpoint.
  *
- * @param month - Month in the format 'MM-yyyy' to fetch transactions for a target month.
+ * @param targetMonth - Month in the format 'MM-yyyy' to fetch transactions for a target month.
  * @param endpoint - Optional custom endpoint for fetching transactions.
  * @returns A promise that resolves to an array of transactions in the `TransactionObjOptStr` format.
  * @throws An error if the FIO token is not configured or if the API request fails.
  */
 export const fetchFioTransactions = async (
-  month: string,
+  targetMonth: string,
   endpoint?: string | undefined,
 ): Promise<TransactionObject[]> => {
   if (!fioToken) {
     throw new Error('❌  FIO token is not configured. Set it in .env');
   }
 
-  const monthRange = getMonthRange(month);
+  // Parse month in MM-yyyy format
+  const [mm, yyyy] = targetMonth.split('-');
+  const targetDate = new Date(Number(yyyy), Number(mm) - 1, 1);
+
+  // Validate that the target month is not more than 3 months old
+  validateTargetMonth(targetDate);
+
+  const monthRange = getMonthRange(targetDate);
   const url = endpoint ?? `https://fioapi.fio.cz/v1/rest/periods/${fioToken}/${monthRange}/transactions.json`;
 
   try {
