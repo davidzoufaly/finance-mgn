@@ -2,8 +2,6 @@
 
 # Bugs
 
-- [ ] Pages action does not build latest version
-
 # Must have
 
 - [ ] Drill to expenses filtered by month and category from exp. p/r
