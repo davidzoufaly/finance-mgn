@@ -1,4 +1,10 @@
-import { getSheetId, lastMonth, whitelistedAccounts, whitelistedInvestmentKeywords } from '@constants';
+import {
+  SHEET_NAMES,
+  getSheetId,
+  lastMonth,
+  whitelistedAccounts,
+  whitelistedInvestmentKeywords,
+} from '@constants';
 import {
   cleanupGoogleSheets,
   createEmailBody,
@@ -49,12 +55,11 @@ export const mainFlow = async ({
     throw new Error('❌  Google Sheets ID is not configured. Set it in .env file');
   }
 
+  const targetMonth: string = month || lastMonth;
   if (actions) {
     try {
       let airTransactions: TransactionObject[] | undefined;
       let fioTransactions: TransactionObject[] | undefined;
-
-      const targetMonth: string = month || lastMonth;
 
       if (actions !== 'fio') {
         // Fetch AIR transactions PDF from email
@@ -81,9 +86,9 @@ export const mainFlow = async ({
       );
 
       // Fetch existing transactions from Google Sheets
-      const existingExpenses = await getExistingDataFromSheet('expenses', sheetId);
-      const existingIncomes = await getExistingDataFromSheet('incomes', sheetId);
-      const existingInvestments = await getExistingDataFromSheet('investments', sheetId);
+      const existingExpenses = await getExistingDataFromSheet(SHEET_NAMES.EXPENSES, sheetId);
+      const existingIncomes = await getExistingDataFromSheet(SHEET_NAMES.INCOMES, sheetId);
+      const existingInvestments = await getExistingDataFromSheet(SHEET_NAMES.INVESTMENTS, sheetId);
 
       const finalInvestments = sortByDateDesc([...investments, ...existingInvestments]);
 
@@ -93,8 +98,8 @@ export const mainFlow = async ({
       if (withLabeling) {
         // Use LLM to label transactions with category identifiers
         const [labeledExpenses, labeledIncomes] = await Promise.all([
-          labelTransactionsWithRetry(existingExpenses, expenses, 'expenses'),
-          labelTransactionsWithRetry(existingIncomes, incomes, 'incomes'),
+          labelTransactionsWithRetry(existingExpenses, expenses, SHEET_NAMES.EXPENSES),
+          labelTransactionsWithRetry(existingIncomes, incomes, SHEET_NAMES.INCOMES),
         ]);
 
         finalExpenses = labeledExpenses;
@@ -108,17 +113,17 @@ export const mainFlow = async ({
       await writeSheetBulk([
         {
           transactions: finalIncomes,
-          sheetName: 'incomes',
+          sheetName: SHEET_NAMES.INCOMES,
           sheetId,
         },
         {
           transactions: finalExpenses,
-          sheetName: 'expenses',
+          sheetName: SHEET_NAMES.EXPENSES,
           sheetId,
         },
         {
           transactions: finalInvestments,
-          sheetName: 'investments',
+          sheetName: SHEET_NAMES.INVESTMENTS,
           sheetId,
         },
       ]);
@@ -134,7 +139,7 @@ export const mainFlow = async ({
       console.error(error);
       try {
         console.log('🧽  Something has failed, fallbacking to cleanup');
-        await cleanupGoogleSheets(sheetId);
+        await cleanupGoogleSheets(sheetId, targetMonth);
       } catch (error) {
         console.error(error);
         process.exit(1);
@@ -147,7 +152,7 @@ export const mainFlow = async ({
     console.log(`🧽  Initializing cleanup: ${cleanup}`);
 
     if (cleanup !== 'mail') {
-      await cleanupGoogleSheets(sheetId);
+      await cleanupGoogleSheets(sheetId, targetMonth);
     }
 
     process.exit(0);

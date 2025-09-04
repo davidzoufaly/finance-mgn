@@ -1,7 +1,7 @@
 import fs from 'node:fs';
-import { serviceAccountPath } from '@constants';
+import { SHEET_NAMES, serviceAccountPath } from '@constants';
 import type { Transaction } from '@types';
-import { format, subMonths } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { google } from 'googleapis';
 
 // Authenticate using the service account
@@ -123,7 +123,7 @@ export const getExistingDataFromSheet = async (
  * 3. Writes the provided transaction data to the sheet.
  *
  * @param transactions - Array of transaction rows to write to the sheet.
- * @param sheetName - Name of the target Google Sheet (e.g., "expenses", "incomes").
+ * @param sheetName - Name of the target Google Sheet (e.g., 'expenses', 'incomes').
  * @param sheetId - Google Spreadsheet ID where the sheet is located.
  * @throws Error If configuration is invalid, sheet clearing fails, or writing data fails.
  * @returns Promise<void> Resolves when data is successfully written.
@@ -173,23 +173,30 @@ export const writeSheetBulk = async (
   config: { sheetName: string; sheetId: string; transactions: Transaction[] }[],
 ) => {
   try {
-    await Promise.all(config.map((item) => writeSheet(item.transactions, item.sheetName, item.sheetId)));
+    await Promise.all(
+      config.map(({ transactions, sheetName, sheetId }) => writeSheet(transactions, sheetName, sheetId)),
+    );
   } catch (error) {
     throw new Error(`❌  Error writing bulk data to Google Spreadsheet: ${error.message}`, { cause: error });
   }
 };
 
 /**
- * Filters out transactions from the last month.
+ * Filters out transactions from the targeted month.
  *
  * @param sheetName - The name of the sheet being filtered.
  * @param transactions - Array of transactions to filter.
- * @returns An array of transactions excluding those from the last month.
+ * @returns An array of transactions excluding those from the targeted month.
  */
-export const filterOutLastMonth = (sheetName: string, transactions: Transaction[]) => {
-  console.log(`🧸  Filtering out last month transactions for ${sheetName}`);
+export const filterOutTargetedMonth = (
+  sheetName: string,
+  transactions: Transaction[],
+  targetedMonth: string,
+) => {
+  console.log(`🧸  Filtering out transactions for ${sheetName} from ${targetedMonth}`);
 
-  const lastMonth = format(subMonths(new Date(), 1), 'M');
+  const targetedMonthAsDate = parse(targetedMonth, 'MM-yyyy', new Date());
+  const lastMonth = format(targetedMonthAsDate, 'M');
   const regex = new RegExp(`^${lastMonth}/`);
 
   const filteredTransactions = transactions.filter((item) => !regex.test(item[2]));
@@ -200,45 +207,36 @@ export const filterOutLastMonth = (sheetName: string, transactions: Transaction[
 };
 
 /**
- * Cleans up Google Sheets by removing last month's transactions from the specified sheets.
+ * Cleans up a specific sheet in Google Sheets by removing targeted month's transactions.
  * This function performs the following operations:
  * 1. Fetches existing data from the specified sheets (expenses, incomes, investments).
  * 2. Filters out transactions from the last month.
  * 3. Writes the filtered data back to the respective sheets.
  *
+ * @param sheetName - The name of the sheet to clean up.
+ * @param sheetId - The Google Spreadsheet ID where the sheet is located.
+ * @param targetedMonth - The month to filter out transactions for, in the format "MM-yyyy".
+ */
+export const cleanupGoogleSheetsSheet = async (sheetName: string, sheetId: string, targetedMonth: string) => {
+  const existingSheetData = await getExistingDataFromSheet(sheetName, sheetId);
+  const filteredSheetData = filterOutTargetedMonth(sheetName, existingSheetData, targetedMonth);
+  await writeSheet(filteredSheetData, sheetName, sheetId);
+};
+
+/**
+ * Cleans up Google Sheets by removing targeted month's transactions from the specified sheets.
+ *
  * @param sheetId - Google Spreadsheet ID where the sheets are located.
  * @throws Error If an error occurs during cleanup.
  * @returns Promise<void> Resolves when cleanup is completed.
  */
-export const cleanupGoogleSheets = async (sheetId: string): Promise<void> => {
+export const cleanupGoogleSheets = async (sheetId: string, targetedMonth: string): Promise<void> => {
   try {
-    const existingExpenses = await getExistingDataFromSheet('expenses', sheetId);
-    const existingIncomes = await getExistingDataFromSheet('incomes', sheetId);
-    const existingInvestments = await getExistingDataFromSheet('investments', sheetId);
-
-    const filteredExpenses = filterOutLastMonth('expenses', existingExpenses);
-    const filteredIncomes = filterOutLastMonth('incomes', existingIncomes);
-    const filteredInvestments = filterOutLastMonth('investments', existingInvestments);
-
-    // Write data to all sheets
-    await writeSheetBulk([
-      {
-        transactions: filteredIncomes,
-        sheetName: 'incomes',
-        sheetId,
-      },
-      {
-        transactions: filteredExpenses,
-        sheetName: 'expenses',
-        sheetId,
-      },
-      {
-        transactions: filteredInvestments,
-        sheetName: 'investments',
-        sheetId,
-      },
+    await Promise.all([
+      cleanupGoogleSheetsSheet(SHEET_NAMES.EXPENSES, sheetId, targetedMonth),
+      cleanupGoogleSheetsSheet(SHEET_NAMES.INCOMES, sheetId, targetedMonth),
+      cleanupGoogleSheetsSheet(SHEET_NAMES.INVESTMENTS, sheetId, targetedMonth),
     ]);
-
     console.log('🧹  Cleanup completed');
   } catch (error) {
     throw new Error(`❌  Error during cleanup (sheets): ${error.message}`, {
