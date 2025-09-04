@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { SHEET_NAMES, serviceAccountPath } from '@constants';
+import { sheetNames, serviceAccountPath } from '@constants';
 import type { Transaction } from '@types';
 import { format } from 'date-fns';
 import { google } from 'googleapis';
@@ -229,9 +229,9 @@ export const cleanupGoogleSheetsSheet = async (sheetName: string, sheetId: strin
 export const cleanupGoogleSheets = async (sheetId: string, targetMonth: Date): Promise<void> => {
   try {
     await Promise.all([
-      cleanupGoogleSheetsSheet(SHEET_NAMES.EXPENSES, sheetId, targetMonth),
-      cleanupGoogleSheetsSheet(SHEET_NAMES.INCOMES, sheetId, targetMonth),
-      cleanupGoogleSheetsSheet(SHEET_NAMES.INVESTMENTS, sheetId, targetMonth),
+      cleanupGoogleSheetsSheet(sheetNames.EXPENSES, sheetId, targetMonth),
+      cleanupGoogleSheetsSheet(sheetNames.INCOMES, sheetId, targetMonth),
+      cleanupGoogleSheetsSheet(sheetNames.INVESTMENTS, sheetId, targetMonth),
     ]);
     console.log('🧹  Cleanup completed');
   } catch (error) {
