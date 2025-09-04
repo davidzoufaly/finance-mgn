@@ -1,3 +1,4 @@
+name: Generate Release PR
 on:
   push:
     branches:
