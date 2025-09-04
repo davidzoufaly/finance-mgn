@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.1](https://github.com/davidzoufaly/finance-mgn/compare/v2.0.0...v2.0.1) (2025-09-04)
+
+
+### Bug Fixes
+
+* 2do ([fe69674](https://github.com/davidzoufaly/finance-mgn/commit/fe69674d4924c12dfaa6de164f6da039719fb896))
+* 2do ([2d805a9](https://github.com/davidzoufaly/finance-mgn/commit/2d805a9cd57164e7a121be0627297a9822fe2481))
+* **unit-tests:** reflect expected values with addding new cases ([ee53b36](https://github.com/davidzoufaly/finance-mgn/commit/ee53b364bb4d46b28531babbfffc59bc056b8bc7))
+* **unit-tests:** reflect expected values with addding new cases ([96327ee](https://github.com/davidzoufaly/finance-mgn/commit/96327eef7028e793501cf9a5342a0041e987e462))
+
 ## [2.0.0](https://github.com/davidzoufaly/finance-mgn/compare/v1.0.0...v2.0.0) (2025-09-04)
 
 
