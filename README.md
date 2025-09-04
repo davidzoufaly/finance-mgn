@@ -1,6 +1,6 @@
 # Finance Management Tool (ETL)
 
-A lightweight finance management tool that fetches and processes transaction data for a specific month. By default, the app works with the last full month; the targeted month cannot be older than 3 months due to FIO API limitations. It leverages OpenAI to
+A lightweight finance management tool that fetches and processes transaction data for a specific month. By default, the app works with the last full month; the targeted month cannot be older than 3 months (current month included) due to FIO API limitations. It leverages OpenAI to
 categorize transactions, and integrates with Google Sheets to store, update, and retrieve financial data.
 It aggregates transaction data from various sources (FIO bank and AIR bank).
 
