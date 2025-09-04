@@ -1,5 +1,5 @@
 import {
-  SHEET_NAMES,
+  sheetNames,
   getSheetId,
   lastMonth,
   whitelistedAccounts,
@@ -89,9 +89,9 @@ export const mainFlow = async ({
       );
 
       // Fetch existing transactions from Google Sheets
-      const existingExpenses = await getExistingDataFromSheet(SHEET_NAMES.EXPENSES, sheetId);
-      const existingIncomes = await getExistingDataFromSheet(SHEET_NAMES.INCOMES, sheetId);
-      const existingInvestments = await getExistingDataFromSheet(SHEET_NAMES.INVESTMENTS, sheetId);
+      const existingExpenses = await getExistingDataFromSheet(sheetNames.EXPENSES, sheetId);
+      const existingIncomes = await getExistingDataFromSheet(sheetNames.INCOMES, sheetId);
+      const existingInvestments = await getExistingDataFromSheet(sheetNames.INVESTMENTS, sheetId);
 
       const finalInvestments = sortByDateDesc([...investments, ...existingInvestments]);
 
@@ -101,8 +101,8 @@ export const mainFlow = async ({
       if (withLabeling) {
         // Use LLM to label transactions with category identifiers
         const [labeledExpenses, labeledIncomes] = await Promise.all([
-          labelTransactionsWithRetry(existingExpenses, expenses, SHEET_NAMES.EXPENSES),
-          labelTransactionsWithRetry(existingIncomes, incomes, SHEET_NAMES.INCOMES),
+          labelTransactionsWithRetry(existingExpenses, expenses, sheetNames.EXPENSES),
+          labelTransactionsWithRetry(existingIncomes, incomes, sheetNames.INCOMES),
         ]);
 
         finalExpenses = labeledExpenses;
@@ -116,17 +116,17 @@ export const mainFlow = async ({
       await writeSheetBulk([
         {
           transactions: finalIncomes,
-          sheetName: SHEET_NAMES.INCOMES,
+          sheetName: sheetNames.INCOMES,
           sheetId,
         },
         {
           transactions: finalExpenses,
-          sheetName: SHEET_NAMES.EXPENSES,
+          sheetName: sheetNames.EXPENSES,
           sheetId,
         },
         {
           transactions: finalInvestments,
-          sheetName: SHEET_NAMES.INVESTMENTS,
+          sheetName: sheetNames.INVESTMENTS,
           sheetId,
         },
       ]);

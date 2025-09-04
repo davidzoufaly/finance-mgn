@@ -134,7 +134,7 @@ export const lastMonth = getLastMonth();
 /**
  * Names of the Google Sheets used in the application.
  */
-export const SHEET_NAMES = {
+export const sheetNames = {
   EXPENSES: 'expenses',
   INCOMES: 'incomes',
   INVESTMENTS: 'investments',
