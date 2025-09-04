@@ -1,6 +1,6 @@
 {
   "name": "finance-mgn",
-  "version": "1.4.1",
+  "version": "1.6.0",
   "description": "Finance Management Tool (ETL)",
   "main": "./dist/app/index.js",
   "type": "module",
