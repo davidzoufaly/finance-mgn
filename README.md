@@ -21,6 +21,7 @@ It aggregates transaction data from various sources (FIO bank and AIR bank).
     - [Imports](#imports)
     - [Typedoc](#typedoc)
     - [Versioning](#versioning)
+    - [Releases](#releases)
     - [TODO](#todo)
 
 ## Overview
@@ -240,6 +241,10 @@ All objects (methods, constants, types, classes) must be exported, even if used 
 ### Versioning
 
 Versioning is handled via a single yarn script `yarn version`. It bumps the version in [package.json](./package.json) and creates a version entry in [CHANGELOG.md](./CHANGELOG.md).
+
+### Releases
+
+The repository uses [release-please](https://github.com/googleapis/release-please/tree/main?tab=readme-ov-file) as a GitHub Action which creates a PR that, after manual merge, bumps the app version and generates a changelog. It leverages semantic versioning and conventional commits.
 
 ### TODO
 
