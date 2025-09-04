@@ -4,9 +4,7 @@
 
 ## Must have
 
-- [ ] Generate new version
-- [ ] Automated version and changelog generation
-- [ ] Fix unit tests
+- [ ] Drill to expenses filtered by month and category from exp. p/r
 
 ## Refactor
 
@@ -14,13 +12,15 @@
 
 ## Nice to have
 
-- [ ] Drill to expenses filtered by month and category from exp. p/r
 - [ ] Add possibility to process multiple months.
 - [ ] Add possibility to fetch month(s) to different Google Sheet for ad-hoc analysis.
 - [ ] Better unit tests coverage
 
 ## Done
 
+- [x] Generate new version
+- [x] Automated version and changelog generation
+- [x] Fix unit tests
 - [x] Enhance readme - in key technical aspects in DX refer to contribution guidde
 - [x] Google docs cleanup method -> not just last month but also respect specific month when defined
 - [x] refactor cleanup google sheets to smaller function called 3times

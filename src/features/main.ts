@@ -18,6 +18,7 @@ import {
 } from '@features';
 import type { AppArguments, Transaction, TransactionObject } from '@types';
 import { sortByDateDesc } from '@utils';
+import { format, parse } from 'date-fns';
 import type { Arguments } from 'yargs';
 
 /**
@@ -55,7 +56,8 @@ export const mainFlow = async ({
     throw new Error('❌  Google Sheets ID is not configured. Set it in .env file');
   }
 
-  const targetMonth: string = month || lastMonth;
+  const targetMonth = parse(month || lastMonth, 'MM-yyyy', new Date());
+
   if (actions) {
     try {
       let airTransactions: TransactionObject[] | undefined;
@@ -63,7 +65,8 @@ export const mainFlow = async ({
 
       if (actions !== 'fio') {
         // Fetch AIR transactions PDF from email
-        await fetchEmailAttachment(targetMonth);
+        const targetMonthString = format(targetMonth, 'MM-yyyy');
+        await fetchEmailAttachment(targetMonthString);
 
         // Parse AIR transactions from PDF
         airTransactions = await parseAirTransactions();

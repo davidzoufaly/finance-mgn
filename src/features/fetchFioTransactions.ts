@@ -117,21 +117,17 @@ export const getMonthRange = (date: Date): string => {
  * @throws An error if the FIO token is not configured or if the API request fails.
  */
 export const fetchFioTransactions = async (
-  targetMonth: string,
+  targetMonth: Date,
   endpoint?: string | undefined,
 ): Promise<TransactionObject[]> => {
   if (!fioToken) {
     throw new Error('❌  FIO token is not configured. Set it in .env');
   }
 
-  // Parse month in MM-yyyy format
-  const [mm, yyyy] = targetMonth.split('-');
-  const targetDate = new Date(Number(yyyy), Number(mm) - 1, 1);
-
   // Validate that the target month is not more than 3 months old
-  validateTargetMonth(targetDate);
+  validateTargetMonth(targetMonth);
 
-  const monthRange = getMonthRange(targetDate);
+  const monthRange = getMonthRange(targetMonth);
   const url = endpoint ?? `https://fioapi.fio.cz/v1/rest/periods/${fioToken}/${monthRange}/transactions.json`;
 
   try {
