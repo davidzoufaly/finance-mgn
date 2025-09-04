@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/davidzoufaly/finance-mgn/compare/v1.0.0...v2.0.0) (2025-09-04)
+
+
+### Miscellaneous Chores
+
+* release 2.0.0 ([a534440](https://github.com/davidzoufaly/finance-mgn/commit/a534440bd0a6333716a9a18176064a8bb0358530))
+
 ## 1.0.0 (2025-09-04)
 
 ### Features
