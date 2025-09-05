@@ -66,7 +66,7 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
      production.
    - Google Sheets identifiers must be copied from the URL and set in [./.env](.env) for `GOOGLE_SHEET_ID_PROD` and optionally `GOOGLE_SHEET_ID_DEV`.
    - Google Sheets sharing settings must be set to "Anyone with the link can edit."
-   - You can copy a generic template with all calculations from [this link](https://docs.google.com/spreadsheets/d/1Izk8IJrqmZxZtTmh4nCfjaUFT2m6Uf_YKNHiCh0ulzI/edit?usp=sharing).
+   - You can copy a generic template (labels are in Czech) with all calculations from [this link](https://docs.google.com/spreadsheets/d/1HvHX-OcKW9kL1k4o9LfpOZGYZyzrjiUL37c75UoADfs/edit?usp=sharing).
    - **Authentication:**
      - A Google Sheets service account must be created, and the credentials file (`service-account.json`) must
        exist in the root folder of this project.
