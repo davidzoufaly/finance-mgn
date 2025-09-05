@@ -1,8 +1,8 @@
 # Finance Management Tool (ETL)
 
-Transform your financial chaos into crystal-clear insights! 🚀 This intelligent ETL tool automatically fetches, categorizes, and organizes your transactions from multiple banks using AI-powered classification. Say goodbye to manual data entry and hello to automated financial tracking that seamlessly integrates with Google Sheets. Whether you're managing personal finances or business expenses, get complete visibility into your money flow with zero effort - just set it up once and let the magic happen every month! Plus, you'll receive a detailed summary email in your inbox after each automatic run, keeping you informed without lifting a finger.
+Transform your financial chaos into clear insights! 🚀 This intelligent ETL tool automatically fetches, categorizes, and organizes your transactions from multiple banks using AI-powered classification. Eliminate manual data entry with automated financial tracking that seamlessly integrates with Google Sheets. Whether you're managing personal finances or business expenses, get complete visibility into your money flow with minimal effort—set it up once and let it run automatically every month! Plus, you'll receive a detailed summary email in your inbox after each automatic run, keeping you informed effortlessly.
 
-_Built for FIO Bank and AIR Bank users, with smart OpenAI categorization and bulletproof automation._
+_Built for Fio Bank and Air Bank users, featuring OpenAI-powered categorization and robust automation._
 
 ## Table of Contents
 
@@ -79,9 +79,9 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
        4. Generate a JSON key, which will be downloaded automatically.
        5. Place the JSON file in the root folder of this project.
 
-   Note: Some data sources must be configured. These can be FIO Bank, AIR Bank, or a custom source (e.g., parsing transaction PDFs from other banks).
+   Note: Some data sources must be configured. These can be Fio Bank, Air Bank, or a custom source (e.g., parsing transaction PDFs from other banks).
 
-4. **FIO Bank (Optional)**
+4. **Fio Bank (Optional)**
 
    1. Go to your internet banking settings -> API.
    2. Create a new token.
@@ -92,14 +92,14 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
 
    Note: If you need to modify FIO API calls, refer to the [official documentation](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf).
 
-5. **AIR Bank (Optional)**
+5. **Air Bank (Optional)**
 
    - Go to your internet banking.
    - Navigate to Accounts and Cards -> Options -> Statement sending setup.
-   - Set delivery to your mailbox (the default email tied to the AIR Bank account), or configure a different email under "Statement sending for others."
+   - Set delivery to your mailbox (the default email tied to the Air Bank account), or configure a different email under "Statement sending for others."
    - Ensure you selected "monthly" sending.
    - The first email should arrive on the first day of the following month at 7 AM CET.
-   - By default, the email attachment is password-protected using the phone number tied to the AIR Bank account.
+   - By default, the email attachment is password-protected using the phone number tied to the Air Bank account.
    - Add `EMAIL_USERNAME`, `EMAIL_PASSWORD`, `EMAIL_IMAP_SERVER`, `EMAIL_IMAP_PORT`, and `AIR_ATTACHMENT_PASSWORD` in [./.env](.env).
 
    Note: Gmail is not supported due to the lack of basic authentication. You can use email providers such as Seznam.cz.
@@ -224,13 +224,13 @@ After the automation completes, an email notification is sent to the address spe
 
 ### Clean Code
 
-- Git hooks are configured by [Lefthook](https://github.com/evilmartians/lefthook) in
-  [lefthook.yaml](./lefthook.yml).
-- After updating or adding hooks, run `yarn lefthook install`.
+- Git hooks are configured by [Lefthook](https://github.com/evilmartians/lefthook) in [lefthook.yaml](./lefthook.yml).
+  - After updating or adding hooks, run `yarn lefthook install`.
 - The repository uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), enforced by `commitlint` in the `commit-msg` hook.
 - Code formatting is handled by [Biome](https://biomejs.dev/) and [.editorconfig](./.editorconfig) via the `pre-commit` hook.
 - Code quality checks are also performed using [Biome](https://biomejs.dev/) in the `pre-commit` hook.
 - Type check is performed using TSC in the `pre-commit` hook.
+- After merge to `main` CodeQL workflow is triggered for additinal code quality check.
 
 ### Imports
 
