@@ -1,6 +1,6 @@
 # Finance Management Tool (ETL)
 
-Transform your financial chaos into crystal-clear insights! 🚀 This intelligent ETL tool automatically fetches, categorizes, and organizes your transactions from multiple banks using AI-powered classification. Say goodbye to manual data entry and hello to automated financial tracking that seamlessly integrates with Google Sheets. Whether you're managing personal finances or business expenses, get complete visibility into your money flow with zero effort - just set it up once and let the magic happen every month!
+Transform your financial chaos into crystal-clear insights! 🚀 This intelligent ETL tool automatically fetches, categorizes, and organizes your transactions from multiple banks using AI-powered classification. Say goodbye to manual data entry and hello to automated financial tracking that seamlessly integrates with Google Sheets. Whether you're managing personal finances or business expenses, get complete visibility into your money flow with zero effort - just set it up once and let the magic happen every month! Plus, you'll receive a detailed summary email in your inbox after each automatic run, keeping you informed without lifting a finger.
 
 _Built for FIO Bank and AIR Bank users, with smart OpenAI categorization and bulletproof automation._
 
@@ -20,8 +20,7 @@ _Built for FIO Bank and AIR Bank users, with smart OpenAI categorization and bul
     - [Clean Code](#clean-code)
     - [Imports](#imports)
     - [Typedoc](#typedoc)
-    - [Versioning](#versioning)
-    - [Releases](#releases)
+    - [Releases \& Versioning](#releases--versioning)
     - [TODO](#todo)
 
 ## Google Sheets Year Overview
@@ -217,7 +216,7 @@ Start commands support flags for configuring the application.
 
 ## Automation Trigger
 
-To use the monthly automation GitHub Action for the entire ETL process after forking the repository, set up additional secrets beyond those listed in [.env.template](.env.template): `EMAIL_SMTP_SERVER`, `EMAIL_SMTP_PORT`, and `EMAIL_USERNAME_CI_NOTIFICATION`. The action can be triggered manually via the GitHub UI with all supported flags.
+To use the monthly automation GitHub Action for the entire ETL process after forking the repository, set up additional secrets beyond those listed in [.env.template](.env.template): `INCOMES_PROMPT`, `EXPENSES_PROMPT` for setting AI prompt logic. `EMAIL_SMTP_SERVER`, `EMAIL_SMTP_PORT`, and `EMAIL_USERNAME_CI_NOTIFICATION` for email summary. The action can be triggered manually via the GitHub UI with all supported flags.
 
 After the automation completes, an email notification is sent to the address specified by `EMAIL_USERNAME_CI_NOTIFICATION`. This email contains a detailed monthly financial summary, including the number and total value of expenses, incomes, and investments for the last month, as well as key metrics like net income, savings rate, and expense ratio. The email also includes a direct link to the relevant Google Sheet with all financial data, and workflow details such as repository, workflow name, run ID, and trigger time. The email is formatted in HTML for clarity and readability.
 
@@ -241,11 +240,7 @@ Imports use the "@" alias configured in [tsconfig](./tsconfig.json) and work pro
 
 All objects (methods, constants, types, classes) must be exported, even if used in a single module — otherwise, Typedoc won't include them. Two commands exist for documentation: one generates the docs, the other starts the server. Documentation is also hosted via GitHub Pages [here](https://davidzoufaly.github.io/finance-mgn/), served directly from the main branch.
 
-### Versioning
-
-Versioning is handled via a single yarn script `yarn version`. It bumps the version in [package.json](./package.json) and creates a version entry in [CHANGELOG.md](./CHANGELOG.md).
-
-### Releases
+### Releases & Versioning
 
 The repository uses [release-please](https://github.com/googleapis/release-please/tree/main?tab=readme-ov-file) as a GitHub Action which creates a PR that, after manual merge, bumps the app version and generates a changelog. It leverages semantic versioning and conventional commits.
 
