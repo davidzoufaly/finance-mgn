@@ -242,7 +242,7 @@ All objects (methods, constants, types, classes) must be exported, even if used 
 
 ### Releases & Versioning
 
-The repository uses [release-please](https://github.com/googleapis/release-please/tree/main?tab=readme-ov-file) as a GitHub Action which creates a PR that, after manual merge, bumps the app version and generates a changelog. It leverages semantic versioning and conventional commits.
+Automated release management is powered by [release-please](https://github.com/googleapis/release-please/tree/main?tab=readme-ov-file) GitHub Action. This intelligent system automatically creates release PRs based on your commit history. Once you merge the PR, it instantly bumps the version and generates a comprehensive changelog. The entire process follows semantic versioning principles and relies on conventional commit messages for seamless automation.
 
 ### TODO
 
