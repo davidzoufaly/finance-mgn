@@ -1,14 +1,14 @@
 # Finance Management Tool (ETL)
 
-A lightweight finance management tool that fetches and processes transaction data for a specific month. By default, the app works with the last full month; the targeted month cannot be older than 3 months (current month included) due to FIO API limitations. It leverages OpenAI to
-categorize transactions, and integrates with Google Sheets to store, update, and retrieve financial data.
-It aggregates transaction data from various sources (FIO bank and AIR bank).
+Transform your financial chaos into crystal-clear insights! 🚀 This intelligent ETL tool automatically fetches, categorizes, and organizes your transactions from multiple banks using AI-powered classification. Say goodbye to manual data entry and hello to automated financial tracking that seamlessly integrates with Google Sheets. Whether you're managing personal finances or business expenses, get complete visibility into your money flow with zero effort - just set it up once and let the magic happen every month!
+
+_Built for FIO Bank and AIR Bank users, with smart OpenAI categorization and bulletproof automation._
 
 ## Table of Contents
 
 - [Finance Management Tool (ETL)](#finance-management-tool-etl)
   - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
+  - [Google Sheets Year Overview](#google-sheets-year-overview)
     - [Key Features](#key-features)
     - [Key Technical Aspects](#key-technical-aspects)
   - [Configuration](#configuration)
@@ -24,7 +24,10 @@ It aggregates transaction data from various sources (FIO bank and AIR bank).
     - [Releases](#releases)
     - [TODO](#todo)
 
-## Overview
+## Google Sheets Year Overview
+
+![Overview](src/static/images/overview.png)
+_Clean, organized financial data in Google Sheets with automated calculations_
 
 ### Key Features
 
