@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/davidzoufaly/finance-mgn/compare/v2.0.2...v2.1.0) (2025-09-05)
+
+
+### Features
+
+* **sheet:** new public sheet version with many more calculations ([#76](https://github.com/davidzoufaly/finance-mgn/issues/76)) ([161afcc](https://github.com/davidzoufaly/finance-mgn/commit/161afcc7816e6f3897c42d744af10a9726ffd037))
+
 ## [2.0.2](https://github.com/davidzoufaly/finance-mgn/compare/v2.0.1...v2.0.2) (2025-09-04)
 
 ### Bug Fixes
