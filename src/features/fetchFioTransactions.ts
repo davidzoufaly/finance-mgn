@@ -149,11 +149,10 @@ export const fetchFioTransactions = async (
       const comment = item?.column25?.value ?? '';
       const recipientMessage = item?.column16?.value ?? '';
 
-      const isIncome = amount > 0;
       // If contains bank account number -> return with bank ID
       const bankAccount = bankAccountNumber ? `${bankAccountNumber}/${bankCode}` : '';
       // Add "comment" and for incomes also add "recipient message"
-      const label = isIncome ? `${comment} ${recipientMessage}` : comment;
+      const label = `${comment} ${recipientMessage}`;
 
       return {
         trailingSpace: '',
