@@ -1,14 +1,8 @@
-// note lognout transakce a podle mě se nepropisují správně některé fieldy např. č. účtu v poznámce a proto nejde KB na B4 nebo zpráva pro příjemce
-
 # In progress
 
 # Bugs
 
-- [ ] KB převod se nepropisuje na domácnost na B4 -> prompt / trvalka note -> mělo by jet -> w8 for another month
-
 # Must have
-
-- [ ] propisovat do google sheets zpravu pro prijemce FIO
 
 # Refactor
 
@@ -16,11 +10,15 @@
 
 - [ ] New Year Macro
 - [ ] Better unit tests coverage
+- [ ] Squash and merge -> conventional commits check
+
+GitHub Action with commitlint: Run on push to the main branch and fail if the new commit doesn’t match.
+Branch protection rule: Require status checks (e.g. commitlint job) to pass before merge.
+PR title linting: Since squash merge often uses the PR title, you can enforce PR titles to follow Conventional Commits (e.g. using semantic-pull-requests).
 
 # Done
 
 - [x] upravit Investments -> Trading 212
-- [x] opravit new quarter macro i s homepage
 
 I was struggling to keep control of my budget: multiple bank accounts, clunky or expensive third-party apps with limited flexibility, and too much manual work exporting data and processing it in Sheets/Excel — it just didn’t work for me.
 
