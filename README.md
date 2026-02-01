@@ -116,7 +116,7 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
    6. Create a new secret key — fill in the name, assign the project, select full permissions, then create.
    7. Copy the key value and add it to [./.env](.env) as `OPENAI_TOKEN`.
 
-   Note: The default model for development is `gpt-4o-mini` for its speed and cost-efficiency. In production, `o3-mini` is used for its reliable output structure.
+   Note: The default model is listen in [./.env.template](.env.template). App supports different models for development and production environments.
 
 ## Run
 
