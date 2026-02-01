@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0](https://github.com/davidzoufaly/finance-mgn/compare/v2.1.0...v2.2.0) (2026-02-01)
+
+
+### Features
+
+* llm generic prompt updated to clasify transactions when there are none ([#87](https://github.com/davidzoufaly/finance-mgn/issues/87)) ([286ce54](https://github.com/davidzoufaly/finance-mgn/commit/286ce548039d39f13478459f2f0d5cf7fff5df15))
+
+
+### Bug Fixes
+
+* **sheets:** do not return undefined in log when there are no transactions fetched from chrome ([#85](https://github.com/davidzoufaly/finance-mgn/issues/85)) ([ff61e8c](https://github.com/davidzoufaly/finance-mgn/commit/ff61e8c81d4fdaf5bbd81e4a51cdf5ef21b3f323))
+
 ## [2.1.0](https://github.com/davidzoufaly/finance-mgn/compare/v2.0.2...v2.1.0) (2025-09-05)
 
 
