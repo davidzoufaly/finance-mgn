@@ -11,6 +11,7 @@ Instructions:
    - Use patterns from existing transactions to determine the most appropriate category.
    - Make logical assumptions even if descriptions don't exactly match.
    - If a transaction is unlabeled, deduce the correct category identifier using learned patterns.
+   - If there are no existing transactions, deduce the correct category identifier using your best judgement based on context you have.
 
 3. For transactions you cannot classify with confidence:
    - Still include them in the output.
