@@ -100,13 +100,13 @@ export const getExistingDataFromSheet = async (
       range: `${sheetName}!A:F`,
     });
 
-    const filteredValues: Transaction[] | undefined = data?.values?.filter((item) => item.length > 1);
+    const filteredValues: Transaction[] | [] = data?.values?.filter((item) => item.length > 1) ?? [];
 
     console.log(
       `😱  ${filteredValues?.length} transactions for ${sheetName} from Google Spreadsheet fetched`,
     );
 
-    return filteredValues ?? [];
+    return filteredValues;
   } catch (error) {
     throw new Error(
       `❌  Error fetching data from Google Spreadsheet for sheet '${sheetName}': ${error.message}`,

@@ -63,7 +63,6 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
    Rename `.env.template` to `.env` in your project root.
 
 3. **Google Sheets Integration**
-
    - It is recommended to use two separate Google Sheets: one for development/testing and another for
      production.
    - Google Sheets identifiers must be copied from the URL and set in [./.env](.env) for `GOOGLE_SHEET_ID_PROD` and optionally `GOOGLE_SHEET_ID_DEV`.
@@ -82,7 +81,6 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
    Note: Some data sources must be configured. These can be Fio Bank, Air Bank, or a custom source (e.g., parsing transaction PDFs from other banks).
 
 4. **Fio Bank (Optional)**
-
    1. Go to your internet banking settings -> API.
    2. Create a new token.
    3. Select the desired bank account, set the token validity (maximum of 6 months), mark it as read-only,
@@ -93,7 +91,6 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
    Note: If you need to modify FIO API calls, refer to the [official documentation](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf).
 
 5. **Air Bank (Optional)**
-
    - Go to your internet banking.
    - Navigate to Accounts and Cards -> Options -> Statement sending setup.
    - Set delivery to your mailbox (the default email tied to the Air Bank account), or configure a different email under "Statement sending for others."
@@ -102,14 +99,11 @@ Note: Steps 4 and 5 are optional, but at least one must be configured — the ap
    - By default, the email attachment is password-protected using the phone number tied to the Air Bank account.
    - Add `EMAIL_USERNAME`, `EMAIL_PASSWORD`, `EMAIL_IMAP_SERVER`, `EMAIL_IMAP_PORT`, and `AIR_ATTACHMENT_PASSWORD` in [./.env](.env).
 
-   Note: Gmail is not supported due to the lack of basic authentication. You can use email providers such as Seznam.cz.
+   Note: Gmail can be used with an [app password](https://support.google.com/mail/answer/185833?hl=en), which replaces basic authentication, as Google does not support it. For basic authentication, use email providers such as Seznam.cz.
 
 6. **OpenAI Integration (Optional)**
-
    - To enable transaction categorization, follow these steps:
-
    1. Rename the following files and fill in your category identifiers and descriptions:
-
       - `./src/static/prompts/expenses.template.txt` -> `./src/static/prompts/expenses.txt`
       - `./src/static/prompts/incomes.template.txt` -> `./src/static/prompts/incomes.txt`
 
