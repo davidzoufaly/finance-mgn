@@ -79,22 +79,20 @@ export const processTransactions = (transactions: string[][]): TransactionObject
 };
 
 /**
- * Splits document items into transaction rows using the fee column's X position.
+ * Splits document items into rows based on the "0,00" fee value.
  *
  * @param documentItems - The array of document items to process.
  * @returns An array of rows, each containing transaction data.
  */
-export const splitIntoRows = (documentItems: TextItem[]): string[][] => {
-  const FEE_COLUMN_MIN_X = 530;
+export const splitByZeroZero = (documentItems: TextItem[]): string[][] => {
   const rows: TextItem[][] = [];
   let currentRow: TextItem[] = [];
 
   for (const documentItem of documentItems) {
     currentRow.push(documentItem);
 
-    // The fee column is always the rightmost column (X > 530),
-    // regardless of whether the fee is 0,00 or a non-zero value
-    if (documentItem.transform[4] > FEE_COLUMN_MIN_X) {
+    // Parse rows based on fee value which is always 0,00
+    if (documentItem.str === '0,00') {
       rows.push(currentRow);
       currentRow = []; // Start a new row
     }
@@ -105,20 +103,8 @@ export const splitIntoRows = (documentItems: TextItem[]): string[][] => {
     rows.push(currentRow);
   }
 
-  // Add fee to transaction amount, then remove last two items (blank space and fee)
-  const parseCzechNumber = (s: string) => Number.parseFloat(s.replace(/\s/g, '').replace(',', '.'));
-  const textLines = rows.map((itemArray) => {
-    const strings = itemArray.map((item) => item.str);
-    const fee = parseCzechNumber(strings[strings.length - 1]);
-
-    if (fee !== 0) {
-      const amountIdx = strings.length - 3;
-      const amount = parseCzechNumber(strings[amountIdx]);
-      strings[amountIdx] = (amount + fee).toFixed(2).replace('.', ',');
-    }
-
-    return strings.slice(0, strings.length - 2);
-  });
+  // Remove unused items (last two -> blank space and transaction fee)
+  const textLines = rows.map((itemArray) => itemArray.map((item) => item.str).slice(0, itemArray.length - 2));
 
   return textLines;
 };
@@ -134,7 +120,7 @@ export const processPage = async (pageNum: number, doc: PDFDocumentProxy): Promi
   const page = await doc.getPage(pageNum);
   const content = await page.getTextContent();
   const rawTransactions = findTransactions(content.items);
-  const groupLines = splitIntoRows(rawTransactions);
+  const groupLines = splitByZeroZero(rawTransactions);
   const processedTransactions = processTransactions(groupLines);
   // Release page resources.
   page.cleanup();
