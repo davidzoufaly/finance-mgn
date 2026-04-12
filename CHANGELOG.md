@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/davidzoufaly/finance-mgn/compare/v2.2.0...v2.3.0) (2026-04-12)
+
+
+### Features
+
+* **air:** parsing transaction is done via pdf position and transaction fee is added to the value ([a31086b](https://github.com/davidzoufaly/finance-mgn/commit/a31086b3e01e2ad47348fa9ef2853a8acf4a4e4b))
+
 ## [2.2.0](https://github.com/davidzoufaly/finance-mgn/compare/v2.1.0...v2.2.0) (2026-02-01)
 
 
