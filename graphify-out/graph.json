@@ -21,12 +21,7 @@
         "id": "llm_prompt_system",
         "label": "LLM Prompt Composition System",
         "description": "The generic prompt template is composed with either expenses or incomes category schemas to form complete classification prompts sent to OpenAI",
-        "node_ids": [
-          "generic_prompt",
-          "expenses_categories",
-          "incomes_categories",
-          "openai_integration"
-        ],
+        "node_ids": ["generic_prompt", "expenses_categories", "incomes_categories", "openai_integration"],
         "type": "INFERRED",
         "confidence_score": 0.88
       },
@@ -34,14 +29,7 @@
         "id": "dx_toolchain",
         "label": "Developer Experience Toolchain",
         "description": "Lefthook orchestrates git hooks that run Biome for formatting/linting, commitlint for conventional commits, and TSC for type checking, while release-please and CodeQL operate on merge",
-        "node_ids": [
-          "lefthook",
-          "biome",
-          "conventional_commits",
-          "release_please",
-          "codeql",
-          "typedoc"
-        ],
+        "node_ids": ["lefthook", "biome", "conventional_commits", "release_please", "codeql", "typedoc"],
         "type": "INFERRED",
         "confidence_score": 0.85
       }
@@ -2998,12 +2986,7 @@
       "id": "llm_prompt_system",
       "label": "LLM Prompt Composition System",
       "description": "The generic prompt template is composed with either expenses or incomes category schemas to form complete classification prompts sent to OpenAI",
-      "node_ids": [
-        "generic_prompt",
-        "expenses_categories",
-        "incomes_categories",
-        "openai_integration"
-      ],
+      "node_ids": ["generic_prompt", "expenses_categories", "incomes_categories", "openai_integration"],
       "type": "INFERRED",
       "confidence_score": 0.88
     },
@@ -3011,14 +2994,7 @@
       "id": "dx_toolchain",
       "label": "Developer Experience Toolchain",
       "description": "Lefthook orchestrates git hooks that run Biome for formatting/linting, commitlint for conventional commits, and TSC for type checking, while release-please and CodeQL operate on merge",
-      "node_ids": [
-        "lefthook",
-        "biome",
-        "conventional_commits",
-        "release_please",
-        "codeql",
-        "typedoc"
-      ],
+      "node_ids": ["lefthook", "biome", "conventional_commits", "release_please", "codeql", "typedoc"],
       "type": "INFERRED",
       "confidence_score": 0.85
     }
