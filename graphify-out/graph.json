@@ -1,0 +1,3026 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "etl_pipeline_flow",
+        "label": "ETL Pipeline Flow",
+        "description": "The core ETL pipeline: data sources feed into data federation, which feeds into transaction labeling via OpenAI, validated by data integrity checks, then written to Google Sheets",
+        "node_ids": [
+          "data_federation",
+          "transaction_labeling",
+          "data_integrity_validation",
+          "openai_integration",
+          "google_sheets"
+        ],
+        "type": "INFERRED",
+        "confidence_score": 0.9
+      },
+      {
+        "id": "llm_prompt_system",
+        "label": "LLM Prompt Composition System",
+        "description": "The generic prompt template is composed with either expenses or incomes category schemas to form complete classification prompts sent to OpenAI",
+        "node_ids": [
+          "generic_prompt",
+          "expenses_categories",
+          "incomes_categories",
+          "openai_integration"
+        ],
+        "type": "INFERRED",
+        "confidence_score": 0.88
+      },
+      {
+        "id": "dx_toolchain",
+        "label": "Developer Experience Toolchain",
+        "description": "Lefthook orchestrates git hooks that run Biome for formatting/linting, commitlint for conventional commits, and TSC for type checking, while release-please and CodeQL operate on merge",
+        "node_ids": [
+          "lefthook",
+          "biome",
+          "conventional_commits",
+          "release_please",
+          "codeql",
+          "typedoc"
+        ],
+        "type": "INFERRED",
+        "confidence_score": 0.85
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "label": "tsup.config.ts",
+      "file_type": "code",
+      "source_file": "config/tsup.config.ts",
+      "source_location": "L1",
+      "id": "config_tsup_config_ts",
+      "community": 12,
+      "norm_label": "tsup.config.ts"
+    },
+    {
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "config/vite.config.ts",
+      "source_location": "L1",
+      "id": "config_vite_config_ts",
+      "community": 13,
+      "norm_label": "vite.config.ts"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/index.ts",
+      "source_location": "L1",
+      "id": "src_index_ts",
+      "community": 14,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "src/types/types.ts",
+      "source_location": "L1",
+      "id": "src_types_types_ts",
+      "community": 15,
+      "norm_label": "types.ts"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/types/index.ts",
+      "source_location": "L1",
+      "id": "src_types_index_ts",
+      "community": 16,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "appArguments.ts",
+      "file_type": "code",
+      "source_file": "src/constants/appArguments.ts",
+      "source_location": "L1",
+      "id": "src_constants_apparguments_ts",
+      "community": 17,
+      "norm_label": "apparguments.ts"
+    },
+    {
+      "label": "constants.ts",
+      "file_type": "code",
+      "source_file": "src/constants/constants.ts",
+      "source_location": "L1",
+      "id": "src_constants_constants_ts",
+      "community": 3,
+      "norm_label": "constants.ts"
+    },
+    {
+      "label": "getOpenAIModel()",
+      "file_type": "code",
+      "source_file": "src/constants/constants.ts",
+      "source_location": "L88",
+      "id": "constants_getopenaimodel",
+      "community": 3,
+      "norm_label": "getopenaimodel()"
+    },
+    {
+      "label": "getSheetId()",
+      "file_type": "code",
+      "source_file": "src/constants/constants.ts",
+      "source_location": "L100",
+      "id": "constants_getsheetid",
+      "community": 3,
+      "norm_label": "getsheetid()"
+    },
+    {
+      "label": "getLastMonth()",
+      "file_type": "code",
+      "source_file": "src/constants/constants.ts",
+      "source_location": "L122",
+      "id": "constants_getlastmonth",
+      "community": 3,
+      "norm_label": "getlastmonth()"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/constants/index.ts",
+      "source_location": "L1",
+      "id": "src_constants_index_ts",
+      "community": 18,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "dataFederation.ts",
+      "file_type": "code",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L1",
+      "id": "src_features_datafederation_ts",
+      "community": 1,
+      "norm_label": "datafederation.ts"
+    },
+    {
+      "label": "normalizeValue()",
+      "file_type": "code",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L34",
+      "id": "datafederation_normalizevalue",
+      "community": 1,
+      "norm_label": "normalizevalue()"
+    },
+    {
+      "label": "normalizeDates()",
+      "file_type": "code",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L47",
+      "id": "datafederation_normalizedates",
+      "community": 1,
+      "norm_label": "normalizedates()"
+    },
+    {
+      "label": "dataFederation()",
+      "file_type": "code",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L73",
+      "id": "datafederation_datafederation",
+      "community": 1,
+      "norm_label": "datafederation()"
+    },
+    {
+      "label": "googleSheetService.ts",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L1",
+      "id": "src_features_googlesheetservice_ts",
+      "community": 1,
+      "norm_label": "googlesheetservice.ts"
+    },
+    {
+      "label": "configurationCheck()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L26",
+      "id": "googlesheetservice_configurationcheck",
+      "community": 1,
+      "norm_label": "configurationcheck()"
+    },
+    {
+      "label": "clearSheetData()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L65",
+      "id": "googlesheetservice_clearsheetdata",
+      "community": 1,
+      "norm_label": "clearsheetdata()"
+    },
+    {
+      "label": "getExistingDataFromSheet()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L89",
+      "id": "googlesheetservice_getexistingdatafromsheet",
+      "community": 1,
+      "norm_label": "getexistingdatafromsheet()"
+    },
+    {
+      "label": "writeSheet()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L131",
+      "id": "googlesheetservice_writesheet",
+      "community": 1,
+      "norm_label": "writesheet()"
+    },
+    {
+      "label": "writeSheetBulk()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L172",
+      "id": "googlesheetservice_writesheetbulk",
+      "community": 1,
+      "norm_label": "writesheetbulk()"
+    },
+    {
+      "label": "filterOutTargetMonth()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L192",
+      "id": "googlesheetservice_filterouttargetmonth",
+      "community": 1,
+      "norm_label": "filterouttargetmonth()"
+    },
+    {
+      "label": "cleanupGoogleSheetsSheet()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L216",
+      "id": "googlesheetservice_cleanupgooglesheetssheet",
+      "community": 1,
+      "norm_label": "cleanupgooglesheetssheet()"
+    },
+    {
+      "label": "cleanupGoogleSheets()",
+      "file_type": "code",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L229",
+      "id": "googlesheetservice_cleanupgooglesheets",
+      "community": 1,
+      "norm_label": "cleanupgooglesheets()"
+    },
+    {
+      "label": "main.ts",
+      "file_type": "code",
+      "source_file": "src/features/main.ts",
+      "source_location": "L1",
+      "id": "src_features_main_ts",
+      "community": 1,
+      "norm_label": "main.ts"
+    },
+    {
+      "label": "mainFlow()",
+      "file_type": "code",
+      "source_file": "src/features/main.ts",
+      "source_location": "L41",
+      "id": "main_mainflow",
+      "community": 1,
+      "norm_label": "mainflow()"
+    },
+    {
+      "label": "parseAirTransactions.ts",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L1",
+      "id": "src_features_parseairtransactions_ts",
+      "community": 6,
+      "norm_label": "parseairtransactions.ts"
+    },
+    {
+      "label": "isTextItem()",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L13",
+      "id": "parseairtransactions_istextitem",
+      "community": 6,
+      "norm_label": "istextitem()"
+    },
+    {
+      "label": "isTextItemArray()",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L23",
+      "id": "parseairtransactions_istextitemarray",
+      "community": 6,
+      "norm_label": "istextitemarray()"
+    },
+    {
+      "label": "findTransactions()",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L34",
+      "id": "parseairtransactions_findtransactions",
+      "community": 6,
+      "norm_label": "findtransactions()"
+    },
+    {
+      "label": "processTransactions()",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L56",
+      "id": "parseairtransactions_processtransactions",
+      "community": 6,
+      "norm_label": "processtransactions()"
+    },
+    {
+      "label": "splitIntoRows()",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L87",
+      "id": "parseairtransactions_splitintorows",
+      "community": 6,
+      "norm_label": "splitintorows()"
+    },
+    {
+      "label": "processPage()",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L133",
+      "id": "parseairtransactions_processpage",
+      "community": 6,
+      "norm_label": "processpage()"
+    },
+    {
+      "label": "parseAirTransactions()",
+      "file_type": "code",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L150",
+      "id": "parseairtransactions_parseairtransactions",
+      "community": 1,
+      "norm_label": "parseairtransactions()"
+    },
+    {
+      "label": "fetchEmailAttachment.ts",
+      "file_type": "code",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L1",
+      "id": "src_features_fetchemailattachment_ts",
+      "community": 7,
+      "norm_label": "fetchemailattachment.ts"
+    },
+    {
+      "label": "validateEmailCredentials()",
+      "file_type": "code",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L21",
+      "id": "fetchemailattachment_validateemailcredentials",
+      "community": 7,
+      "norm_label": "validateemailcredentials()"
+    },
+    {
+      "label": "connectToImapServer()",
+      "file_type": "code",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L35",
+      "id": "fetchemailattachment_connecttoimapserver",
+      "community": 7,
+      "norm_label": "connecttoimapserver()"
+    },
+    {
+      "label": "openInbox()",
+      "file_type": "code",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L60",
+      "id": "fetchemailattachment_openinbox",
+      "community": 7,
+      "norm_label": "openinbox()"
+    },
+    {
+      "label": "fetchEmails()",
+      "file_type": "code",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L74",
+      "id": "fetchemailattachment_fetchemails",
+      "community": 7,
+      "norm_label": "fetchemails()"
+    },
+    {
+      "label": "disconnectFromImapServer()",
+      "file_type": "code",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L88",
+      "id": "fetchemailattachment_disconnectfromimapserver",
+      "community": 7,
+      "norm_label": "disconnectfromimapserver()"
+    },
+    {
+      "label": "fetchEmailAttachment()",
+      "file_type": "code",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L100",
+      "id": "fetchemailattachment_fetchemailattachment",
+      "community": 7,
+      "norm_label": "fetchemailattachment()"
+    },
+    {
+      "label": "fetchFioTransactions.ts",
+      "file_type": "code",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L1",
+      "id": "src_features_fetchfiotransactions_ts",
+      "community": 10,
+      "norm_label": "fetchfiotransactions.ts"
+    },
+    {
+      "label": "validateTargetMonth()",
+      "file_type": "code",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L83",
+      "id": "fetchfiotransactions_validatetargetmonth",
+      "community": 10,
+      "norm_label": "validatetargetmonth()"
+    },
+    {
+      "label": "getMonthRange()",
+      "file_type": "code",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L104",
+      "id": "fetchfiotransactions_getmonthrange",
+      "community": 10,
+      "norm_label": "getmonthrange()"
+    },
+    {
+      "label": "fetchFioTransactions()",
+      "file_type": "code",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L119",
+      "id": "fetchfiotransactions_fetchfiotransactions",
+      "community": 10,
+      "norm_label": "fetchfiotransactions()"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/features/index.ts",
+      "source_location": "L1",
+      "id": "src_features_index_ts",
+      "community": 19,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "labelTransactions.ts",
+      "file_type": "code",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L1",
+      "id": "src_features_labeltransactions_ts",
+      "community": 3,
+      "norm_label": "labeltransactions.ts"
+    },
+    {
+      "label": "getValidatedLLMResult()",
+      "file_type": "code",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L24",
+      "id": "labeltransactions_getvalidatedllmresult",
+      "community": 3,
+      "norm_label": "getvalidatedllmresult()"
+    },
+    {
+      "label": "integrityChecks()",
+      "file_type": "code",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L59",
+      "id": "labeltransactions_integritychecks",
+      "community": 3,
+      "norm_label": "integritychecks()"
+    },
+    {
+      "label": "labelTransactions()",
+      "file_type": "code",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L93",
+      "id": "labeltransactions_labeltransactions",
+      "community": 3,
+      "norm_label": "labeltransactions()"
+    },
+    {
+      "label": "labelTransactionsWithRetry()",
+      "file_type": "code",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L161",
+      "id": "labeltransactions_labeltransactionswithretry",
+      "community": 3,
+      "norm_label": "labeltransactionswithretry()"
+    },
+    {
+      "label": "createEmailBody.ts",
+      "file_type": "code",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L1",
+      "id": "src_features_createemailbody_ts",
+      "community": 4,
+      "norm_label": "createemailbody.ts"
+    },
+    {
+      "label": "compareIncomesVsExpenses()",
+      "file_type": "code",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L24",
+      "id": "createemailbody_compareincomesvsexpenses",
+      "community": 4,
+      "norm_label": "compareincomesvsexpenses()"
+    },
+    {
+      "label": "replaceTemplateVariables()",
+      "file_type": "code",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L59",
+      "id": "createemailbody_replacetemplatevariables",
+      "community": 4,
+      "norm_label": "replacetemplatevariables()"
+    },
+    {
+      "label": "createEmailBody()",
+      "file_type": "code",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L87",
+      "id": "createemailbody_createemailbody",
+      "community": 4,
+      "norm_label": "createemailbody()"
+    },
+    {
+      "label": "date.ts",
+      "file_type": "code",
+      "source_file": "src/utils/date.ts",
+      "source_location": "L1",
+      "id": "src_utils_date_ts",
+      "community": 3,
+      "norm_label": "date.ts"
+    },
+    {
+      "label": "sortByDateDesc()",
+      "file_type": "code",
+      "source_file": "src/utils/date.ts",
+      "source_location": "L11",
+      "id": "date_sortbydatedesc",
+      "community": 3,
+      "norm_label": "sortbydatedesc()"
+    },
+    {
+      "label": "currency.ts",
+      "file_type": "code",
+      "source_file": "src/utils/currency.ts",
+      "source_location": "L1",
+      "id": "src_utils_currency_ts",
+      "community": 4,
+      "norm_label": "currency.ts"
+    },
+    {
+      "label": "formatCzechCurrency()",
+      "file_type": "code",
+      "source_file": "src/utils/currency.ts",
+      "source_location": "L14",
+      "id": "currency_formatczechcurrency",
+      "community": 4,
+      "norm_label": "formatczechcurrency()"
+    },
+    {
+      "label": "utils.ts",
+      "file_type": "code",
+      "source_file": "src/utils/utils.ts",
+      "source_location": "L1",
+      "id": "src_utils_utils_ts",
+      "community": 4,
+      "norm_label": "utils.ts"
+    },
+    {
+      "label": "sumValuesAtIndex()",
+      "file_type": "code",
+      "source_file": "src/utils/utils.ts",
+      "source_location": "L10",
+      "id": "utils_sumvaluesatindex",
+      "community": 4,
+      "norm_label": "sumvaluesatindex()"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/utils/index.ts",
+      "source_location": "L1",
+      "id": "src_utils_index_ts",
+      "community": 20,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "testRunner.ts",
+      "file_type": "code",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L1",
+      "id": "src_integrationtests_testrunner_ts",
+      "community": 8,
+      "norm_label": "testrunner.ts"
+    },
+    {
+      "label": "sleep()",
+      "file_type": "code",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L22",
+      "id": "testrunner_sleep",
+      "community": 8,
+      "norm_label": "sleep()"
+    },
+    {
+      "label": "runTest()",
+      "file_type": "code",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L30",
+      "id": "testrunner_runtest",
+      "community": 8,
+      "norm_label": "runtest()"
+    },
+    {
+      "label": "runReset()",
+      "file_type": "code",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L78",
+      "id": "testrunner_runreset",
+      "community": 8,
+      "norm_label": "runreset()"
+    },
+    {
+      "label": "runTests()",
+      "file_type": "code",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L95",
+      "id": "testrunner_runtests",
+      "community": 8,
+      "norm_label": "runtests()"
+    },
+    {
+      "label": "integrationTestCases.ts",
+      "file_type": "code",
+      "source_file": "src/integrationTests/integrationTestCases.ts",
+      "source_location": "L1",
+      "id": "src_integrationtests_integrationtestcases_ts",
+      "community": 21,
+      "norm_label": "integrationtestcases.ts"
+    },
+    {
+      "label": "integrationTestsMain.ts",
+      "file_type": "code",
+      "source_file": "src/integrationTests/integrationTestsMain.ts",
+      "source_location": "L1",
+      "id": "src_integrationtests_integrationtestsmain_ts",
+      "community": 22,
+      "norm_label": "integrationtestsmain.ts"
+    },
+    {
+      "label": "getTestsSubset.test.ts",
+      "file_type": "code",
+      "source_file": "src/integrationTests/getTestsSubset.test.ts",
+      "source_location": "L1",
+      "id": "src_integrationtests_gettestssubset_test_ts",
+      "community": 23,
+      "norm_label": "gettestssubset.test.ts"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/integrationTests/index.ts",
+      "source_location": "L1",
+      "id": "src_integrationtests_index_ts",
+      "community": 24,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "getTestsSubset.ts",
+      "file_type": "code",
+      "source_file": "src/integrationTests/getTestsSubset.ts",
+      "source_location": "L1",
+      "id": "src_integrationtests_gettestssubset_ts",
+      "community": 8,
+      "norm_label": "gettestssubset.ts"
+    },
+    {
+      "label": "getTestsSubset()",
+      "file_type": "code",
+      "source_file": "src/integrationTests/getTestsSubset.ts",
+      "source_location": "L11",
+      "id": "gettestssubset_gettestssubset",
+      "community": 8,
+      "norm_label": "gettestssubset()"
+    },
+    {
+      "label": "Finance Management Tool (ETL)",
+      "type": "project",
+      "source_file": "README.md",
+      "description": "Intelligent ETL tool that automatically fetches, categorizes, and organizes bank transactions using AI-powered classification, integrating with Google Sheets",
+      "id": "finance_mgn_project",
+      "community": 0,
+      "norm_label": "finance management tool (etl)"
+    },
+    {
+      "label": "David Zoufaly",
+      "type": "person",
+      "source_file": "LICENSE.md",
+      "description": "Project author and copyright holder, MIT License 2025",
+      "id": "david_zoufaly",
+      "community": 0,
+      "norm_label": "david zoufaly"
+    },
+    {
+      "label": "Fio Bank",
+      "type": "data_source",
+      "source_file": "README.md",
+      "description": "Bank data source accessed via API token with read-only access, token valid up to 6 months",
+      "id": "fio_bank",
+      "community": 5,
+      "norm_label": "fio bank"
+    },
+    {
+      "label": "Air Bank",
+      "type": "data_source",
+      "source_file": "README.md",
+      "description": "Bank data source accessed via monthly PDF statement email attachments, password-protected with phone number",
+      "id": "air_bank",
+      "community": 0,
+      "norm_label": "air bank"
+    },
+    {
+      "label": "OpenAI Integration",
+      "type": "service",
+      "source_file": "README.md",
+      "description": "Transaction categorization using OpenAI API with configurable models for dev and production environments",
+      "id": "openai_integration",
+      "community": 0,
+      "norm_label": "openai integration"
+    },
+    {
+      "label": "Google Sheets Integration",
+      "type": "service",
+      "source_file": "README.md",
+      "description": "Data destination with service account authentication, separate sheets for dev and production, requires Sheets API enabled",
+      "id": "google_sheets",
+      "community": 0,
+      "norm_label": "google sheets integration"
+    },
+    {
+      "label": "GitHub Actions Automation",
+      "type": "system",
+      "source_file": "README.md",
+      "description": "Monthly automated ETL process triggered on 1st of month at noon, sends email notification with financial summary after run",
+      "id": "github_actions_automation",
+      "community": 0,
+      "norm_label": "github actions automation"
+    },
+    {
+      "label": "Generic LLM Prompt",
+      "type": "prompt",
+      "source_file": "src/static/prompts/generic-prompt.txt",
+      "description": "Core prompt instructing LLM to act as financial analyst, learn from existing labeled transactions, classify new ones using category hierarchy, output valid JSON with transaction arrays and token count",
+      "id": "generic_prompt",
+      "community": 0,
+      "norm_label": "generic llm prompt"
+    },
+    {
+      "label": "Expense Categories",
+      "type": "category_schema",
+      "source_file": "src/static/prompts/expenses.txt",
+      "description": "9 top-level expense categories (A-I) with 50+ subcategories covering travel, household, gifts, car, motorcycle, garage, personal spending, land/property, and financial obligations",
+      "id": "expenses_categories",
+      "community": 0,
+      "norm_label": "expense categories"
+    },
+    {
+      "label": "Income Categories",
+      "type": "category_schema",
+      "source_file": "src/static/prompts/incomes.txt",
+      "description": "7 income categories (INC_1 to INC_7): salary from GoodData, bonus, compensation, personal transfers (Lucie Novotna), rent (Ivo Zoufaly), debt repayments, and dividends",
+      "id": "incomes_categories",
+      "community": 0,
+      "norm_label": "income categories"
+    },
+    {
+      "label": "Expense Categories Template",
+      "type": "template",
+      "source_file": "src/static/prompts/expenses.template.txt",
+      "description": "Generic template with placeholder categories A/B and subcategories for users to customize their own expense category scheme",
+      "id": "expenses_template",
+      "community": 0,
+      "norm_label": "expense categories template"
+    },
+    {
+      "label": "Income Categories Template",
+      "type": "template",
+      "source_file": "src/static/prompts/incomes.template.txt",
+      "description": "Generic template with placeholder income categories INC_1 to INC_5 for users to customize",
+      "id": "incomes_template",
+      "community": 0,
+      "norm_label": "income categories template"
+    },
+    {
+      "label": "Monthly Financial Email Report",
+      "type": "artifact",
+      "source_file": "email-body.txt",
+      "description": "HTML email with transaction summary (expenses, incomes, investments), financial analysis (net income, savings rate, expense ratio), Google Sheet link, and workflow details",
+      "id": "email_report",
+      "community": 0,
+      "norm_label": "monthly financial email report"
+    },
+    {
+      "label": "Data Federation",
+      "type": "concept",
+      "source_file": "README.md",
+      "description": "Aggregation of transaction data from multiple bank sources into unified format",
+      "id": "data_federation",
+      "community": 0,
+      "norm_label": "data federation"
+    },
+    {
+      "label": "Transaction Labeling",
+      "type": "concept",
+      "source_file": "README.md",
+      "description": "AI-powered assignment of category identifiers to transactions using OpenAI",
+      "id": "transaction_labeling",
+      "community": 5,
+      "norm_label": "transaction labeling"
+    },
+    {
+      "label": "Data Integrity Validation",
+      "type": "concept",
+      "source_file": "README.md",
+      "description": "Post-labeling validation checking number of transactions and transaction values match",
+      "id": "data_integrity_validation",
+      "community": 5,
+      "norm_label": "data integrity validation"
+    },
+    {
+      "label": "Cleanup Mechanism",
+      "type": "concept",
+      "source_file": "README.md",
+      "description": "Automatic cleanup on failure; manual cleanup available via yarn cleanup:all to delete last month data and mark emails unread",
+      "id": "cleanup_mechanism",
+      "community": 25,
+      "norm_label": "cleanup mechanism"
+    },
+    {
+      "label": "Conventional Commits",
+      "type": "practice",
+      "source_file": "README.md",
+      "description": "Commit message convention enforced by commitlint in commit-msg hook",
+      "id": "conventional_commits",
+      "community": 9,
+      "norm_label": "conventional commits"
+    },
+    {
+      "label": "Release Please",
+      "type": "tool",
+      "source_file": "README.md",
+      "description": "Automated release management via GitHub Action, creates release PRs, bumps version, generates changelog based on conventional commits",
+      "id": "release_please",
+      "community": 9,
+      "norm_label": "release please"
+    },
+    {
+      "label": "Biome",
+      "type": "tool",
+      "source_file": "README.md",
+      "description": "Code formatting and quality checking tool used in pre-commit hook",
+      "id": "biome",
+      "community": 9,
+      "norm_label": "biome"
+    },
+    {
+      "label": "Lefthook",
+      "type": "tool",
+      "source_file": "README.md",
+      "description": "Git hooks manager configured via lefthook.yaml",
+      "id": "lefthook",
+      "community": 9,
+      "norm_label": "lefthook"
+    },
+    {
+      "label": "Typedoc",
+      "type": "tool",
+      "source_file": "README.md",
+      "description": "Documentation generator requiring all objects to be exported; hosted via GitHub Pages",
+      "id": "typedoc",
+      "community": 11,
+      "norm_label": "typedoc"
+    },
+    {
+      "label": "New Years Guide",
+      "type": "procedure",
+      "source_file": "private-notes.md",
+      "description": "Annual checklist: sanity check last month, progress quarter, update overview investments Q1-Q4, fork sheet for new year, create wrapped slide, update categories in expenses/incomes, reset data, set budgeting goals, check OpenAI budget and model",
+      "id": "new_years_guide",
+      "community": 0,
+      "norm_label": "new years guide"
+    },
+    {
+      "label": "Changelog",
+      "type": "document",
+      "source_file": "CHANGELOG.md",
+      "description": "Version history from 1.0.0 to 2.1.0, tracking features like email body, Zod validation, LLM retries, integration test refactor, and sheet improvements",
+      "id": "changelog",
+      "community": 9,
+      "norm_label": "changelog"
+    },
+    {
+      "label": "TODO / 2DO",
+      "type": "document",
+      "source_file": "2DO.md",
+      "description": "Future plans including Node v25 support, ML-based classification, adding KB/Revolut/Ceska Sporitelna banks, squash-merge conventional commits enforcement",
+      "id": "todo_list",
+      "community": 5,
+      "norm_label": "todo / 2do"
+    },
+    {
+      "label": "KB Bank (Planned)",
+      "type": "data_source",
+      "source_file": "2DO.md",
+      "description": "Planned future data source: Komercni Banka transactions",
+      "id": "kb_bank_planned",
+      "community": 5,
+      "norm_label": "kb bank (planned)"
+    },
+    {
+      "label": "Revolut (Planned)",
+      "type": "data_source",
+      "source_file": "2DO.md",
+      "description": "Planned future data source: Revolut transactions",
+      "id": "revolut_planned",
+      "community": 5,
+      "norm_label": "revolut (planned)"
+    },
+    {
+      "label": "Ceska Sporitelna (Planned)",
+      "type": "data_source",
+      "source_file": "2DO.md",
+      "description": "Planned future data source: Ceska Sporitelna transactions",
+      "id": "ceska_sporitelna_planned",
+      "community": 5,
+      "norm_label": "ceska sporitelna (planned)"
+    },
+    {
+      "label": "ML Classification Idea",
+      "type": "concept",
+      "source_file": "2DO.md",
+      "description": "Idea to use machine learning techniques for transaction classification with LLM only for edge cases, and potentially a custom LLM trained on prior years",
+      "id": "ml_classification_idea",
+      "community": 5,
+      "norm_label": "ml classification idea"
+    },
+    {
+      "label": "Rationale: Separate Dev/Prod Sheets",
+      "type": "rationale",
+      "source_file": "README.md",
+      "description": "Recommendation to use two separate Google Sheets (dev and prod) to isolate testing from production data",
+      "id": "rationale_two_sheets",
+      "community": 0,
+      "norm_label": "rationale: separate dev/prod sheets"
+    },
+    {
+      "label": "Rationale: Export All Objects for Typedoc",
+      "type": "rationale",
+      "source_file": "README.md",
+      "description": "All objects must be exported even if single-module use, otherwise Typedoc excludes them from generated documentation",
+      "id": "rationale_export_all_objects",
+      "community": 11,
+      "norm_label": "rationale: export all objects for typedoc"
+    },
+    {
+      "label": "Rationale: Relative Imports in Tests",
+      "type": "rationale",
+      "source_file": "README.md",
+      "description": "Vitest may execute files outside test scope, so .test.ts files should use relative imports instead of @ alias to avoid resolution issues",
+      "id": "rationale_relative_imports_tests",
+      "community": 0,
+      "norm_label": "rationale: relative imports in tests"
+    },
+    {
+      "label": "Rationale: 150 Transaction Limit for LLM",
+      "type": "rationale",
+      "source_file": "CHANGELOG.md",
+      "description": "Number of transactions sent to LLM is limited to 150 to manage token costs and context window",
+      "id": "rationale_llm_transaction_limit",
+      "community": 0,
+      "norm_label": "rationale: 150 transaction limit for llm"
+    },
+    {
+      "label": "Rationale: Gmail App Password",
+      "type": "rationale",
+      "source_file": "README.md",
+      "description": "Gmail requires app password instead of basic auth because Google does not support basic authentication; alternative is Seznam.cz which supports basic auth",
+      "id": "rationale_app_password_gmail",
+      "community": 0,
+      "norm_label": "rationale: gmail app password"
+    },
+    {
+      "label": "GoodData",
+      "type": "organization",
+      "source_file": "src/static/prompts/incomes.txt",
+      "description": "Employer of David Zoufaly, source of salary (INC_1), bonus (INC_2), and compensation (INC_3) income categories",
+      "id": "gooddata",
+      "community": 0,
+      "norm_label": "gooddata"
+    },
+    {
+      "label": "MIT License",
+      "type": "license",
+      "source_file": "LICENSE.md",
+      "description": "Project licensed under MIT License, copyright 2025 David Zoufaly",
+      "id": "mit_license",
+      "community": 0,
+      "norm_label": "mit license"
+    },
+    {
+      "label": "Zod",
+      "type": "library",
+      "source_file": "CHANGELOG.md",
+      "description": "Schema validation library integrated in v1.0.0 for data validation",
+      "id": "zod",
+      "community": 0,
+      "norm_label": "zod"
+    },
+    {
+      "label": "CodeQL",
+      "type": "tool",
+      "source_file": "README.md",
+      "description": "Code quality analysis triggered on merge to main branch",
+      "id": "codeql",
+      "community": 0,
+      "norm_label": "codeql"
+    },
+    {
+      "label": "Overview Dashboard",
+      "type": "artifact:spreadsheet_dashboard",
+      "properties": {
+        "description": "Google Sheets financial overview dashboard with multiple sections for expenses, income, savings, investments, and budget tracking with bar charts and percentage indicators",
+        "format": "Google Sheets",
+        "source_file": "src/static/images/overview.png"
+      },
+      "id": "overview_dashboard",
+      "community": 2,
+      "norm_label": "overview dashboard"
+    },
+    {
+      "label": "Vydaje (Expenses) Section",
+      "type": "concept:financial_metric",
+      "properties": {
+        "description": "Tracks quarterly expenses (Q1-Q4) with plan vs actual values, YTD totals, and QTD/plan percentage (135.8%, 42.6%). Contains horizontal bar chart showing quarterly expense breakdown and vertical bar chart showing QTD vs plan comparison.",
+        "position": "top-left",
+        "values_visible": "400.0, 265.7, 170.0, 90.0, 70.0, 8.0"
+      },
+      "id": "section_vydaje",
+      "community": 2,
+      "norm_label": "vydaje (expenses) section"
+    },
+    {
+      "label": "Prijmy (Income) Section",
+      "type": "concept:financial_metric",
+      "properties": {
+        "description": "Tracks quarterly income (Q1-Q4) with plan vs actual values, YTD totals, and QTD/plan percentage (84.8%, 16.0%). Contains horizontal bar chart and vertical bar chart for income comparison.",
+        "position": "middle-left",
+        "values_visible": "580.0, 333.3, 120.0, 150.0, 8.0, 8.0"
+      },
+      "id": "section_prijmy",
+      "community": 2,
+      "norm_label": "prijmy (income) section"
+    },
+    {
+      "label": "Vydaje/plan (Expenses vs Plan) Section",
+      "type": "concept:financial_metric",
+      "properties": {
+        "description": "Shows expense plan fulfillment YTD/plan percentages (135.8%, 42.6%, 61.0%) with bar charts comparing planned vs actual expenses",
+        "position": "top-center"
+      },
+      "id": "section_vydaje_plan",
+      "community": 2,
+      "norm_label": "vydaje/plan (expenses vs plan) section"
+    },
+    {
+      "label": "Prijmy vs Vydaje (Income vs Expenses) Chart",
+      "type": "concept:financial_metric",
+      "properties": {
+        "description": "Comparison bar chart showing income (blue/green) vs expenses (orange) side by side across quarters, with a legend indicating Prijmy and Vydaje categories",
+        "position": "middle-center"
+      },
+      "id": "section_prijmy_vs_vydaje",
+      "community": 2,
+      "norm_label": "prijmy vs vydaje (income vs expenses) chart"
+    },
+    {
+      "label": "Investice (Investments) Section",
+      "type": "concept:financial_metric",
+      "properties": {
+        "description": "Tracks investment data with quarterly breakdown (Q1-Q4), showing values like 75.0, 40.0, 19.5, 15.5, 20.0, 14.0, 8.0. Contains horizontal bar chart for quarterly investment amounts.",
+        "position": "top-right"
+      },
+      "id": "section_investice",
+      "community": 2,
+      "norm_label": "investice (investments) section"
+    },
+    {
+      "label": "Budget Tracking Section",
+      "type": "concept:financial_metric",
+      "properties": {
+        "description": "Shows Pocet kategorii (category count), budget allocation with values 15 and 9, and percentage fulfillment (107.0%). Includes columns for Top kat. (top categories) with QTD ABS, QTD REL values.",
+        "position": "middle-right",
+        "values_visible": "Nabytky, Ostatni, EA, Darinka, Tuning"
+      },
+      "id": "section_budget",
+      "community": 2,
+      "norm_label": "budget tracking section"
+    },
+    {
+      "label": "Penize useteno (Money Saved) Section",
+      "type": "concept:financial_metric",
+      "properties": {
+        "description": "Tracks savings with values like 120.0, -29.6%, -39.0, 50.0%, 50.0%, 170.0, 8.0. Shows a trend chart with red bars indicating negative savings trend (-79.0%). Contains QTD vs YTD comparison.",
+        "position": "bottom-left",
+        "trend": "negative (-79.0%)"
+      },
+      "id": "section_penize_useteno",
+      "community": 2,
+      "norm_label": "penize useteno (money saved) section"
+    },
+    {
+      "label": "Expenses YTD/Plan Ratio",
+      "type": "concept:kpi",
+      "properties": {
+        "value": "135.8%",
+        "interpretation": "Expenses exceeding plan by 35.8% year-to-date"
+      },
+      "id": "metric_ytd_plan_expenses",
+      "community": 2,
+      "norm_label": "expenses ytd/plan ratio"
+    },
+    {
+      "label": "Income YTD/Plan Ratio",
+      "type": "concept:kpi",
+      "properties": {
+        "value": "84.8%",
+        "interpretation": "Income below plan at 84.8% year-to-date"
+      },
+      "id": "metric_ytd_plan_income",
+      "community": 2,
+      "norm_label": "income ytd/plan ratio"
+    },
+    {
+      "label": "Savings Trend",
+      "type": "concept:kpi",
+      "properties": {
+        "value": "-79.0%",
+        "interpretation": "Savings trend sharply negative, significant shortfall vs target"
+      },
+      "id": "metric_savings_trend",
+      "community": 2,
+      "norm_label": "savings trend"
+    },
+    {
+      "label": "Budget Fulfillment",
+      "type": "concept:kpi",
+      "properties": {
+        "value": "107.0%",
+        "interpretation": "Budget slightly over-utilized at 107%"
+      },
+      "id": "metric_budget_fulfillment",
+      "community": 2,
+      "norm_label": "budget fulfillment"
+    },
+    {
+      "label": "Finance Management System",
+      "type": "system:application",
+      "properties": {
+        "description": "Personal finance management system that aggregates transaction data and produces this overview dashboard"
+      },
+      "id": "finance_mgn_system",
+      "community": 2,
+      "norm_label": "finance management system"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/constants/constants.ts",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_src": "src_constants_constants_ts",
+      "_tgt": "constants_getopenaimodel",
+      "source": "src_constants_constants_ts",
+      "target": "constants_getopenaimodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/constants/constants.ts",
+      "source_location": "L100",
+      "weight": 1.0,
+      "_src": "src_constants_constants_ts",
+      "_tgt": "constants_getsheetid",
+      "source": "src_constants_constants_ts",
+      "target": "constants_getsheetid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/constants/constants.ts",
+      "source_location": "L122",
+      "weight": 1.0,
+      "_src": "src_constants_constants_ts",
+      "_tgt": "constants_getlastmonth",
+      "source": "src_constants_constants_ts",
+      "target": "constants_getlastmonth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_src": "labeltransactions_labeltransactions",
+      "_tgt": "constants_getopenaimodel",
+      "source": "constants_getopenaimodel",
+      "target": "labeltransactions_labeltransactions"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "constants_getsheetid",
+      "source": "constants_getsheetid",
+      "target": "main_mainflow"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_src": "createemailbody_createemailbody",
+      "_tgt": "constants_getlastmonth",
+      "source": "constants_getlastmonth",
+      "target": "createemailbody_createemailbody"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_src": "src_features_datafederation_ts",
+      "_tgt": "datafederation_normalizevalue",
+      "source": "src_features_datafederation_ts",
+      "target": "datafederation_normalizevalue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "src_features_datafederation_ts",
+      "_tgt": "datafederation_normalizedates",
+      "source": "src_features_datafederation_ts",
+      "target": "datafederation_normalizedates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L73",
+      "weight": 1.0,
+      "_src": "src_features_datafederation_ts",
+      "_tgt": "datafederation_datafederation",
+      "source": "src_features_datafederation_ts",
+      "target": "datafederation_datafederation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/dataFederation.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "_src": "datafederation_datafederation",
+      "_tgt": "datafederation_normalizedates",
+      "source": "datafederation_normalizedates",
+      "target": "datafederation_datafederation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "datafederation_datafederation",
+      "source": "datafederation_datafederation",
+      "target": "main_mainflow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_configurationcheck",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_configurationcheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_clearsheetdata",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_clearsheetdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L89",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_getexistingdatafromsheet",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_getexistingdatafromsheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L131",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_writesheet",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_writesheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L172",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_writesheetbulk",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_writesheetbulk",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L192",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_filterouttargetmonth",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_filterouttargetmonth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L216",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_cleanupgooglesheetssheet",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_cleanupgooglesheetssheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L229",
+      "weight": 1.0,
+      "_src": "src_features_googlesheetservice_ts",
+      "_tgt": "googlesheetservice_cleanupgooglesheets",
+      "source": "src_features_googlesheetservice_ts",
+      "target": "googlesheetservice_cleanupgooglesheets",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_src": "googlesheetservice_getexistingdatafromsheet",
+      "_tgt": "googlesheetservice_configurationcheck",
+      "source": "googlesheetservice_configurationcheck",
+      "target": "googlesheetservice_getexistingdatafromsheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_src": "googlesheetservice_writesheet",
+      "_tgt": "googlesheetservice_configurationcheck",
+      "source": "googlesheetservice_configurationcheck",
+      "target": "googlesheetservice_writesheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "googlesheetservice_writesheet",
+      "_tgt": "googlesheetservice_clearsheetdata",
+      "source": "googlesheetservice_clearsheetdata",
+      "target": "googlesheetservice_writesheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L217",
+      "weight": 1.0,
+      "_src": "googlesheetservice_cleanupgooglesheetssheet",
+      "_tgt": "googlesheetservice_getexistingdatafromsheet",
+      "source": "googlesheetservice_getexistingdatafromsheet",
+      "target": "googlesheetservice_cleanupgooglesheetssheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L92",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "googlesheetservice_getexistingdatafromsheet",
+      "source": "googlesheetservice_getexistingdatafromsheet",
+      "target": "main_mainflow"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L219",
+      "weight": 1.0,
+      "_src": "googlesheetservice_cleanupgooglesheetssheet",
+      "_tgt": "googlesheetservice_writesheet",
+      "source": "googlesheetservice_writesheet",
+      "target": "googlesheetservice_cleanupgooglesheetssheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "googlesheetservice_writesheetbulk",
+      "source": "googlesheetservice_writesheetbulk",
+      "target": "main_mainflow"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L218",
+      "weight": 1.0,
+      "_src": "googlesheetservice_cleanupgooglesheetssheet",
+      "_tgt": "googlesheetservice_filterouttargetmonth",
+      "source": "googlesheetservice_filterouttargetmonth",
+      "target": "googlesheetservice_cleanupgooglesheetssheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/googleSheetService.ts",
+      "source_location": "L232",
+      "weight": 1.0,
+      "_src": "googlesheetservice_cleanupgooglesheets",
+      "_tgt": "googlesheetservice_cleanupgooglesheetssheet",
+      "source": "googlesheetservice_cleanupgooglesheetssheet",
+      "target": "googlesheetservice_cleanupgooglesheets",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L145",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "googlesheetservice_cleanupgooglesheets",
+      "source": "googlesheetservice_cleanupgooglesheets",
+      "target": "main_mainflow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/main.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_src": "src_features_main_ts",
+      "_tgt": "main_mainflow",
+      "source": "src_features_main_ts",
+      "target": "main_mainflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L69",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "fetchemailattachment_fetchemailattachment",
+      "source": "main_mainflow",
+      "target": "fetchemailattachment_fetchemailattachment"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "parseairtransactions_parseairtransactions",
+      "source": "main_mainflow",
+      "target": "parseairtransactions_parseairtransactions"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "fetchfiotransactions_fetchfiotransactions",
+      "source": "main_mainflow",
+      "target": "fetchfiotransactions_fetchfiotransactions"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L96",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "date_sortbydatedesc",
+      "source": "main_mainflow",
+      "target": "date_sortbydatedesc"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L104",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "labeltransactions_labeltransactionswithretry",
+      "source": "main_mainflow",
+      "target": "labeltransactions_labeltransactionswithretry"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/main.ts",
+      "source_location": "L134",
+      "weight": 1.0,
+      "_src": "main_mainflow",
+      "_tgt": "createemailbody_createemailbody",
+      "source": "main_mainflow",
+      "target": "createemailbody_createemailbody"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "src_features_parseairtransactions_ts",
+      "_tgt": "parseairtransactions_istextitem",
+      "source": "src_features_parseairtransactions_ts",
+      "target": "parseairtransactions_istextitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_src": "src_features_parseairtransactions_ts",
+      "_tgt": "parseairtransactions_istextitemarray",
+      "source": "src_features_parseairtransactions_ts",
+      "target": "parseairtransactions_istextitemarray",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_src": "src_features_parseairtransactions_ts",
+      "_tgt": "parseairtransactions_findtransactions",
+      "source": "src_features_parseairtransactions_ts",
+      "target": "parseairtransactions_findtransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_src": "src_features_parseairtransactions_ts",
+      "_tgt": "parseairtransactions_processtransactions",
+      "source": "src_features_parseairtransactions_ts",
+      "target": "parseairtransactions_processtransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_src": "src_features_parseairtransactions_ts",
+      "_tgt": "parseairtransactions_splitintorows",
+      "source": "src_features_parseairtransactions_ts",
+      "target": "parseairtransactions_splitintorows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L133",
+      "weight": 1.0,
+      "_src": "src_features_parseairtransactions_ts",
+      "_tgt": "parseairtransactions_processpage",
+      "source": "src_features_parseairtransactions_ts",
+      "target": "parseairtransactions_processpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L150",
+      "weight": 1.0,
+      "_src": "src_features_parseairtransactions_ts",
+      "_tgt": "parseairtransactions_parseairtransactions",
+      "source": "src_features_parseairtransactions_ts",
+      "target": "parseairtransactions_parseairtransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_src": "parseairtransactions_findtransactions",
+      "_tgt": "parseairtransactions_istextitemarray",
+      "source": "parseairtransactions_istextitemarray",
+      "target": "parseairtransactions_findtransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_src": "parseairtransactions_processpage",
+      "_tgt": "parseairtransactions_findtransactions",
+      "source": "parseairtransactions_findtransactions",
+      "target": "parseairtransactions_processpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_src": "parseairtransactions_processpage",
+      "_tgt": "parseairtransactions_processtransactions",
+      "source": "parseairtransactions_processtransactions",
+      "target": "parseairtransactions_processpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/parseAirTransactions.ts",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "parseairtransactions_processpage",
+      "_tgt": "parseairtransactions_splitintorows",
+      "source": "parseairtransactions_splitintorows",
+      "target": "parseairtransactions_processpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "src_features_fetchemailattachment_ts",
+      "_tgt": "fetchemailattachment_validateemailcredentials",
+      "source": "src_features_fetchemailattachment_ts",
+      "target": "fetchemailattachment_validateemailcredentials",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_src": "src_features_fetchemailattachment_ts",
+      "_tgt": "fetchemailattachment_connecttoimapserver",
+      "source": "src_features_fetchemailattachment_ts",
+      "target": "fetchemailattachment_connecttoimapserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "src_features_fetchemailattachment_ts",
+      "_tgt": "fetchemailattachment_openinbox",
+      "source": "src_features_fetchemailattachment_ts",
+      "target": "fetchemailattachment_openinbox",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "src_features_fetchemailattachment_ts",
+      "_tgt": "fetchemailattachment_fetchemails",
+      "source": "src_features_fetchemailattachment_ts",
+      "target": "fetchemailattachment_fetchemails",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_src": "src_features_fetchemailattachment_ts",
+      "_tgt": "fetchemailattachment_disconnectfromimapserver",
+      "source": "src_features_fetchemailattachment_ts",
+      "target": "fetchemailattachment_disconnectfromimapserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L100",
+      "weight": 1.0,
+      "_src": "src_features_fetchemailattachment_ts",
+      "_tgt": "fetchemailattachment_fetchemailattachment",
+      "source": "src_features_fetchemailattachment_ts",
+      "target": "fetchemailattachment_fetchemailattachment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_src": "fetchemailattachment_fetchemailattachment",
+      "_tgt": "fetchemailattachment_validateemailcredentials",
+      "source": "fetchemailattachment_validateemailcredentials",
+      "target": "fetchemailattachment_fetchemailattachment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L106",
+      "weight": 1.0,
+      "_src": "fetchemailattachment_fetchemailattachment",
+      "_tgt": "fetchemailattachment_connecttoimapserver",
+      "source": "fetchemailattachment_connecttoimapserver",
+      "target": "fetchemailattachment_fetchemailattachment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "_src": "fetchemailattachment_fetchemailattachment",
+      "_tgt": "fetchemailattachment_openinbox",
+      "source": "fetchemailattachment_openinbox",
+      "target": "fetchemailattachment_fetchemailattachment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_src": "fetchemailattachment_fetchemailattachment",
+      "_tgt": "fetchemailattachment_fetchemails",
+      "source": "fetchemailattachment_fetchemails",
+      "target": "fetchemailattachment_fetchemailattachment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchEmailAttachment.ts",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_src": "fetchemailattachment_fetchemailattachment",
+      "_tgt": "fetchemailattachment_disconnectfromimapserver",
+      "source": "fetchemailattachment_disconnectfromimapserver",
+      "target": "fetchemailattachment_fetchemailattachment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "_src": "src_features_fetchfiotransactions_ts",
+      "_tgt": "fetchfiotransactions_validatetargetmonth",
+      "source": "src_features_fetchfiotransactions_ts",
+      "target": "fetchfiotransactions_validatetargetmonth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L104",
+      "weight": 1.0,
+      "_src": "src_features_fetchfiotransactions_ts",
+      "_tgt": "fetchfiotransactions_getmonthrange",
+      "source": "src_features_fetchfiotransactions_ts",
+      "target": "fetchfiotransactions_getmonthrange",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "_src": "src_features_fetchfiotransactions_ts",
+      "_tgt": "fetchfiotransactions_fetchfiotransactions",
+      "source": "src_features_fetchfiotransactions_ts",
+      "target": "fetchfiotransactions_fetchfiotransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L128",
+      "weight": 1.0,
+      "_src": "fetchfiotransactions_fetchfiotransactions",
+      "_tgt": "fetchfiotransactions_validatetargetmonth",
+      "source": "fetchfiotransactions_validatetargetmonth",
+      "target": "fetchfiotransactions_fetchfiotransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/fetchFioTransactions.ts",
+      "source_location": "L130",
+      "weight": 1.0,
+      "_src": "fetchfiotransactions_fetchfiotransactions",
+      "_tgt": "fetchfiotransactions_getmonthrange",
+      "source": "fetchfiotransactions_getmonthrange",
+      "target": "fetchfiotransactions_fetchfiotransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "src_features_labeltransactions_ts",
+      "_tgt": "zod",
+      "source": "src_features_labeltransactions_ts",
+      "target": "zod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "src_features_labeltransactions_ts",
+      "_tgt": "labeltransactions_getvalidatedllmresult",
+      "source": "src_features_labeltransactions_ts",
+      "target": "labeltransactions_getvalidatedllmresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "src_features_labeltransactions_ts",
+      "_tgt": "labeltransactions_integritychecks",
+      "source": "src_features_labeltransactions_ts",
+      "target": "labeltransactions_integritychecks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_src": "src_features_labeltransactions_ts",
+      "_tgt": "labeltransactions_labeltransactions",
+      "source": "src_features_labeltransactions_ts",
+      "target": "labeltransactions_labeltransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L161",
+      "weight": 1.0,
+      "_src": "src_features_labeltransactions_ts",
+      "_tgt": "labeltransactions_labeltransactionswithretry",
+      "source": "src_features_labeltransactions_ts",
+      "target": "labeltransactions_labeltransactionswithretry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_src": "labeltransactions_labeltransactions",
+      "_tgt": "labeltransactions_getvalidatedllmresult",
+      "source": "labeltransactions_getvalidatedllmresult",
+      "target": "labeltransactions_labeltransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L141",
+      "weight": 1.0,
+      "_src": "labeltransactions_labeltransactions",
+      "_tgt": "labeltransactions_integritychecks",
+      "source": "labeltransactions_integritychecks",
+      "target": "labeltransactions_labeltransactions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_src": "labeltransactions_integritychecks",
+      "_tgt": "utils_sumvaluesatindex",
+      "source": "labeltransactions_integritychecks",
+      "target": "utils_sumvaluesatindex"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L180",
+      "weight": 1.0,
+      "_src": "labeltransactions_labeltransactionswithretry",
+      "_tgt": "labeltransactions_labeltransactions",
+      "source": "labeltransactions_labeltransactions",
+      "target": "labeltransactions_labeltransactionswithretry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/labelTransactions.ts",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_src": "labeltransactions_labeltransactions",
+      "_tgt": "date_sortbydatedesc",
+      "source": "labeltransactions_labeltransactions",
+      "target": "date_sortbydatedesc"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "src_features_createemailbody_ts",
+      "_tgt": "createemailbody_compareincomesvsexpenses",
+      "source": "src_features_createemailbody_ts",
+      "target": "createemailbody_compareincomesvsexpenses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "src_features_createemailbody_ts",
+      "_tgt": "createemailbody_replacetemplatevariables",
+      "source": "src_features_createemailbody_ts",
+      "target": "createemailbody_replacetemplatevariables",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_src": "src_features_createemailbody_ts",
+      "_tgt": "createemailbody_createemailbody",
+      "source": "src_features_createemailbody_ts",
+      "target": "createemailbody_createemailbody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_src": "createemailbody_createemailbody",
+      "_tgt": "createemailbody_compareincomesvsexpenses",
+      "source": "createemailbody_compareincomesvsexpenses",
+      "target": "createemailbody_createemailbody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_src": "createemailbody_compareincomesvsexpenses",
+      "_tgt": "utils_sumvaluesatindex",
+      "source": "createemailbody_compareincomesvsexpenses",
+      "target": "utils_sumvaluesatindex"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "createemailbody_compareincomesvsexpenses",
+      "_tgt": "currency_formatczechcurrency",
+      "source": "createemailbody_compareincomesvsexpenses",
+      "target": "currency_formatczechcurrency"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L124",
+      "weight": 1.0,
+      "_src": "createemailbody_createemailbody",
+      "_tgt": "createemailbody_replacetemplatevariables",
+      "source": "createemailbody_replacetemplatevariables",
+      "target": "createemailbody_createemailbody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "createemailbody_createemailbody",
+      "_tgt": "utils_sumvaluesatindex",
+      "source": "createemailbody_createemailbody",
+      "target": "utils_sumvaluesatindex"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/features/createEmailBody.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_src": "createemailbody_createemailbody",
+      "_tgt": "currency_formatczechcurrency",
+      "source": "createemailbody_createemailbody",
+      "target": "currency_formatczechcurrency"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/date.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "src_utils_date_ts",
+      "_tgt": "date_sortbydatedesc",
+      "source": "src_utils_date_ts",
+      "target": "date_sortbydatedesc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/currency.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_src": "src_utils_currency_ts",
+      "_tgt": "currency_formatczechcurrency",
+      "source": "src_utils_currency_ts",
+      "target": "currency_formatczechcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/utils.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_src": "src_utils_utils_ts",
+      "_tgt": "utils_sumvaluesatindex",
+      "source": "src_utils_utils_ts",
+      "target": "utils_sumvaluesatindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "src_integrationtests_testrunner_ts",
+      "_tgt": "testrunner_sleep",
+      "source": "src_integrationtests_testrunner_ts",
+      "target": "testrunner_sleep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_src": "src_integrationtests_testrunner_ts",
+      "_tgt": "testrunner_runtest",
+      "source": "src_integrationtests_testrunner_ts",
+      "target": "testrunner_runtest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "_src": "src_integrationtests_testrunner_ts",
+      "_tgt": "testrunner_runreset",
+      "source": "src_integrationtests_testrunner_ts",
+      "target": "testrunner_runreset",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "src_integrationtests_testrunner_ts",
+      "_tgt": "testrunner_runtests",
+      "source": "src_integrationtests_testrunner_ts",
+      "target": "testrunner_runtests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L117",
+      "weight": 1.0,
+      "_src": "testrunner_runtests",
+      "_tgt": "testrunner_sleep",
+      "source": "testrunner_sleep",
+      "target": "testrunner_runtests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_src": "testrunner_runreset",
+      "_tgt": "testrunner_runtest",
+      "source": "testrunner_runtest",
+      "target": "testrunner_runreset",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L125",
+      "weight": 1.0,
+      "_src": "testrunner_runtests",
+      "_tgt": "testrunner_runtest",
+      "source": "testrunner_runtest",
+      "target": "testrunner_runtests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L127",
+      "weight": 1.0,
+      "_src": "testrunner_runtests",
+      "_tgt": "testrunner_runreset",
+      "source": "testrunner_runreset",
+      "target": "testrunner_runtests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/integrationTests/testRunner.ts",
+      "source_location": "L96",
+      "weight": 1.0,
+      "_src": "testrunner_runtests",
+      "_tgt": "gettestssubset_gettestssubset",
+      "source": "testrunner_runtests",
+      "target": "gettestssubset_gettestssubset"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/integrationTests/getTestsSubset.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "src_integrationtests_gettestssubset_ts",
+      "_tgt": "gettestssubset_gettestssubset",
+      "source": "src_integrationtests_gettestssubset_ts",
+      "target": "gettestssubset_gettestssubset",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "authored_by",
+      "evidence": "LICENSE.md: Copyright (c) 2025 David Zoufaly",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "david_zoufaly",
+      "source": "finance_mgn_project",
+      "target": "david_zoufaly"
+    },
+    {
+      "relationship": "licensed_under",
+      "evidence": "LICENSE.md: MIT License",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "mit_license",
+      "source": "finance_mgn_project",
+      "target": "mit_license"
+    },
+    {
+      "relationship": "fetches_data_from",
+      "evidence": "README.md: Retrieves attachments and transactions from external services (Air bank and FIO bank)",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "fio_bank",
+      "source": "finance_mgn_project",
+      "target": "fio_bank"
+    },
+    {
+      "relationship": "fetches_data_from",
+      "evidence": "README.md: Retrieves attachments and transactions from external services (Air bank and FIO bank)",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "air_bank",
+      "source": "finance_mgn_project",
+      "target": "air_bank"
+    },
+    {
+      "relationship": "uses_for_classification",
+      "evidence": "README.md: Uses OpenAI to assign proper categories",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "openai_integration",
+      "source": "finance_mgn_project",
+      "target": "openai_integration"
+    },
+    {
+      "relationship": "writes_data_to",
+      "evidence": "README.md: Reads from, cleans, and writes to Google Sheets",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "google_sheets",
+      "source": "finance_mgn_project",
+      "target": "google_sheets"
+    },
+    {
+      "relationship": "automated_by",
+      "evidence": "README.md: The entire ETL process is automated using GitHub Actions",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "github_actions_automation",
+      "source": "finance_mgn_project",
+      "target": "github_actions_automation"
+    },
+    {
+      "relationship": "rationale_for",
+      "evidence": "README.md: Vitest may execute files outside the test scope, so in .test.ts files, prefer relative imports",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "rationale_relative_imports_tests",
+      "_tgt": "finance_mgn_project",
+      "source": "finance_mgn_project",
+      "target": "rationale_relative_imports_tests"
+    },
+    {
+      "relationship": "uses",
+      "evidence": "CHANGELOG.md v1.0.0 features: using zod",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "zod",
+      "source": "finance_mgn_project",
+      "target": "zod"
+    },
+    {
+      "relationship": "uses_for_quality",
+      "evidence": "README.md: After merge to main CodeQL workflow is triggered for additional code quality check",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "finance_mgn_project",
+      "_tgt": "codeql",
+      "source": "finance_mgn_project",
+      "target": "codeql"
+    },
+    {
+      "relationship": "employed_by",
+      "evidence": "incomes.txt: Salary (gooddata) INC_1, Compensation from gooddata INC_3",
+      "confidence_score": 0.9,
+      "type": "INFERRED",
+      "_src": "david_zoufaly",
+      "_tgt": "gooddata",
+      "source": "david_zoufaly",
+      "target": "gooddata"
+    },
+    {
+      "relationship": "aggregates_from",
+      "evidence": "README.md: Data Federation aggregates data from multiple sources",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "data_federation",
+      "_tgt": "fio_bank",
+      "source": "fio_bank",
+      "target": "data_federation"
+    },
+    {
+      "relationship": "semantically_similar_to",
+      "evidence": "Both are Czech bank data sources providing transaction data; KB would serve the same role as Fio in the data federation pipeline",
+      "confidence_score": 0.7,
+      "type": "INFERRED",
+      "_src": "kb_bank_planned",
+      "_tgt": "fio_bank",
+      "source": "fio_bank",
+      "target": "kb_bank_planned"
+    },
+    {
+      "relationship": "semantically_similar_to",
+      "evidence": "Both are Czech bank data sources providing transaction data for the ETL pipeline",
+      "confidence_score": 0.7,
+      "type": "INFERRED",
+      "_src": "ceska_sporitelna_planned",
+      "_tgt": "fio_bank",
+      "source": "fio_bank",
+      "target": "ceska_sporitelna_planned"
+    },
+    {
+      "relationship": "aggregates_from",
+      "evidence": "README.md: Data Federation aggregates data from multiple sources",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "data_federation",
+      "_tgt": "air_bank",
+      "source": "air_bank",
+      "target": "data_federation"
+    },
+    {
+      "relationship": "rationale_for",
+      "evidence": "README.md: Gmail can be used with an app password which replaces basic authentication, as Google does not support it",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "rationale_app_password_gmail",
+      "_tgt": "air_bank",
+      "source": "air_bank",
+      "target": "rationale_app_password_gmail"
+    },
+    {
+      "relationship": "uses_prompt",
+      "evidence": "generic-prompt.txt is the core instruction set for the LLM financial analyst classification task",
+      "confidence_score": 0.85,
+      "type": "INFERRED",
+      "_src": "openai_integration",
+      "_tgt": "generic_prompt",
+      "source": "openai_integration",
+      "target": "generic_prompt"
+    },
+    {
+      "relationship": "powered_by",
+      "evidence": "README.md: Transaction Labeling Uses OpenAI to assign proper categories",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "transaction_labeling",
+      "_tgt": "openai_integration",
+      "source": "openai_integration",
+      "target": "transaction_labeling"
+    },
+    {
+      "relationship": "rationale_for",
+      "evidence": "CHANGELOG.md: limit number of transactions sent to LLM to 150",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "rationale_llm_transaction_limit",
+      "_tgt": "openai_integration",
+      "source": "openai_integration",
+      "target": "rationale_llm_transaction_limit"
+    },
+    {
+      "relationship": "references",
+      "evidence": "private-notes.md: checknout open AI budget, checknout pouzivany model",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "new_years_guide",
+      "_tgt": "openai_integration",
+      "source": "openai_integration",
+      "target": "new_years_guide"
+    },
+    {
+      "relationship": "links_to",
+      "evidence": "email-body.txt contains direct link to Google Sheets spreadsheet",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "email_report",
+      "_tgt": "google_sheets",
+      "source": "google_sheets",
+      "target": "email_report"
+    },
+    {
+      "relationship": "rationale_for",
+      "evidence": "README.md: It is recommended to use two separate Google Sheets: one for development/testing and another for production",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "rationale_two_sheets",
+      "_tgt": "google_sheets",
+      "source": "google_sheets",
+      "target": "rationale_two_sheets"
+    },
+    {
+      "relationship": "references",
+      "evidence": "private-notes.md: forknout sheet a nadepsat ho s rokem, pripravit progress sheet",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "new_years_guide",
+      "_tgt": "google_sheets",
+      "source": "google_sheets",
+      "target": "new_years_guide"
+    },
+    {
+      "relation": "HOSTED_ON",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {
+        "rationale": "Google Sheets UI chrome is clearly visible in the screenshot (toolbar, cell references, formula bar)"
+      },
+      "_src": "overview_dashboard",
+      "_tgt": "google_sheets",
+      "source": "google_sheets",
+      "target": "overview_dashboard"
+    },
+    {
+      "relationship": "generates",
+      "evidence": "README.md: email notification is sent after successful run; email-body.txt is the HTML template",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "github_actions_automation",
+      "_tgt": "email_report",
+      "source": "github_actions_automation",
+      "target": "email_report"
+    },
+    {
+      "relationship": "references_category_scheme",
+      "evidence": "generic-prompt.txt: 'Use category scheme with description to determine the most appropriate category'; expenses.txt provides the scheme appended after 'Categories start:'",
+      "confidence_score": 0.9,
+      "type": "INFERRED",
+      "_src": "generic_prompt",
+      "_tgt": "expenses_categories",
+      "source": "generic_prompt",
+      "target": "expenses_categories"
+    },
+    {
+      "relationship": "references_category_scheme",
+      "evidence": "generic-prompt.txt: 'Use category scheme with description'; incomes.txt provides the income scheme appended after 'Categories start:'",
+      "confidence_score": 0.9,
+      "type": "INFERRED",
+      "_src": "generic_prompt",
+      "_tgt": "incomes_categories",
+      "source": "generic_prompt",
+      "target": "incomes_categories"
+    },
+    {
+      "relationship": "template_for",
+      "evidence": "README.md: expenses.template.txt -> expenses.txt (rename and fill in your category identifiers)",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "expenses_template",
+      "_tgt": "expenses_categories",
+      "source": "expenses_categories",
+      "target": "expenses_template"
+    },
+    {
+      "relationship": "references",
+      "evidence": "private-notes.md: upravit kategorie ve vydajich / prijmech",
+      "confidence_score": 0.85,
+      "type": "INFERRED",
+      "_src": "new_years_guide",
+      "_tgt": "expenses_categories",
+      "source": "expenses_categories",
+      "target": "new_years_guide"
+    },
+    {
+      "relationship": "semantically_similar_to",
+      "evidence": "Both are category schemas used by the same generic prompt to classify transactions, sharing identical JSON structure with identifier/description fields, but for opposite financial directions",
+      "confidence_score": 0.72,
+      "type": "INFERRED",
+      "_src": "expenses_categories",
+      "_tgt": "incomes_categories",
+      "source": "expenses_categories",
+      "target": "incomes_categories"
+    },
+    {
+      "relationship": "template_for",
+      "evidence": "README.md: incomes.template.txt -> incomes.txt (rename and fill in your category identifiers)",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "incomes_template",
+      "_tgt": "incomes_categories",
+      "source": "incomes_categories",
+      "target": "incomes_template"
+    },
+    {
+      "relationship": "references",
+      "evidence": "incomes.txt: INC_1 Salary (gooddata, must contain mzda), INC_3 Compensation (every transaction from gooddata)",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "incomes_categories",
+      "_tgt": "gooddata",
+      "source": "incomes_categories",
+      "target": "gooddata"
+    },
+    {
+      "relationship": "references",
+      "evidence": "private-notes.md: upravit kategorie ve vydajich / prijmech",
+      "confidence_score": 0.85,
+      "type": "INFERRED",
+      "_src": "new_years_guide",
+      "_tgt": "incomes_categories",
+      "source": "incomes_categories",
+      "target": "new_years_guide"
+    },
+    {
+      "relationship": "semantically_similar_to",
+      "evidence": "Both are starter templates for category configuration following the same JSON schema pattern, differing only in identifier conventions (A/B vs INC_N)",
+      "confidence_score": 0.8,
+      "type": "INFERRED",
+      "_src": "expenses_template",
+      "_tgt": "incomes_template",
+      "source": "expenses_template",
+      "target": "incomes_template"
+    },
+    {
+      "relationship": "validates_output_of",
+      "evidence": "README.md: Validates data after labeling - number of transactions and transactions values",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "data_integrity_validation",
+      "_tgt": "transaction_labeling",
+      "source": "transaction_labeling",
+      "target": "data_integrity_validation"
+    },
+    {
+      "relationship": "would_replace",
+      "evidence": "2DO.md suggests ML for main classification with LLM only for edge cases, replacing current LLM-only approach",
+      "confidence_score": 0.75,
+      "type": "INFERRED",
+      "_src": "ml_classification_idea",
+      "_tgt": "transaction_labeling",
+      "source": "transaction_labeling",
+      "target": "ml_classification_idea"
+    },
+    {
+      "relationship": "enables",
+      "evidence": "README.md: relies on conventional commit messages for seamless automation",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "conventional_commits",
+      "_tgt": "release_please",
+      "source": "conventional_commits",
+      "target": "release_please"
+    },
+    {
+      "relationship": "enforces_via_hook",
+      "evidence": "README.md: Conventional Commits enforced by commitlint in the commit-msg hook, hooks configured by Lefthook",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "lefthook",
+      "_tgt": "conventional_commits",
+      "source": "conventional_commits",
+      "target": "lefthook"
+    },
+    {
+      "relationship": "generates",
+      "evidence": "README.md: bumps the version and generates a comprehensive changelog",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "release_please",
+      "_tgt": "changelog",
+      "source": "release_please",
+      "target": "changelog"
+    },
+    {
+      "relationship": "runs_in_hook",
+      "evidence": "README.md: Code formatting handled by Biome via the pre-commit hook",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "lefthook",
+      "_tgt": "biome",
+      "source": "biome",
+      "target": "lefthook"
+    },
+    {
+      "relationship": "rationale_for",
+      "evidence": "README.md: All objects must be exported, even if used in a single module - otherwise, Typedoc won't include them",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "rationale_export_all_objects",
+      "_tgt": "typedoc",
+      "source": "typedoc",
+      "target": "rationale_export_all_objects"
+    },
+    {
+      "relationship": "plans_addition_of",
+      "evidence": "2DO.md: Pridat KB transakce",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "todo_list",
+      "_tgt": "kb_bank_planned",
+      "source": "todo_list",
+      "target": "kb_bank_planned"
+    },
+    {
+      "relationship": "plans_addition_of",
+      "evidence": "2DO.md: Pridat revolut transakce",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "todo_list",
+      "_tgt": "revolut_planned",
+      "source": "todo_list",
+      "target": "revolut_planned"
+    },
+    {
+      "relationship": "plans_addition_of",
+      "evidence": "2DO.md: Pridat Ceskou Sporitelnu transakce",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "todo_list",
+      "_tgt": "ceska_sporitelna_planned",
+      "source": "todo_list",
+      "target": "ceska_sporitelna_planned"
+    },
+    {
+      "relationship": "plans_addition_of",
+      "evidence": "2DO.md: Klasifikace podle machine learning technik a LLM jen edge cases",
+      "confidence_score": 1.0,
+      "type": "EXTRACTED",
+      "_src": "todo_list",
+      "_tgt": "ml_classification_idea",
+      "source": "todo_list",
+      "target": "ml_classification_idea"
+    },
+    {
+      "relation": "CONTAINS",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "overview_dashboard",
+      "_tgt": "section_vydaje",
+      "source": "overview_dashboard",
+      "target": "section_vydaje"
+    },
+    {
+      "relation": "CONTAINS",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "overview_dashboard",
+      "_tgt": "section_prijmy",
+      "source": "overview_dashboard",
+      "target": "section_prijmy"
+    },
+    {
+      "relation": "CONTAINS",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "overview_dashboard",
+      "_tgt": "section_vydaje_plan",
+      "source": "overview_dashboard",
+      "target": "section_vydaje_plan"
+    },
+    {
+      "relation": "CONTAINS",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "overview_dashboard",
+      "_tgt": "section_prijmy_vs_vydaje",
+      "source": "overview_dashboard",
+      "target": "section_prijmy_vs_vydaje"
+    },
+    {
+      "relation": "CONTAINS",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "overview_dashboard",
+      "_tgt": "section_investice",
+      "source": "overview_dashboard",
+      "target": "section_investice"
+    },
+    {
+      "relation": "CONTAINS",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "overview_dashboard",
+      "_tgt": "section_budget",
+      "source": "overview_dashboard",
+      "target": "section_budget"
+    },
+    {
+      "relation": "CONTAINS",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "overview_dashboard",
+      "_tgt": "section_penize_useteno",
+      "source": "overview_dashboard",
+      "target": "section_penize_useteno"
+    },
+    {
+      "relation": "GENERATES",
+      "type": "INFERRED",
+      "confidence_score": 0.85,
+      "properties": {
+        "rationale": "This image is stored in the finance-mgn repo's static/images directory, strongly suggesting the system populates or references this dashboard"
+      },
+      "_src": "finance_mgn_system",
+      "_tgt": "overview_dashboard",
+      "source": "overview_dashboard",
+      "target": "finance_mgn_system"
+    },
+    {
+      "relation": "PRODUCES_METRIC",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "section_vydaje",
+      "_tgt": "metric_ytd_plan_expenses",
+      "source": "section_vydaje",
+      "target": "metric_ytd_plan_expenses"
+    },
+    {
+      "relation": "COMPARES",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "section_prijmy_vs_vydaje",
+      "_tgt": "section_vydaje",
+      "source": "section_vydaje",
+      "target": "section_prijmy_vs_vydaje"
+    },
+    {
+      "relation": "DERIVED_FROM",
+      "type": "INFERRED",
+      "confidence_score": 0.8,
+      "properties": {
+        "rationale": "Savings (penize useteno) is typically calculated as income minus expenses, so it depends on expense data"
+      },
+      "_src": "section_penize_useteno",
+      "_tgt": "section_vydaje",
+      "source": "section_vydaje",
+      "target": "section_penize_useteno"
+    },
+    {
+      "relation": "PRODUCES_METRIC",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "section_prijmy",
+      "_tgt": "metric_ytd_plan_income",
+      "source": "section_prijmy",
+      "target": "metric_ytd_plan_income"
+    },
+    {
+      "relation": "COMPARES",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "section_prijmy_vs_vydaje",
+      "_tgt": "section_prijmy",
+      "source": "section_prijmy",
+      "target": "section_prijmy_vs_vydaje"
+    },
+    {
+      "relation": "DERIVED_FROM",
+      "type": "INFERRED",
+      "confidence_score": 0.8,
+      "properties": {
+        "rationale": "Savings (penize useteno) is typically calculated as income minus expenses, so it depends on income data"
+      },
+      "_src": "section_penize_useteno",
+      "_tgt": "section_prijmy",
+      "source": "section_prijmy",
+      "target": "section_penize_useteno"
+    },
+    {
+      "relation": "PRODUCES_METRIC",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "section_budget",
+      "_tgt": "metric_budget_fulfillment",
+      "source": "section_budget",
+      "target": "metric_budget_fulfillment"
+    },
+    {
+      "relation": "PRODUCES_METRIC",
+      "type": "EXTRACTED",
+      "confidence_score": 1.0,
+      "properties": {},
+      "_src": "section_penize_useteno",
+      "_tgt": "metric_savings_trend",
+      "source": "section_penize_useteno",
+      "target": "metric_savings_trend"
+    },
+    {
+      "relation": "IMPACTS",
+      "type": "INFERRED",
+      "confidence_score": 0.75,
+      "properties": {
+        "rationale": "Expenses at 135.8% of plan combined with income at only 84.8% of plan directly contributes to the -79% savings trend"
+      },
+      "_src": "metric_ytd_plan_expenses",
+      "_tgt": "metric_savings_trend",
+      "source": "metric_ytd_plan_expenses",
+      "target": "metric_savings_trend"
+    },
+    {
+      "relation": "IMPACTS",
+      "type": "INFERRED",
+      "confidence_score": 0.75,
+      "properties": {
+        "rationale": "Below-plan income at 84.8% combined with over-plan expenses contributes to the sharply negative savings trend"
+      },
+      "_src": "metric_ytd_plan_income",
+      "_tgt": "metric_savings_trend",
+      "source": "metric_ytd_plan_income",
+      "target": "metric_savings_trend"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "etl_pipeline_flow",
+      "label": "ETL Pipeline Flow",
+      "description": "The core ETL pipeline: data sources feed into data federation, which feeds into transaction labeling via OpenAI, validated by data integrity checks, then written to Google Sheets",
+      "node_ids": [
+        "data_federation",
+        "transaction_labeling",
+        "data_integrity_validation",
+        "openai_integration",
+        "google_sheets"
+      ],
+      "type": "INFERRED",
+      "confidence_score": 0.9
+    },
+    {
+      "id": "llm_prompt_system",
+      "label": "LLM Prompt Composition System",
+      "description": "The generic prompt template is composed with either expenses or incomes category schemas to form complete classification prompts sent to OpenAI",
+      "node_ids": [
+        "generic_prompt",
+        "expenses_categories",
+        "incomes_categories",
+        "openai_integration"
+      ],
+      "type": "INFERRED",
+      "confidence_score": 0.88
+    },
+    {
+      "id": "dx_toolchain",
+      "label": "Developer Experience Toolchain",
+      "description": "Lefthook orchestrates git hooks that run Biome for formatting/linting, commitlint for conventional commits, and TSC for type checking, while release-please and CodeQL operate on merge",
+      "node_ids": [
+        "lefthook",
+        "biome",
+        "conventional_commits",
+        "release_please",
+        "codeql",
+        "typedoc"
+      ],
+      "type": "INFERRED",
+      "confidence_score": 0.85
+    }
+  ]
+}

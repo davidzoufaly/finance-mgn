@@ -1,0 +1,1 @@
+{"nodes": [{"id": "expenses_categories", "label": "Expense Categories", "type": "category_schema", "source_file": "src/static/prompts/expenses.txt", "description": "9 top-level expense categories (A-I) with 50+ subcategories covering travel, household, gifts, car, motorcycle, garage, personal spending, land/property, and financial obligations"}], "edges": [], "hyperedges": []}
