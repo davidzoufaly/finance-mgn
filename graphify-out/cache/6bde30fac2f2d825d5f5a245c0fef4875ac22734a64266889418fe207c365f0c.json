@@ -1,0 +1,1 @@
+{"nodes": [{"id": "expenses_template", "label": "Expense Categories Template", "type": "template", "source_file": "src/static/prompts/expenses.template.txt", "description": "Generic template with placeholder categories A/B and subcategories for users to customize their own expense category scheme"}], "edges": [], "hyperedges": []}

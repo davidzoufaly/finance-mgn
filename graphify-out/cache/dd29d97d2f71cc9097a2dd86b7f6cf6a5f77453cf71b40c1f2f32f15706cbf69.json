@@ -1,0 +1,1 @@
+{"nodes": [{"id": "incomes_template", "label": "Income Categories Template", "type": "template", "source_file": "src/static/prompts/incomes.template.txt", "description": "Generic template with placeholder income categories INC_1 to INC_5 for users to customize"}], "edges": [], "hyperedges": []}
