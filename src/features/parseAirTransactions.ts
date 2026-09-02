@@ -36,15 +36,19 @@ export const findTransactions = (documentItems: (TextItem | TextMarkedContent)[]
     throw new Error('❌ Invalid content.items: Expected TextItem[]');
   }
 
-  const preUselessWord = documentItems.findIndex((item) => item.str === 'Poplatky');
-  const postUselessWord =
-    documentItems.findIndex((item) => item.str.includes('Pokračování') || item.str === 'Vklad') - 1;
+  const transactionHeaderIndex = documentItems.findIndex((item) => item.str === 'Poplatky');
+  const transactionEndIndex = documentItems.findIndex(
+    (item) => item.str.includes('Pokračování') || item.str === 'Vklad',
+  );
 
-  if (preUselessWord === -1 || postUselessWord === -1) {
+  if (transactionHeaderIndex === -1) {
     return [];
   }
 
-  return documentItems.slice(preUselessWord + 1, postUselessWord);
+  return documentItems.slice(
+    transactionHeaderIndex + 1,
+    transactionEndIndex === -1 ? undefined : transactionEndIndex,
+  );
 };
 
 /**
@@ -79,30 +83,27 @@ export const processTransactions = (transactions: string[][]): TransactionObject
 };
 
 /**
- * Splits document items into transaction rows using the fee column's X position.
+ * Splits document items into rows, closing each row on a valid Czech monetary fee in the fee-column position.
  *
  * @param documentItems - The array of document items to process.
  * @returns An array of rows, each containing transaction data.
  */
 export const splitIntoRows = (documentItems: TextItem[]): string[][] => {
   const FEE_COLUMN_MIN_X = 530;
+  const CZECH_MONEY_PATTERN = /^-?(?:\d+|\d{1,3}(?:[ \u00a0]\d{3})+),\d{2}$/;
+  const isFeeItem = (item: TextItem) =>
+    item.transform[4] > FEE_COLUMN_MIN_X && CZECH_MONEY_PATTERN.test(item.str.trim());
   const rows: TextItem[][] = [];
   let currentRow: TextItem[] = [];
 
   for (const documentItem of documentItems) {
     currentRow.push(documentItem);
 
-    // The fee column is always the rightmost column (X > 530),
-    // regardless of whether the fee is 0,00 or a non-zero value
-    if (documentItem.transform[4] > FEE_COLUMN_MIN_X) {
+    // Close a row only on a valid Czech monetary fee in the rightmost fee column.
+    if (isFeeItem(documentItem)) {
       rows.push(currentRow);
       currentRow = []; // Start a new row
     }
-  }
-
-  // Add any remaining items as the last row
-  if (currentRow.length > 0) {
-    rows.push(currentRow);
   }
 
   // Add fee to transaction amount, then remove last two items (blank space and fee)
